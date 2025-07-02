@@ -158,7 +158,7 @@ class Laporan extends BaseController
             })
             ->map(function ($item) {
                 return (object)[
-                    'tanggal' => \Carbon\Carbon::createFromFormat('d-m-Y', $item->tanggal_realisasi)->format('Y-m-d'),
+                    'tanggal' => \Carbon\Carbon::createFromFormat('d-m-Y', $item->tanggal)->format('Y-m-d'),
                     'deskripsi' => 'Donasi ' . $item->jenis_donasi . ' dari ' . $item->nama_donatur,
                     'pemasukan' => $item->jumlah,
                     'pengeluaran' => 0
