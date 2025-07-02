@@ -160,7 +160,13 @@
                                     <h2 itemprop="headline">Masjid Sultang Agung</h2>
                                     <img src="{{ asset('assets-landing/images/pshape.png') }}" alt="">
                                 </div>
-                                <p itemprop="description">{!! \Illuminate\Support\Str::words(strip_tags($sejarah->isi), 50, '...') !!}</p>
+                                <p itemprop="description">
+                                    @if ($sejarah)
+                                        {!! \Illuminate\Support\Str::words(strip_tags($sejarah->isi), 50, '...') !!}
+                                    @else
+                                        Belum ada data
+                                    @endif
+                                </p>
                                 <a class="theme-btn theme-bg brd-rd5" href="{{ route('about') }}" title=""
                                     itemprop="url">Selengkapnya</a>
                             </div>
