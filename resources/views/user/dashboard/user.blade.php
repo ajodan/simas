@@ -21,45 +21,52 @@
                                 <div class="d-flex justify-content-center align-items-center mt-4 theme-bg rounded pt-3 px-3"
                                     style="gap:10px; text-align: -webkit-center; width: max-content">
                                     <!-- Gambar Banner -->
-                                    <div>
-                                        <img src="{{ asset('/public/banner/' . $jadwalJumat->banner) }}"
-                                            alt="Banner Jadwal Jumat" class="rounded shadow-sm"
-                                            style="max-height: 150px; object-fit: cover; width: fit-content;">
-                                    </div>
+                                    @if ($jadwalJumat)
+                                        <!-- Gambar Banner -->
+                                        <div>
+                                            <img src="{{ asset('/public/banner/' . $jadwalJumat->banner) }}"
+                                                alt="Banner Jadwal Jumat" class="rounded shadow-sm"
+                                                style="max-height: 150px; object-fit: cover; width: fit-content;">
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold text-white">Jadwal Jumat
+                                                {{ $jadwalJumat ? $jadwalJumat->tanggal : 'Belum Ada Jadwal' }}</h6>
 
-                                    <!-- Konten Teks -->
-                                    <div>
-                                        <h6 class="fw-bold text-white">Jadwal Jumat
-                                            {{ $jadwalJumat ? $jadwalJumat->tanggal : 'Belum Ada Jadwal' }}</h6>
+                                            <table class="table table-sm text-white">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Tema Khutbah</th>
+                                                        <td class="px-2">:</td>
+                                                        <td>{{ $jadwalJumat->tema_khutbah }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Khatib</th>
+                                                        <td class="px-2">:</td>
+                                                        <td>{{ $jadwalJumat->nama_khatib }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Imam</th>
+                                                        <td class="px-2">:</td>
+                                                        <td>{{ $jadwalJumat->nama_imam }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Muadzin</th>
+                                                        <td class="px-2">:</td>
+                                                        <td>{{ $jadwalJumat->nama_muadzin }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
 
-                                        <table class="table table-sm text-white">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Tema Khutbah</th>
-                                                    <td class="px-2">:</td>
-                                                    <td>{{ $jadwalJumat->tema_khutbah }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Khatib</th>
-                                                    <td class="px-2">:</td>
-                                                    <td>{{ $jadwalJumat->nama_khatib }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Imam</th>
-                                                    <td class="px-2">:</td>
-                                                    <td>{{ $jadwalJumat->nama_imam }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Muadzin</th>
-                                                    <td class="px-2">:</td>
-                                                    <td>{{ $jadwalJumat->nama_muadzin }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <!-- Tombol opsional -->
-                                        <!-- <a href="#" class="btn btn-warning mt-2 fw-bold px-4">Lihat Detail</a> -->
-                                    </div>
+                                            <!-- Tombol opsional -->
+                                            <!-- <a href="#" class="btn btn-warning mt-2 fw-bold px-4">Lihat Detail</a> -->
+                                        </div>
+                                    @else
+                                        <div>
+                                            <h6 class="fw-bold text-white">Belum ada Jadwal</h6>
+                                            <!-- Tombol opsional -->
+                                            <!-- <a href="#" class="btn btn-warning mt-2 fw-bold px-4">Lihat Detail</a> -->
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
