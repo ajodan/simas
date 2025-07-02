@@ -68,7 +68,7 @@
 
                                 <!-- Modal Body -->
                                 <div class="modal-body">
-                                    <form id="form-submit">
+                                    <form id="form-submit-donatur-tetap">
                                         <input type="hidden" name="uuid_donatur" value="{{ $donaturTetap->uuid }}">
 
                                         <div class="form-group">
@@ -118,7 +118,7 @@
                                         <div class="d-flex justify-content-between">
                                             <button type="button" class="btn btn-danger"
                                                 data-dismiss="modal">Batalkan</button>
-                                            <button type="button" id="submit-form"
+                                            <button type="button" id="submit-form-donatur-tetap"
                                                 class="btn btn-success d-flex align-items-center">
                                                 <i class="material-icons mr-1" style="font-size: 20px;">save</i> Kirim
                                             </button>
@@ -177,10 +177,10 @@
             });
 
             // Submit Form
-            $("#submit-form").click(function(e) {
+            $("#submit-form-donatur-tetap").click(function(e) {
                 e.preventDefault(); // Mencegah reload halaman
 
-                let formData = new FormData($("#form-submit")[
+                let formData = new FormData($("#form-submit-donatur-tetap")[
                     0]); // Gunakan FormData untuk menyertakan file upload
 
                 $.ajax({
