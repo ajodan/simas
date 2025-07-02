@@ -48,7 +48,7 @@ class Dashboard extends BaseController
         $module = 'Masjid Agung UINAM';
 
         $today = Carbon::today();
-        $jadwalJumat = JadwalJumat::where('tanggal', '>=', $today)
+        $jadwalJumat = JadwalJumat::where('tanggal', '<=', $today)
             ->orderBy('tanggal', 'asc')
             ->first();
         $donasis = CampaignDonasi::where('status', true)->take(2)->latest()->get();
@@ -207,7 +207,7 @@ class Dashboard extends BaseController
     {
         $module = 'Monitoring';
         $today = Carbon::today();
-        $jadwalJumat = JadwalJumat::where('tanggal', '>=', $today)
+        $jadwalJumat = JadwalJumat::where('tanggal', '<=', $today)
             ->orderBy('tanggal', 'asc')
             ->first();
         $kegiatans = Kegiatan::latest()->get();

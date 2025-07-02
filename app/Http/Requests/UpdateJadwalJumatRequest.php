@@ -27,6 +27,7 @@ class UpdateJadwalJumatRequest extends FormRequest
             'nama_khatib' => 'required',
             'nama_imam' => 'required',
             'nama_muadzin' => 'required',
+            'banner' => 'nullable',
         ];
     }
 

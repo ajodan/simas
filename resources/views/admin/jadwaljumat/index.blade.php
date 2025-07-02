@@ -234,7 +234,7 @@
 
                                 const logoInfoContainer = $('#logoInfoContainer');
                                 logoInfoContainer.html(
-                                    `<img id="img-foto" src="/public/banner/${fileName}" style="max-width:100%;">`
+                                    `<img id="img-foto" src="/public/banner/${y}" style="max-width:100%;">`
                                 );
 
                             } else {

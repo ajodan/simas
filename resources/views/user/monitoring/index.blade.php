@@ -136,9 +136,14 @@
                         <div class="bg-[#DC7633]/60 backdrop-blur-xl shadow-md rounded-2xl p-6 pb-4">
                             <marquee behavior="scroll" direction="left" scrollamount="5"
                                 class="text-white italic font-semibold">
-                                Yang membawakan khutbah jum'at tanggal {{ $jadwalJumat->tanggal }} oleh
-                                {{ $jadwalJumat->nama_khatib }} dengan tema {{ $jadwalJumat->tema_khutbah }}. 🕌 Harap
-                                Matikan HP Saat Sholat
+                                @if ($jadwalJumat)
+                                    Yang membawakan khutbah jum'at tanggal {{ $jadwalJumat->tanggal }} oleh
+                                    {{ $jadwalJumat->nama_khatib }} dengan tema {{ $jadwalJumat->tema_khutbah }}. 🕌
+                                    Harap
+                                    Matikan HP Saat Sholat
+                                @else
+                                    Tidak ada data
+                                @endif
                             </marquee>
                         </div>
 

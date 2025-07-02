@@ -57,7 +57,7 @@
 
                                                 <button onclick="downloadImage()"
                                                     class="btn btn-sm btn-primary d-inline-flex align-items-center">
-                                                    <i class="material-icons mr-1">download</i> Download Qris
+                                                    <i class="material-icons mr-1">download</i> Qris
                                                 </button>
                                             </div>
 

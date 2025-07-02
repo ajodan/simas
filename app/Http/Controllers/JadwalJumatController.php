@@ -52,21 +52,32 @@ class JadwalJumatController extends BaseController
 
     public function update(UpdateJadwalJumatRequest $request, $params)
     {
-        $data = JadwalJumat::where('uuid', $params)->first();
+        $jadwal = JadwalJumat::where('uuid', $params)->first();
+
+        if (!$jadwal) {
+            return $this->sendError('Data tidak ditemukan', 404);
+        }
+
+        $validated = $request->validated();
+
         if ($request->file('banner')) {
-            $oldBannerPath = public_path('public/banner/' . $data->banner);
+            $oldBannerPath = public_path('public/banner/' . $jadwal->banner);
             if (File::exists($oldBannerPath)) {
                 File::delete($oldBannerPath);
             }
+
             $extension = $request->file('banner')->extension();
-            $newBanner = 'banner' . '-' . now()->timestamp . '.' . $extension;
+            $newBanner = 'banner-' . now()->timestamp . '.' . $extension;
             $request->file('banner')->storeAs('public/banner', $newBanner);
-            $data->banner = $newBanner;
-        } else {
-            $newBanner = $data->banner;
+
+            // Tambahkan banner ke array validated
+            $validated['banner'] = $newBanner;
         }
-        $data->update($request->validated());
-        return $this->sendResponse($data, 'Update data success');
+
+        // Update model
+        $jadwal->update($validated);
+
+        return $this->sendResponse($jadwal, 'Update data success');
     }
 
     public function delete($params)

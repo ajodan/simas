@@ -11,9 +11,14 @@
                                 <p itemprop="description">Aplikasi Masjid Agung Sultan hadir untuk memudahkan umat dalam
                                     mengakses info, layanan masjid, dan kegiatan keagamaan setiap hari.
                                 </p>
-                                <div class="loc-mp brd-rd5" id="loc-mp"></div>
-                                <span><i class="fas fa-map-marker-alt theme-clr"></i>Lokasi Masjid Agung Sultang
-                                    Alauddin</span>
+                                <div class="loc-mp brd-rd5">
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.366767239663!2d119.49635211011523!3d-5.204917679738017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbee33c061a2f93%3A0x5520dae652991f7a!2sMasjid%20Agung%20Sultan%20Alauddin!5e0!3m2!1sid!2sid!4v1748535526912!5m2!1sid!2sid"
+                                        style="border:0;" allowfullscreen="" loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                                {{-- <span><i class="fas fa-map-marker-alt theme-clr"></i>Lokasi Masjid Agung Sultang
+                                    Alauddin</span> --}}
                             </div>
                         </div>
                         {{-- <div class="col-md-4 col-sm-6 col-lg-4">
