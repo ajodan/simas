@@ -57,7 +57,7 @@
     <script src="{{ asset('assets-landing/js/plugins.min.js') }}"></script>
     <script src="{{ asset('assets-landing/js/google-map-int.js') }}"></script>
     <script src="{{ asset('assets-landing/js/custom-scripts.js') }}"></script>
-    <script src="{{ asset('assets-landing/namaz-timings/namaz.js') }}"></script>
+    {{-- <script src="{{ asset('assets-landing/namaz-timings/namaz.js') }}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @yield('scripts')

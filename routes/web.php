@@ -36,6 +36,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/monitoring', 'Dashboard@monitorin')->name('monitoring');
 
+    Route::get('/waktu-azan', 'Dashboard@getWaktuAzan')->name('waktu-azan');
+
     Route::group(['prefix' => 'login', 'middleware' => ['guest'], 'as' => 'login.'], function () {
         Route::get('/login-akun', 'Auth@show')->name('login-akun');
         Route::post('/login-proses', 'Auth@login_proses')->name('login-proses');

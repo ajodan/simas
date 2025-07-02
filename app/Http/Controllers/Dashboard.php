@@ -20,6 +20,7 @@ use App\Models\User;
 use App\Models\VisiMisi;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class Dashboard extends BaseController
 {
@@ -81,6 +82,27 @@ class Dashboard extends BaseController
 
         $sejarah = Sejarah::first();
         return view('user.dashboard.user', compact('module', 'jadwalJumat', 'donasis', 'kegiatans', 'donaturTetaps', 'sejarah'));
+    }
+
+    public function getWaktuAzan(Request $request)
+    {
+        $kota = $request->input('kota', 'Makassar');
+        $negara = $request->input('negara', 'Indonesia');
+
+        $today = now()->format('d-m-Y');
+
+        $response = Http::get("http://api.aladhan.com/v1/timingsByCity", [
+            'city' => $kota,
+            'country' => $negara,
+            'method' => 2, // Umm al-Qura University, Makkah (default method)
+            'date' => $today
+        ]);
+
+        if ($response->ok()) {
+            return response()->json($response->json()['data']['timings']);
+        }
+
+        return response()->json(['error' => 'Gagal mengambil data waktu azan'], 500);
     }
 
     public function areaChart(Request $request)

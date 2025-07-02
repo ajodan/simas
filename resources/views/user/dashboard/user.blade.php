@@ -484,3 +484,45 @@
         </div>
     </section>
 @endsection
+@section('scripts')
+    <script>
+        function get_azan_time() {
+            const country = document.getElementById("comboA").value;
+            const city = document.getElementById("comboB").value;
+
+            fetch(`/waktu-azan?negara=${country}&kota=${city}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById("result-update").innerHTML = "<p class='text-danger'>" + data.error +
+                            "</p>";
+                    } else {
+                        document.querySelector(".fajr-azan-time").textContent = data.Fajr;
+                        document.querySelector(".fajr-azan-prayer").textContent = data.Fajr;
+
+                        document.querySelector(".sunrise-azan-time").textContent = data.Sunrise;
+                        document.querySelector(".sunrise-azan-prayer").textContent = data.Sunrise;
+
+                        document.querySelector(".zohar-azan-time").textContent = data.Dhuhr;
+                        document.querySelector(".zohar-azan-prayer").textContent = data.Dhuhr;
+
+                        document.querySelector(".asr-azan-time").textContent = data.Asr;
+                        document.querySelector(".asr-azan-prayer").textContent = data.Asr;
+
+                        document.querySelector(".maghrib-azan-time").textContent = data.Maghrib;
+                        document.querySelector(".maghrib-azan-prayer").textContent = data.Maghrib;
+
+                        document.querySelector(".isha-azan-time").textContent = data.Isha;
+                        document.querySelector(".isha-azan-prayer").textContent = data.Isha;
+                    }
+                }).catch(error => {
+                    document.getElementById("result-update").innerHTML =
+                        "<p class='text-danger'>Terjadi kesalahan saat memuat data.</p>";
+                    console.error(error);
+                });
+        }
+
+        // Panggil saat halaman load pertama kali
+        document.addEventListener('DOMContentLoaded', get_azan_time);
+    </script>
+@endsection
