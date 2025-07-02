@@ -91,14 +91,15 @@ class KegiatanController extends BaseController
     public function index_kegiatan_user()
     {
         $module = 'Kegiatan';
-        $data = Kegiatan::orderBy('created_at', 'desc')->get();
+        $data = Kegiatan::orderBy('created_at', 'desc')->paginate(6);
         return view('user.kegiatan.index', compact('module', 'data'));
     }
 
     public function detail_kegiatan_user($params)
     {
-        $module = 'Detail Kegiatan';
         $data = Kegiatan::where('uuid', $params)->first();
-        return view('user.kegiatan.detail', compact('module', 'data'));
+        $module = $data->nama_kegiatan;
+        $kegiatanLainnya = Kegiatan::latest()->take(4)->get();
+        return view('user.kegiatan.detail', compact('module', 'data', 'kegiatanLainnya'));
     }
 }

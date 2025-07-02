@@ -7,6 +7,7 @@ use App\Models\CampaignDonasi;
 use App\Models\DataJamaah;
 use App\Models\DonasiCampaign;
 use App\Models\DonasiDonaturTetap;
+use App\Models\DonasiManual;
 use App\Models\DonaturTetap;
 use App\Models\Event;
 use App\Models\Izin;
@@ -49,7 +50,7 @@ class Dashboard extends BaseController
         $jadwalJumat = JadwalJumat::where('tanggal', '>=', $today)
             ->orderBy('tanggal', 'asc')
             ->first();
-        $donasis = CampaignDonasi::where('status', true)->take(4)->latest()->get();
+        $donasis = CampaignDonasi::where('status', true)->take(2)->latest()->get();
 
         $donasis->each(function ($donasi) {
             $donasiCampaigns = DonasiCampaign::where('uuid_campaign', $donasi->uuid)
@@ -58,7 +59,7 @@ class Dashboard extends BaseController
             $donasi->total_donasi = $donasiCampaigns->sum('nominal_donasi');
         });
 
-        $kegiatans = Kegiatan::latest()->get();
+        $kegiatans = Kegiatan::latest()->take(3)->get();
 
         $donaturTetaps = DonaturTetap::all();
         $donaturTetaps->map(function ($item) {
@@ -77,7 +78,9 @@ class Dashboard extends BaseController
             }
             return $item;
         });
-        return view('user.dashboard.user', compact('module', 'jadwalJumat', 'donasis', 'kegiatans', 'donaturTetaps'));
+
+        $sejarah = Sejarah::first();
+        return view('user.dashboard.user', compact('module', 'jadwalJumat', 'donasis', 'kegiatans', 'donaturTetaps', 'sejarah'));
     }
 
     public function areaChart(Request $request)
@@ -142,7 +145,12 @@ class Dashboard extends BaseController
             $pengeluaran = Realisasi::where('tanggal_realisasi', $tanggalRealisasiFormatted)
                 ->sum('jumlah');
 
-            $result['pemasukan'][] = $pemasukanCampaign + $pemasukanDonaturTetap;
+            $pemasukanFormatted = str_pad($day, 2, '0', STR_PAD_LEFT) . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . $year;
+
+            $pemasukan = DonasiManual::where('tanggal', $pemasukanFormatted)
+                ->sum('jumlah');
+
+            $result['pemasukan'][] = $pemasukanCampaign + $pemasukanDonaturTetap + $pemasukan;
             $result['pengeluaran'][] = $pengeluaran;
         }
 

@@ -75,11 +75,53 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title"
-                            style="{{ $path[1] == 'data-donasi' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Data
-                            Donasi</span>
+                            style="{{ $path[1] == 'data-donasi' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Keuangan</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <!--end::Menu link-->
+
+                    <!--begin::Menu sub-->
+                    <div class="menu-sub gap-2 menu-sub-accordion my-2">
+                        <!--begin::Menu item-->
+                        <div class="menu-item pe-0">
+                            <a class="menu-link {{ isset($path[2]) && $path[2] === 'donasi-manual' ? 'active' : '' }}"
+                                href="{{ route('admin.donasi-manual') }}">
+                                <span class="menu-icon">
+                                    <span class="svg-icon svg-icon-2">
+                                        {!! isset($path[2]) && $path[2] === 'donasi-manual'
+                                            ? '<i class="fas fa-hand-holding-usd" style="color: #F4BE2A; font-size: 16px"></i>'
+                                            : '<i class="fas fa-hand-holding-usd" style="color: #FFFFFF; font-size: 16px"></i>' !!}
+                                    </span>
+                                </span>
+                                <span class="menu-title"
+                                    style="{{ isset($path[2]) && $path[2] === 'donasi-manual' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Catatan
+                                    Pemasukan</span>
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
+                    </div>
+
+                    <!--begin::Menu sub-->
+                    <div class="menu-sub gap-2 menu-sub-accordion my-2">
+                        <!--begin::Menu item-->
+                        <div class="menu-item pe-0">
+                            <a class="menu-link {{ isset($path[2]) && $path[2] === 'realisasi-dana' ? 'active' : '' }}"
+                                href="{{ route('admin.realisasi-dana') }}">
+                                <span class="menu-icon">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                    <span class="svg-icon svg-icon-2">
+                                        <img src="{{ isset($path[1]) && $path[1] === 'realisasi-dana' ? url('assets/media/icons/aside/gajiact.svg') : url('assets/media/icons/aside/gajidef.svg') }}"
+                                            alt="">
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                                <span class="menu-title"
+                                    style="{{ isset($path[2]) && $path[2] === 'realisasi-dana' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Catatan
+                                    Pengeluaran</span>
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
+                    </div>
 
                     <!--begin::Menu sub-->
                     <div class="menu-sub gap-2 menu-sub-accordion my-2">
@@ -124,78 +166,124 @@
                         </div>
                         <!--end::Menu item-->
                     </div>
+
+                    <!--begin::Menu item-->
+                    <div class="menu-sub gap-2 menu-sub-accordion my-2">
+                        <div class="menu-item pe-0">
+                            <a class="menu-link {{ isset($path[2]) && $path[2] === 'laporan' ? 'active' : '' }}"
+                                href="{{ route('admin.laporan') }}">
+                                <span class="menu-icon">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                    <span class="svg-icon svg-icon-2">
+                                        <img src="{{ isset($path[2]) && $path[2] === 'laporan' ? url('assets/media/icons/aside/laporanact.svg') : url('assets/media/icons/aside/laporandef.svg') }}"
+                                            alt="">
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                                <span class="menu-title"
+                                    style="{{ isset($path[2]) && $path[2] === 'laporan' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Laporan</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!--end::Menu item-->
                 </div>
 
-                <!--begin::Menu item-->
-                <div class="menu-item">
-                    <a class="menu-link {{ isset($path[1]) && $path[1] === 'jadwal-jumat' ? 'active' : '' }}"
-                        href="{{ route('admin.jadwal-jumat') }}">
+                <div class="menu-item menu-link-indention menu-accordion {{ $path[1] == 'kegiatan' ? 'show' : '' }}"
+                    data-kt-menu-trigger="click">
+                    <!--begin::Menu link-->
+                    <a href="#" class="menu-link py-3 {{ $path[1] == 'kegiatan' ? 'active' : '' }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <img src="{{ isset($path[1]) && $path[1] === 'jadwal-jumat' ? url('assets/media/icons/aside/jamkerjaact.svg') : url('assets/media/icons/aside/jamkerjadef.svg') }}"
+                                <img src="{{ $path[1] == 'kegiatan' ? url('assets/media/icons/aside/masterdataact.svg') : url('/assets/media/icons/aside/masterdatadef.svg') }}"
                                     alt="">
                             </span>
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title"
-                            style="{{ isset($path[1]) && $path[1] === 'jadwal-jumat' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Jadwal
-                            Jum'at</span>
+                            style="{{ $path[1] == 'kegiatan' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Kegiatan</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <!--end::Menu link-->
+
+                    <!--begin::Menu item-->
+                    <div class="menu-sub gap-2 menu-sub-accordion my-2">
+                        <div class="menu-item pe-0">
+                            <a class="menu-link {{ isset($path[2]) && $path[2] === 'kegiatan' ? 'active' : '' }}"
+                                href="{{ route('admin.kegiatan') }}">
+                                <span class="menu-icon">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                    <span class="svg-icon svg-icon-2">
+                                        <img src="{{ isset($path[2]) && $path[2] === 'kegiatan' ? url('assets/media/icons/aside/invoiceact.svg') : url('assets/media/icons/aside/invoicedef.svg') }}"
+                                            alt="">
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                                <span class="menu-title"
+                                    style="{{ isset($path[2]) && $path[2] === 'kegiatan' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Kegiatan</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!--end::Menu item-->
+
+                    <!--begin::Menu item-->
+                    <div class="menu-sub gap-2 menu-sub-accordion my-2">
+                        <div class="menu-item pe-0">
+                            <a class="menu-link {{ isset($path[2]) && $path[2] === 'jadwal-jumat' ? 'active' : '' }}"
+                                href="{{ route('admin.jadwal-jumat') }}">
+                                <span class="menu-icon">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                    <span class="svg-icon svg-icon-2">
+                                        <img src="{{ isset($path[2]) && $path[2] === 'jadwal-jumat' ? url('assets/media/icons/aside/jamkerjaact.svg') : url('assets/media/icons/aside/jamkerjadef.svg') }}"
+                                            alt="">
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                                <span class="menu-title"
+                                    style="{{ isset($path[2]) && $path[2] === 'jadwal-jumat' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Jadwal
+                                    Jum'at</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!--end::Menu item-->
+
+                </div>
+
+                <!--begin::Menu item-->
+                <div class="menu-item">
+                    <a class="menu-link {{ isset($path[1]) && $path[1] === 'pengajuan' ? 'active' : '' }}"
+                        href="{{ route('admin.pengajuan') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                {!! isset($path[1]) && $path[1] === 'pengajuan'
+                                    ? '<i class="fas fa-box-tissue" style="color: #F4BE2A; font-size: 16px"></i>'
+                                    : '<i class="fas fa-box-tissue" style="color: #FFFFFF; font-size: 16px"></i>' !!}
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title"
+                            style="{{ isset($path[1]) && $path[1] === 'pengajuan' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Peminjaman
+                            Fasilitas</span>
                     </a>
                 </div>
                 <!--end::Menu item-->
 
                 <!--begin::Menu item-->
                 <div class="menu-item">
-                    <a class="menu-link {{ isset($path[1]) && $path[1] === 'kegiatan' ? 'active' : '' }}"
-                        href="{{ route('admin.kegiatan') }}">
+                    <a class="menu-link {{ isset($path[1]) && $path[1] === 'dokumentasi' ? 'active' : '' }}"
+                        href="{{ route('admin.dokumentasi') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
-                                <img src="{{ isset($path[1]) && $path[1] === 'kegiatan' ? url('assets/media/icons/aside/invoiceact.svg') : url('assets/media/icons/aside/invoicedef.svg') }}"
-                                    alt="">
+                                {!! isset($path[1]) && $path[1] === 'dokumentasi'
+                                    ? '<i class="fas fa-images" style="color: #F4BE2A; font-size: 16px"></i>'
+                                    : '<i class="fas fa-images" style="color: #FFFFFF; font-size: 16px"></i>' !!}
                             </span>
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title"
-                            style="{{ isset($path[1]) && $path[1] === 'kegiatan' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Kegiatan</span>
-                    </a>
-                </div>
-                <!--end::Menu item-->
-
-                <!--begin::Menu item-->
-                <div class="menu-item">
-                    <a class="menu-link {{ isset($path[1]) && $path[1] === 'realisasi-dana' ? 'active' : '' }}"
-                        href="{{ route('admin.realisasi-dana') }}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <img src="{{ isset($path[1]) && $path[1] === 'realisasi-dana' ? url('assets/media/icons/aside/gajiact.svg') : url('assets/media/icons/aside/gajidef.svg') }}"
-                                    alt="">
-                            </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title"
-                            style="{{ isset($path[1]) && $path[1] === 'realisasi-dana' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Realisasi
-                            Dana</span>
-                    </a>
-                </div>
-                <!--end::Menu item-->
-
-                <!--begin::Menu item-->
-                <div class="menu-item">
-                    <a class="menu-link {{ isset($path[1]) && $path[1] === 'laporan' ? 'active' : '' }}"
-                        href="{{ route('admin.laporan') }}">
-                        <span class="menu-icon">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                            <span class="svg-icon svg-icon-2">
-                                <img src="{{ isset($path[1]) && $path[1] === 'laporan' ? url('assets/media/icons/aside/laporanact.svg') : url('assets/media/icons/aside/laporandef.svg') }}"
-                                    alt="">
-                            </span>
-                            <!--end::Svg Icon-->
-                        </span>
-                        <span class="menu-title"
-                            style="{{ isset($path[1]) && $path[1] === 'laporan' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Laporan</span>
+                            style="{{ isset($path[1]) && $path[1] === 'dokumentasi' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Dokumentasi</span>
                     </a>
                 </div>
                 <!--end::Menu item-->

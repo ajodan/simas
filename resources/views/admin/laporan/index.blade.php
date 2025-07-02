@@ -120,7 +120,7 @@
                     [0, 'asc']
                 ],
                 processing: true,
-                ajax: '/admin/laporan-get/' + selectedDateStr,
+                ajax: '/admin/data-donasi/laporan-get/' + selectedDateStr,
                 columns: [{
                     data: null,
                     render: function(data, type, row, meta) {
@@ -224,7 +224,7 @@
                 return;
             }
 
-            window.open(`/admin/laporan-export/${val}`, "_blank");
+            window.open(`/admin/data-donasi/laporan-export/${val}`, "_blank");
         });
     </script>
 @endsection

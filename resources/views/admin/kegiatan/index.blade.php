@@ -204,12 +204,12 @@
             e.preventDefault();
             let type = $(this).attr('data-type');
             if (type == 'add') {
-                control.submitFormMultipartData('/admin/kegiatan-add', 'Tambah',
+                control.submitFormMultipartData('/admin/kegiatan/kegiatan-add', 'Tambah',
                     'Kegiatan',
                     'POST');
             } else {
                 let uuid = $("input[name='uuid']").val();
-                control.submitFormMultipartData('/admin/kegiatan-update/' + uuid,
+                control.submitFormMultipartData('/admin/kegiatan/kegiatan-update/' + uuid,
                     'Update',
                     'Kegiatan', 'POST');
             }
@@ -219,7 +219,7 @@
             e.preventDefault();
             $(".title_side_form").html(`Update Kegiatan`);
             $(".text-danger").html("");
-            let url = '/admin/kegiatan-show/' + $(this).attr('data-uuid');
+            let url = '/admin/kegiatan/kegiatan-show/' + $(this).attr('data-uuid');
             $.ajax({
                 url: url,
                 method: "GET",
@@ -261,7 +261,7 @@
 
         $(document).on('click', '.button-delete', function(e) {
             e.preventDefault();
-            let url = '/admin/kegiatan-delete/' + $(this).attr('data-uuid');
+            let url = '/admin/kegiatan/kegiatan-delete/' + $(this).attr('data-uuid');
             let label = $(this).attr('data-label');
             control.ajaxDelete(url, label)
         })
@@ -285,7 +285,7 @@
                     [0, 'asc']
                 ],
                 processing: true,
-                ajax: '/admin/kegiatan-get',
+                ajax: '/admin/kegiatan/kegiatan-get',
                 columns: [{
                     data: null,
                     render: function(data, type, row, meta) {

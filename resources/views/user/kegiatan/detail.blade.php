@@ -1,61 +1,109 @@
-<!-- meta tags and other links -->
+@extends('user.layouts.layout')
 @php
     use Carbon\Carbon;
-
-    $sisaHari = Carbon::now()->diffInDays(Carbon::parse($data->tanggal_selesai), false);
 @endphp
-
-@section('title', $module)
-
-@include('user.partial-html._template-top')
-
-<div class="flex justify-center">
-    <!-- Kontainer utama -->
-    <div id="card-overflow" class="w-[460px] bg-[#f5fbf7] h-screen pb-[100px] relative overflow-y-auto">
-
-        @section('title-active')
-            {{ $module }}</span>
-        @endsection
-
-        @include('user.layouts._nav')
-
-        <!-- Konten Detail Donasi -->
-        <div class="p-4">
-            <img src="{{ asset('/public/kegiatan/' . $data->banner) }}" alt="Banner Donasi"
-                class="w-full !h-[250px] block rounded-lg" loading="lazy">
-            <h1 class="text-2xl font-bold mt-4">{{ $data->nama_kegiatan }}</h1>
-            <p class="text-gray-600 text-xs mt-3 mb-0 italic">Terpublish:
-                {{ Carbon::parse($data->created_at)->format('d-m-Y') }}</p>
-            <p class="text-gray-900">{{ $data->deskripsi }}</p>
-            <div class="mt-4">
-                <h2 class="text-xl font-semibold">Lokasi dan Waktu</h2>
-                <table class="text-sm text-gray-700 mt-2">
-                    <tr>
-                        <td class="text-sm font-semibold flex items-center gap-2"><iconify-icon width="18"
-                                height="18" class="text-red-500" icon="codicon:location"></iconify-icon> Lokasi</td>
-                        <td class="px-3"></td>
-                        <td class="text-sm font-bold">{{ $data->tempat }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-sm font-semibold py-1 flex items-center gap-2"><iconify-icon class="text-dark"
-                                width="18" height="18"
-                                icon="healthicons:i-schedule-school-date-time-outline"></iconify-icon> Tanggal dan Waktu
-                        </td>
-                        <td class="px-3"></td>
-                        <td class="text-sm font-bold">{{ Carbon::parse($data->tanggal)->translatedFormat('l, d F Y') }}
-                            {{ Carbon::parse($data->waktu)->format('H:i') }}</td>
-                    </tr>
-                </table>
+@section('content')
+    <section>
+        <div class="gap black-layer opc7">
+            <div class="fixed-bg2" style="background-image: url({{ asset('assets-landing/images/pg-tp-bg.jpg') }});"></div>
+            <div class="container">
+                <div class="pg-tp-wrp text-center">
+                    <div class="pg-tp-inr">
+                        <h1 itemprop="headline">{{ $module }}</h1>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard-user') }}" title=""
+                                    itemprop="url">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('kegiatan') }}" title=""
+                                    itemprop="url">Kegiatamn</a></li>
+                            <li class="breadcrumb-item active">Detail Kegiatan</li>
+                        </ol>
+                    </div>
+                </div><!-- Page Top Wrap -->
             </div>
-
-            @include('user.layouts._footer')
-            @include('user.layouts._sidebar')
         </div>
-    </div>
-</div>
+    </section>
 
-@include('user.partial-html._template-bottom')
-
-</body>
-
-</html>
+    <section>
+        <div class="gap">
+            <div class="container">
+                <div class="event-detail-wrp">
+                    <div class="row">
+                        <div class="col-md-9 col-sm-12 col-lg-9">
+                            <div class="event-detail">
+                                <div class="event-detail-img brd-rd5">
+                                    <span>{{ Carbon::parse($data->tanggal)->translatedFormat('d') }}
+                                        <i>{{ Carbon::parse($data->tanggal)->translatedFormat('F') }}</i></span>
+                                    <img src="{{ asset('/public/kegiatan/' . $data->banner) }}" class="w-100"
+                                        alt="event-detail-img.jpg" itemprop="image">
+                                    <ul class="countdown d-flex justify-content-center align-items-center text-center"
+                                        data-countdown="{{ \Carbon\Carbon::parse($data->tanggal)->format('Y-m-d\TH:i:s') }}">
+                                        <li>
+                                            <span class="hari">0</span>
+                                            <p class="hari_ref">hari</p>
+                                        </li>
+                                        <li>
+                                            <span class="jam">0</span>
+                                            <p class="jam_ref">jam</p>
+                                        </li>
+                                        <li>
+                                            <span class="menit">0</span>
+                                            <p class="menit_ref">menit</p>
+                                        </li>
+                                        <li>
+                                            <span class="detik">0</span>
+                                            <p class="detik_ref">detik</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="event-detail-inf-inr">
+                                    <ul class="pst-mta">
+                                        <li><i class="fas fa-map-marker-alt theme-clr"></i> {{ $data->tempat }}</li>
+                                        <li><i class="far fa-clock theme-clr"></i>
+                                            {{ Carbon::parse($data->waktu)->format('H:i') }} - Selesai</li>
+                                    </ul>
+                                </div>
+                                <div class="event-detail-desc">
+                                    <p itemprop="description">{!! $data->deskripsi !!}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-lg-3">
+                            <div class="sidebar-wrp">
+                                <div class="widget">
+                                    <h5 itemprop="headline">Search</h5>
+                                    <form class="srch-frm brd-rd5">
+                                        <input type="text" placeholder="Search">
+                                        <button type="submit" class="theme-clr"><i class="fa fa-search"></i></button>
+                                    </form>
+                                </div>
+                                <div class="widget">
+                                    <h5 itemprop="headline">Kegiatan Lainnya</h5>
+                                    <div class="rcnt-wrp">
+                                        @foreach ($kegiatanLainnya as $kl)
+                                            <div class="rcnt-bx">
+                                                <a class="brd-rd5"
+                                                    href="{{ route('detail-kegiatan', ['params' => $kl->uuid]) }}"
+                                                    title="" itemprop="url"><img
+                                                        src="{{ asset('/public/kegiatan/' . $kl->banner) }}"
+                                                        alt="rcnt-img1.jpg" style="height: 66px" itemprop="image"></a>
+                                                <div class="rcnt-inf">
+                                                    <h6 itemprop="headline"><a
+                                                            href="{{ route('detail-kegiatan', ['params' => $kl->uuid]) }}"
+                                                            title=""
+                                                            itemprop="url">{{ \Illuminate\Support\Str::limit(strip_tags($kl->nama_kegiatan), 20, '...') }}</a>
+                                                    </h6>
+                                                    <span class="theme-clr"><i
+                                                            class="far fa-calendar-alt"></i>{{ Carbon::parse($kl->tanggal)->translatedFormat('d m Y') }}</span>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div><!-- Sidebar Wrap -->
+                        </div>
+                    </div>
+                </div><!-- Event Detail Wrap -->
+            </div>
+        </div>
+    </section>
+@endsection

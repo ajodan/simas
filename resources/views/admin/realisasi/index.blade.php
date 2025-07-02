@@ -165,12 +165,12 @@
             e.preventDefault();
             let type = $(this).attr('data-type');
             if (type == 'add') {
-                control.submitFormMultipartData('/admin/realisasi-dana-add', 'Tambah',
+                control.submitFormMultipartData('/admin/data-donasi/realisasi-dana-add', 'Tambah',
                     'Realisasi Dana',
                     'POST');
             } else {
                 let uuid = $("input[name='uuid']").val();
-                control.submitFormMultipartData('/admin/realisasi-dana-update/' + uuid,
+                control.submitFormMultipartData('/admin/data-donasi/realisasi-dana-update/' + uuid,
                     'Update',
                     'Realisasi Dana', 'POST');
             }
@@ -178,13 +178,13 @@
 
         $(document).on('click', '.button-update', function(e) {
             e.preventDefault();
-            let url = '/admin/realisasi-dana-show/' + $(this).attr('data-uuid');
+            let url = '/admin/data-donasi/realisasi-dana-show/' + $(this).attr('data-uuid');
             control.overlay_form('Update', 'Realisasi Dana', url);
         })
 
         $(document).on('click', '.button-delete', function(e) {
             e.preventDefault();
-            let url = '/admin/realisasi-dana-delete/' + $(this).attr('data-uuid');
+            let url = '/admin/data-donasi/realisasi-dana-delete/' + $(this).attr('data-uuid');
             let label = $(this).attr('data-label');
             control.ajaxDelete(url, label)
         })
@@ -208,7 +208,7 @@
                     [0, 'asc']
                 ],
                 processing: true,
-                ajax: '/admin/realisasi-dana-get',
+                ajax: '/admin/data-donasi/realisasi-dana-get',
                 columns: [{
                     data: null,
                     render: function(data, type, row, meta) {

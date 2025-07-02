@@ -1,289 +1,494 @@
-<!-- meta tags and other links -->
+@extends('user.layouts.layout')
 @php
     use Carbon\Carbon;
 
-    $sisaHari = Carbon::now()->diffInDays(Carbon::parse($data->tanggal_selesai), false);
+    $sisaHari = \Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($data->tanggal_selesai), false);
 @endphp
-
-@section('title', $module)
-
-@include('user.partial-html._template-top')
-
-<div class="flex justify-center">
-    <!-- Kontainer utama -->
-    <div id="card-overflow" class="w-[460px] bg-[#f5fbf7] h-screen pb-[100px] relative overflow-y-auto">
-
-        @section('title-active')
-            {{ $module }}</span>
-        @endsection
-
-        @include('user.layouts._nav')
-
-        <!-- Konten Detail Donasi -->
-        <div class="p-4">
-            <img src="{{ asset('/public/campaign/' . $data->gambar) }}" alt="Banner Donasi"
-                class="w-full !h-[250px] block rounded-lg" loading="lazy">
-            <h1 class="text-2xl font-bold mt-4">{{ $data->judul }}</h1>
-            <p class="text-gray-600 text-xs mt-3 mb-0 italic">Terpublish:
-                {{ Carbon::parse($data->created_at)->format('d-m-Y') }}</p>
-            <p class="text-gray-900">{{ $data->deskripsi }}</p>
-            <div class="mt-4">
-                <h2 class="text-xl font-semibold">Detail Donasi</h2>
-                <table class="text-sm text-gray-700 mt-2">
-                    <tr>
-                        <td class="text-sm font-semibold">Target</td>
-                        <td class="px-3">:</td>
-                        <td class="text-sm font-bold">Rp {{ number_format($data->target_dana, 0, ',', '.') }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-sm font-semibold py-1">Terkumpul</td>
-                        <td class="px-3">:</td>
-                        <td class="text-sm font-bold">Rp {{ number_format($totalDonasi, 0, ',', '.') }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-sm font-semibold">Sisa Waktu</td>
-                        <td class="px-3">:</td>
-                        <td class="text-sm font-bold">{{ $sisaHari > 0 ? "Tinggal $sisaHari hari lagi" : 'Berakhir' }}
-                        </td>
-                    </tr>
-                </table>
-
-                @if ($sisaHari > 0)
-                    <div class="mt-4 grid gap-2">
-                        <h2 class="text-lg font-semibold">Lakukan Pembayaran</h2>
-                        <div class="grid justify-items-center bg-white rounded-lg shadow-md p-4 pt-2">
-                            <img id="qr-card" src="{{ asset('qris.png') }}" class="!w-[200px]" alt="">
-                            <button onclick="downloadImage()"
-                                class="flex items-center gap-2 btn hover:!bg-sky-500 text-white bg-sky-700 py-2 px-3 text-sm max-w-max">
-                                <iconify-icon icon="material-symbols:download" class="text-white" width="20"
-                                    height="20"></iconify-icon> <span>Download
-                                    Qris</span>
-                            </button>
-                        </div>
-                        <p class="text-sm text-gray-600">Silakan scan QR Code di atas untuk melakukan pembayaran
-                            donasi.
-                            Pastikan untuk mengisi nama pendonasi dan jumlah donasi dengan benar. atau transfer melalui
-                            rekenin <span class="font-bold italic text-dark">BCA NOREK 123456789 A.N Wahyu</span></p>
-                        <p class="text-sm text-gray-600">Setelah melakukan pembayaran, klik tombol "Donasi Sekarang"
-                            di bawah ini untuk mengirimkan informasi donasi Anda.</p>
+@section('content')
+    <section>
+        <div class="gap black-layer opc7">
+            <div class="fixed-bg2" style="background-image: url({{ asset('assets-landing/images/pg-tp-bg.jpg') }});"></div>
+            <div class="container">
+                <div class="pg-tp-wrp text-center">
+                    <div class="pg-tp-inr">
+                        <h1 itemprop="headline">{{ $module }}</h1>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard-user') }}" title=""
+                                    itemprop="url">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('donasi-campaign') }}" title=""
+                                    itemprop="url">Donasi</a></li>
+                            <li class="breadcrumb-item active">Detail Donasi</li>
+                        </ol>
                     </div>
-                    <div class="flex mt-4">
-                        <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
-                            type="button"
-                            class="flex items-center justify-center gap-2 w-full btn hover:!bg-green-500 text-white bg-[#DC7633]">
-                            <iconify-icon icon="mdi:donation" class="menu-icon"></iconify-icon>
-                            <span class="text-md font-semibold">Donasi Sekarang</span>
-                        </button>
-                    </div>
-                @endif
-
-                <!-- Main modal -->
-                <div id="authentication-modal" tabindex="-1" aria-hidden="true"
-                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                    <div class="relative p-4 w-full max-w-md max-h-full">
-                        <!-- Modal content -->
-                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                            <!-- Modal body -->
-                            <div class="p-4 md:p-5">
-                                <form id="form-submit" class="space-y-4 grid grid-cols-2 gap-1">
-                                    <input type="hidden" name="uuid_campaign" value="{{ $data->uuid }}">
-                                    <div class="col-span-2">
-                                        <label for="nama-pendonasi"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                                            Pendonasi (defaul anonim)</label>
-                                        <input type="text" id="nama-pendonasi" name="nama_pendonasi"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                            placeholder="Masukkan nama pendonasi">
-                                        <div class="text-danger-600 text-sm nama_pendonasi_error"></div>
-                                    </div>
-                                    <div class="col-span-2">
-                                        <label for="jumlah-donasi"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                                            Donasi</label>
-                                        <input type="text" id="jumlah-donasi" name="nominal_donasi"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                            placeholder="Masukkan jumlah donasi">
-                                        <div class="text-danger-600 text-sm nominal_donasi_error"></div>
-                                    </div>
-                                    <div
-                                        class="col-span-2 !border-2 !border-dashed !border-[#096B5A] rounded-lg p-6 text-center grid justify-center relative">
-                                        <div id="image-preview"
-                                            class="absolute w-full h-full -z-0 rounded-lg p-6 bg-no-repeat bg-cover bg-center opacity-80">
-                                        </div>
-                                        <iconify-icon icon="line-md:cloud-alt-upload-twotone-loop"
-                                            class="menu-icon text-5xl text-[#096B5A] mx-auto z-[1]"></iconify-icon>
-                                        <div class="text-[#096B5A] text-sm font-normal z-[1]">Upload Bukti Transaksi
-                                        </div>
-                                        <label
-                                            class="flex items-center w-max mt-4 px-4 py-2 bg-teal-100 text-teal-700 border rounded-md cursor-pointer hover:bg-teal-200 z-[1]">
-                                            <input id="image-upload" type="file" name="bukti_transfer" class="hidden"
-                                                accept=".png, .jpg, .jpeg">
-                                            <iconify-icon icon="line-md:upload-loop" class="mr-2"></iconify-icon>
-                                            <span>BROWSE FILE</span>
-                                        </label>
-                                    </div>
-                                    <div class="text-danger-600 !mt-0 col-span-2 text-sm bukti_transfer_error"></div>
-                                    <div class="col-span-2 flex justify-between">
-                                        <button data-modal-hide="authentication-modal" type="button"
-                                            class="text-[#096B5A] bg-red-200 btn font-medium text-sm px-3 py-2.5 text-center uppercase">
-                                            batalkan
-                                        </button>
-                                        <button type="button" id="submit-form"
-                                            class="flex items-center gap-2 text-white bg-[#096B5A] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center uppercase">
-                                            <iconify-icon icon="material-symbols:save" class="menu-icon"
-                                                style="font-size: 20px;"></iconify-icon>
-                                            <span>Kirim</span>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div><!-- Page Top Wrap -->
             </div>
+        </div>
+    </section>
 
-            @if ($dataPendonasis)
-                <h2 class="text-xl font-semibold mt-6">Daftar Pendonasi</h2>
-                @foreach ($dataPendonasis as $dataPendonasi)
-                    <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700 mt-2">
-                        <li class="pb-3 sm:pb-4">
-                            <div class="flex gap-2 items-center space-x-4 rtl:space-x-reverse">
-                                <div class="shrink-0">
-                                    <img class="w-10 h-10 rounded-full"
-                                        src="{{ asset('assets-user/images/user.png') }}" alt="Neil image">
+    <section>
+        <div class="gap">
+            <div class="container">
+                <div class="blog-detail-wrp">
+                    <div class="row">
+                        <div class="col-md-9 col-sm-12 col-lg-9">
+                            <div class="blog-detail">
+                                <div class="blog-detail-inf brd-rd5">
+                                    <img src="{{ asset('/public/campaign/' . $data->gambar) }}" alt="blog-detail-img.jpg"
+                                        itemprop="image">
+                                    <div class="blog-detail-inf-inr">
+                                        <ul class="d-flex pst-mta" style="gap: 15px">
+                                            <li>🎯 Target Dana Rp {{ number_format($data->target_dana, 0, ',', '.') }}</li>
+                                            <li>💰 Terkumpul Rp {{ number_format($totalDonasi, 0, ',', '.') }}</li>
+                                            <li>⏳ Sisa Waktu
+                                                {{ $sisaHari > 0 ? "Tinggal $sisaHari hari lagi" : 'Berakhir' }}</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm m-0 font-medium text-gray-900">
-                                        {{ $dataPendonasi->nama_pendonasi }}</p>
-                                    </p>
-                                    <p class="text-xs text-gray-500">
-                                        {{ Carbon::parse($dataPendonasi->created_at)->format('d-m-Y H:i') }}</p>
-                                </div>
-                                <div
-                                    class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                    Rp {{ number_format($dataPendonasi->nominal_donasi, 0, ',', '.') }}
+                                <div class="blog-detail-desc">
+                                    <p itemprop="description">{!! $data->deskripsi !!}</p>
+                                    @if ($sisaHari > 0)
+                                        <div class="mt-4">
+                                            <h2 class="h5 font-weight-semibold mb-3">Lakukan Pembayaran</h2>
+
+                                            <div class="bg-white rounded shadow-sm p-4 text-center"
+                                                style="display: grid; justify-items: center">
+                                                <img id="qr-card" src="{{ asset('qris.png') }}" class="mb-3"
+                                                    style="width: 200px;" alt="QR Code">
+
+                                                <button onclick="downloadImage()"
+                                                    class="btn btn-sm btn-primary d-inline-flex align-items-center">
+                                                    <i class="material-icons mr-1">download</i> Download Qris
+                                                </button>
+                                            </div>
+
+                                            <p class="small text-muted mt-3">
+                                                Silakan scan QR Code di atas untuk melakukan pembayaran donasi.
+                                                Pastikan untuk mengisi nama pendonasi dan jumlah donasi dengan benar. Atau
+                                                transfer melalui rekening
+                                                <span class="font-weight-bold font-italic text-dark">BCA NOREK 123456789 A.N
+                                                    Wahyu</span>
+                                            </p>
+                                            <p class="small text-muted">
+                                                Setelah melakukan pembayaran, klik tombol "Donasi Sekarang" di bawah ini
+                                                untuk
+                                                mengirimkan informasi donasi Anda.
+                                            </p>
+                                        </div>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="authentication-modal" tabindex="-1" role="dialog"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <!-- Modal Header (Optional) -->
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Form Donasi</h5>
+                                                        <button type="button" id="close-modal" class="close"
+                                                            data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- Modal Body -->
+                                                    <div class="modal-body">
+                                                        <form id="form-submit">
+                                                            <input type="hidden" name="uuid_campaign"
+                                                                value="{{ $data->uuid }}">
+
+                                                            <div class="form-group">
+                                                                <label for="nama-pendonasi">Nama Pendonasi (default
+                                                                    anonim)</label>
+                                                                <input type="text" id="nama-pendonasi"
+                                                                    name="nama_pendonasi" class="form-control"
+                                                                    placeholder="Masukkan nama pendonasi">
+                                                                <div class="text-danger nama_pendonasi_error small mt-1">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="jumlah-donasi">Jumlah Donasi</label>
+                                                                <input type="text" id="jumlah-donasi"
+                                                                    name="nominal_donasi" class="form-control"
+                                                                    placeholder="Masukkan jumlah donasi">
+                                                                <div class="text-danger nominal_donasi_error small mt-1">
+                                                                </div>
+                                                            </div>
+
+                                                            <div
+                                                                class="form-group text-center position-relative border border-success rounded p-4 overflow-hidden">
+                                                                <!-- Preview background -->
+                                                                <div id="image-preview"
+                                                                    class="position-absolute w-100 h-100"
+                                                                    style="top: 0; left: 0; opacity: 0.2; background-color: #f8f9fa; border-radius: .25rem; background-size: cover; background-position: center; z-index: 1;">
+                                                                </div>
+
+                                                                <!-- Upload section -->
+                                                                <div class="position-relative" style="z-index: 2;">
+                                                                    <i class="material-icons text-success mb-2"
+                                                                        style="font-size: 40px;">cloud_upload</i>
+                                                                    <div class="text-success small">Upload Bukti Transaksi
+                                                                    </div>
+
+                                                                    <label class="btn btn-outline-success mt-3">
+                                                                        <input id="image-upload" type="file"
+                                                                            name="bukti_transfer" class="d-none"
+                                                                            accept=".png, .jpg, .jpeg">
+                                                                        <i class="material-icons mr-1">file_upload</i>
+                                                                        BROWSE
+                                                                        FILE
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="text-danger bukti_transfer_error small mb-3"></div>
+
+                                                            <div class="d-flex justify-content-between">
+                                                                <button type="button" class="btn btn-danger"
+                                                                    data-dismiss="modal">Batalkan</button>
+                                                                <button type="button" id="submit-form"
+                                                                    class="btn btn-success d-flex align-items-center">
+                                                                    <i class="material-icons mr-1"
+                                                                        style="font-size: 20px;">save</i> Kirim
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-4">
+                                            <button data-toggle="modal" data-target="#authentication-modal"
+                                                type="button" class="btn btn-block text-white"
+                                                style="background-color: #DC7633;">
+                                                <i class="mdi mdi-donation mr-2"></i>
+                                                <span class="font-weight-semibold">Donasi Sekarang</span>
+                                            </button>
+                                        </div>
+                                    @endif
+
+                                    <div class="pst-shr-tgs">
+                                        <div class="scl1 float-left">
+                                            <span>Bagikan ke:</span>
+                                            <a href="#" title="Twitter" itemprop="url" target="_blank"><i
+                                                    class="fab fa-twitter"></i></a>
+                                            <a href="#" title="Facebook" itemprop="url" target="_blank"><i
+                                                    class="fab fa-facebook-f"></i></a>
+                                            <a href="#" title="Linkedin" itemprop="url" target="_blank"><i
+                                                    class="fab fa-linkedin-in"></i></a>
+                                            <a href="#" title="Google Plus" itemprop="url" target="_blank"><i
+                                                    class="fab fa-google-plus-g"></i></a>
+                                            <a href="#" title="Youtube" itemprop="url" target="_blank"><i
+                                                    class="fab fa-youtube"></i></a>
+                                        </div>
+                                        {{-- <div class="tag-clouds float-right">
+                                            <span>Tags:</span>
+                                            <a href="#" title="" itemprop="url">Namaz</a>, <a href="#"
+                                                title="" itemprop="url">Roza</a>, <a href="#" title=""
+                                                itemprop="url">Hajj</a>, <a href="#" title=""
+                                                itemprop="url">Zakat</a>
+                                        </div> --}}
+                                    </div>
+                                    @if ($dataPendonasis)
+                                        <div class="cmts-wrp">
+                                            <h4 itemprop="headline">Daftar Pendonasi</h4>
+                                            <ul class="cmt-thrd">
+                                                @foreach ($dataPendonasis as $dataPendonasi)
+                                                    <li>
+                                                        <div class="cmt-bx">
+                                                            <img class="brd-rd50"
+                                                                src="{{ asset('assets-user/images/user.png') }}"
+                                                                alt="cmt-img1.jpg" itemprop="image" style="width: 83px">
+                                                            <div class="cmt-inf">
+                                                                <h6 itemprop="headline">
+                                                                    {{ $dataPendonasi->nama_pendonasi }}
+                                                                </h6>
+                                                                <span><i
+                                                                        class="theme-clr far fa-calendar-alt"></i>{{ Carbon::parse($dataPendonasi->created_at)->format('d-m-Y H:i') }}</span>
+                                                                <p itemprop="description">Telah mendonasikan sebanyak
+                                                                    <strong>Rp
+                                                                        {{ number_format($dataPendonasi->nominal_donasi, 0, ',', '.') }}</strong>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul><!-- Comment Thread -->
+                                        </div><!-- Comments Wrap -->
+                                    @endif
+                                    {{-- <div class="cnt-frm cmt-frm">
+                                        <h4 itemprop="headline">Leave Your Comments</h4>
+                                        <p itemprop="description">Spam are not sunt in culpa qui officia.vero eos et
+                                            accusamus.</p>
+                                        <form>
+                                            <div class="row mrg10">
+                                                <div class="col-md-4 col-sm-6 col-lg-4">
+                                                    <input class="brd-rd5" type="text" placeholder="Name">
+                                                </div>
+                                                <div class="col-md-4 col-sm-6 col-lg-4">
+                                                    <input class="brd-rd5" type="email" placeholder="Email">
+                                                </div>
+                                                <div class="col-md-4 col-sm-12 col-lg-4">
+                                                    <input class="brd-rd5" type="text" placeholder="Subject">
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-lg-12">
+                                                    <textarea class="brd-rd5" placeholder="Message"></textarea>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-lg-12">
+                                                    <button type="submit" class="theme-btn theme-bg brd-rd5">POST
+                                                        COMMENT</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div> --}}
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                @endforeach
-            @endif
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-lg-3">
+                            <div class="sidebar-wrp">
+                                <div class="widget">
+                                    <h5 itemprop="headline">Search</h5>
+                                    <form class="srch-frm brd-rd5">
+                                        <input type="text" placeholder="Search">
+                                        <button type="submit" class="theme-clr"><i class="fa fa-search"></i></button>
+                                    </form>
+                                </div>
+                                {{-- <div class="widget">
+                                    <h5 itemprop="headline">Categories</h5>
+                                    <ul class="cat-lst">
+                                        <li><a href="#" title="" itemprop="url">House Accommodation</a>(10)
+                                        </li>
+                                        <li><a href="#" title="" itemprop="url">Health Events</a>(06)</li>
+                                        <li><a href="#" title="" itemprop="url">Donation Event</a>(03)</li>
+                                        <li><a href="#" title="" itemprop="url">Education</a>(07)</li>
+                                        <li><a href="#" title="" itemprop="url">Food</a>(12)</li>
+                                        <li><a href="#" title="" itemprop="url">Health Care</a>(02)</li>
+                                    </ul>
+                                </div> --}}
+                                {{-- <div class="widget">
+                                    <h5 itemprop="headline">Latest Causes</h5>
+                                    <div class="ltst-car lst-caus text-center owl-carousel owl-loaded owl-drag">
 
-            @include('user.layouts._footer')
-            @include('user.layouts._sidebar')
+
+                                        <div class="owl-stage-outer">
+                                            <div class="owl-stage"
+                                                style="transform: translate3d(-810px, 0px, 0px); transition: all 0s ease 0s; width: 1620px;">
+                                                <div class="owl-item cloned" style="width: 270px;">
+                                                    <div class="lst-cas">
+                                                        <img class="brd-rd5" src="assets/images/resources/lst-cas-img1.jpg"
+                                                            alt="lst-cas-img1.jpg" itemprop="image">
+                                                        <h6 itemprop="headline"><a href="#" title=""
+                                                                itemprop="url">Water For All Cause</a></h6>
+                                                    </div>
+                                                </div>
+                                                <div class="owl-item cloned" style="width: 270px;">
+                                                    <div class="lst-cas">
+                                                        <img class="brd-rd5"
+                                                            src="assets/images/resources/lst-cas-img2.jpg"
+                                                            alt="lst-cas-img2.jpg" itemprop="image">
+                                                        <h6 itemprop="headline"><a href="#" title=""
+                                                                itemprop="url">Help For Education</a></h6>
+                                                    </div>
+                                                </div>
+                                                <div class="owl-item" style="width: 270px;">
+                                                    <div class="lst-cas">
+                                                        <img class="brd-rd5"
+                                                            src="assets/images/resources/lst-cas-img1.jpg"
+                                                            alt="lst-cas-img1.jpg" itemprop="image">
+                                                        <h6 itemprop="headline"><a href="#" title=""
+                                                                itemprop="url">Water For All Cause</a></h6>
+                                                    </div>
+                                                </div>
+                                                <div class="owl-item active" style="width: 270px;">
+                                                    <div class="lst-cas">
+                                                        <img class="brd-rd5"
+                                                            src="assets/images/resources/lst-cas-img2.jpg"
+                                                            alt="lst-cas-img2.jpg" itemprop="image">
+                                                        <h6 itemprop="headline"><a href="#" title=""
+                                                                itemprop="url">Help For Education</a></h6>
+                                                    </div>
+                                                </div>
+                                                <div class="owl-item cloned" style="width: 270px;">
+                                                    <div class="lst-cas">
+                                                        <img class="brd-rd5"
+                                                            src="assets/images/resources/lst-cas-img1.jpg"
+                                                            alt="lst-cas-img1.jpg" itemprop="image">
+                                                        <h6 itemprop="headline"><a href="#" title=""
+                                                                itemprop="url">Water For All Cause</a></h6>
+                                                    </div>
+                                                </div>
+                                                <div class="owl-item cloned" style="width: 270px;">
+                                                    <div class="lst-cas">
+                                                        <img class="brd-rd5"
+                                                            src="assets/images/resources/lst-cas-img2.jpg"
+                                                            alt="lst-cas-img2.jpg" itemprop="image">
+                                                        <h6 itemprop="headline"><a href="#" title=""
+                                                                itemprop="url">Help For Education</a></h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="owl-nav"><button type="button" role="presentation"
+                                                class="owl-prev"><i class="fa fa-angle-left"></i></button><button
+                                                type="button" role="presentation" class="owl-next"><i
+                                                    class="fa fa-angle-right"></i></button></div>
+                                        <div class="owl-dots disabled"></div>
+                                    </div>
+                                </div> --}}
+                                <div class="widget">
+                                    <h5 itemprop="headline">Donasi Lainnya</h5>
+                                    <div class="rcnt-wrp">
+                                        @foreach ($dataDonasiTerbaru as $dt)
+                                            <div class="rcnt-bx">
+                                                <a class="brd-rd5"
+                                                    href="{{ route('detail-donasi-campaign', ['params' => $dt->uuid]) }}"
+                                                    title="" itemprop="url"><img
+                                                        src="{{ asset('/public/campaign/' . $dt->gambar) }}"
+                                                        style="height: 66px" alt="rcnt-img1.jpg" itemprop="image"></a>
+                                                <div class="rcnt-inf">
+                                                    <h6 itemprop="headline"><a
+                                                            href="{{ route('detail-donasi-campaign', ['params' => $dt->uuid]) }}"
+                                                            title=""
+                                                            itemprop="url">{{ \Illuminate\Support\Str::limit(strip_tags($dt->judul), 20, '...') }}</a>
+                                                    </h6>
+                                                    @php
+                                                        $sisaHariTerbaru = \Carbon\Carbon::now()->diffInDays(
+                                                            \Carbon\Carbon::parse($dt->tanggal_selesai),
+                                                            false,
+                                                        );
+                                                    @endphp
+                                                    <span class="theme-clr"><i
+                                                            class="far fa-calendar-alt"></i>{{ $sisaHariTerbaru > 0 ? "Tinggal $sisaHariTerbaru hari lagi" : 'Berakhir' }}</span>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div><!-- Sidebar Wrap -->
+                        </div>
+                    </div>
+                </div><!-- Blog Detail Wrap -->
+            </div>
         </div>
-    </div>
-</div>
+    </section>
+@endsection
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        function downloadImage() {
+            const element = document.getElementById('qr-card'); // Elemen yang ingin di-download
+            html2canvas(element).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'qr-code.png'; // Nama file
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+        $(document).ready(function() {
+            $("#jumlah-donasi").on("input", function() {
+                let input = $(this).val();
 
-@include('user.partial-html._template-bottom')
+                // Hapus semua karakter non-angka
+                input = input.replace(/[^,\d]/g, "");
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script>
-    function downloadImage() {
-        const element = document.getElementById('qr-card'); // Elemen yang ingin di-download
-        html2canvas(element).then(canvas => {
-            const link = document.createElement('a');
-            link.download = 'qr-code.png'; // Nama file
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        });
-    }
-    $(document).ready(function() {
-        $("#jumlah-donasi").on("input", function() {
-            let input = $(this).val();
+                // Format angka dengan pemisah ribuan
+                if (input) {
+                    const numberFormat = new Intl.NumberFormat("id-ID");
+                    const formatted = numberFormat.format(parseInt(input.replace(/\./g, ""),
+                        10));
+                    $(this).val('Rp ' + formatted);
+                }
+            });
 
-            // Hapus semua karakter non-angka
-            input = input.replace(/[^,\d]/g, "");
-
-            // Format angka dengan pemisah ribuan
-            if (input) {
-                const numberFormat = new Intl.NumberFormat("id-ID");
-                const formatted = numberFormat.format(parseInt(input.replace(/\./g, ""),
-                    10));
-                $(this).val('Rp ' + formatted);
-            }
-        });
-
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        });
-
-        // Submit Form
-        $("#submit-form").click(function(e) {
-            e.preventDefault(); // Mencegah reload halaman
-
-            let formData = new FormData($("#form-submit")[
-                0]); // Gunakan FormData untuk menyertakan file upload
-
-            $.ajax({
-                type: "POST",
-                url: "{{ route('donasi-campaign') }}",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    $(".text-danger-600").html(""); // Hapus pesan error sebelumnya
-                    if (response.success) {
-                        Swal.fire({
-                            title: "Berhasil",
-                            text: response.message,
-                            icon: "success",
-                            showConfirmButton: false,
-                            timer: 1500,
-                        }).then(() => {
-                            location.reload(); // Reload halaman setelah alert
-                        });
-                    } else {
-                        Swal.fire({
-                            title: response.message,
-                            text: response.data,
-                            icon: "warning",
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    $(".text-danger-600").html(""); // Hapus pesan error sebelumnya
-                    $.each(xhr.responseJSON.errors, function(key, value) {
-                        $(`.${key}_error`).html(
-                            value); // Tampilkan pesan error dari backend
-                    });
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
             });
+
+            // Submit Form
+            $("#submit-form").click(function(e) {
+                e.preventDefault(); // Mencegah reload halaman
+
+                let formData = new FormData($("#form-submit")[
+                    0]); // Gunakan FormData untuk menyertakan file upload
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('donasi-campaign') }}",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $(".text-danger-600").html(""); // Hapus pesan error sebelumnya
+                        if (response.success) {
+                            Swal.fire({
+                                title: "Berhasil",
+                                text: response.message,
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            }).then(() => {
+                                $("#close-modal").trigger("click");
+                                location.reload(); // Reload halaman setelah alert
+                            });
+                        } else {
+                            Swal.fire({
+                                title: response.message,
+                                text: response.data,
+                                icon: "warning",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        }
+                    },
+                    error: function(xhr) {
+                        $(".text-danger-600").html(""); // Hapus pesan error sebelumnya
+                        $.each(xhr.responseJSON.errors, function(key, value) {
+                            $(`.${key}_error`).html(
+                                value); // Tampilkan pesan error dari backend
+                        });
+                    },
+                });
+            });
         });
-    });
 
-    // Fungsi untuk menangani pratinjau gambar
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            const file = input.files[0];
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
 
-            // Membaca file dan menampilkan pratinjau
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const preview = $(input).closest("div").find("#image-preview")[0]; // Elemen pratinjau terkait
-
-                if (preview) {
-                    preview.style.backgroundImage = `url(${e.target.result})`;
-                    preview.style.backgroundSize = "cover"; // Menyesuaikan ukuran pratinjau
-                    preview.style.backgroundPosition = "center"; // Menyesuaikan posisi
+                // Hanya lanjutkan jika file gambar
+                if (!file.type.startsWith("image/")) {
+                    alert("Harap unggah file gambar (.jpg, .jpeg, .png)");
+                    return;
                 }
-            };
-            reader.readAsDataURL(file); // Membaca file sebagai data URL
-        } else {
-            console.warn("No file selected or browser does not support FileReader.");
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const $formGroup = $(input).closest(".form-group");
+                    const $preview = $formGroup.find("#image-preview");
+
+                    if ($preview.length) {
+                        $preview.css({
+                            "background-image": `url(${e.target.result})`,
+                            "background-size": "cover",
+                            "background-position": "center",
+                            "opacity": "0.6",
+                            "transition": "background-image 0.3s ease-in-out"
+                        });
+                    }
+                };
+                reader.readAsDataURL(file);
+            } else {
+                console.warn("No file selected or FileReader not supported.");
+            }
         }
-    }
 
-    // Event listener dinamis untuk elemen input
-    $(document).on("change", "#image-upload", function() {
-        readURL(this);
-    });
-</script>
-
-</body>
-
-</html>
+        // Event listener
+        $(document).on("change", "#image-upload", function() {
+            readURL(this);
+        });
+    </script>
+@endsection

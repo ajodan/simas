@@ -1,410 +1,463 @@
-<!-- meta tags and other links -->
+@extends('user.layouts.layout')
 @php
     use Carbon\Carbon;
 @endphp
+@section('content')
+    <section>
+        <div class="gap no-gap">
+            <!--<img class="botm-shp shp-img" src="assets/images/shp1.png" alt="shp1.png">-->
+            <div class="featured-area-wrap slider2 text-center">
+                <div class="featured-area owl-carousel">
+                    <div class="featured-item"
+                        style="background-image: url({{ asset('assets-landing/images/resources/slide-4.jpg') }});">
+                        <div class="featured-cap">
+                            <img src="{{ asset('assets-landing/images/resources/bsml-txt.png') }}" alt="bsml-txt.png">
+                            <h3><img src="{{ asset('assets-landing/images/resources/ayat-txt.png') }}" alt="ayat-txt.png">
+                            </h3>
+                            <img class = "before-imge" src="{{ asset('assets-landing/images/pshape.png') }}" alt="">
+                            <h3>Dia meninggikan langit dan mengatur keseimbangan</h3>
+                            <span>(Surat Ar-Rahman Ayat 7)</span>
+                            <div class="d-flex justify-content-center">
+                                <div class="d-flex justify-content-center align-items-center mt-4 theme-bg rounded pt-3 px-3"
+                                    style="gap:10px; text-align: -webkit-center; width: max-content">
+                                    <!-- Gambar Banner -->
+                                    <div>
+                                        <img src="{{ asset('/public/banner/' . $jadwalJumat->banner) }}"
+                                            alt="Banner Jadwal Jumat" class="rounded shadow-sm"
+                                            style="max-height: 150px; object-fit: cover; width: fit-content;">
+                                    </div>
 
-@section('title', $module)
+                                    <!-- Konten Teks -->
+                                    <div>
+                                        <h6 class="fw-bold text-white">Jadwal Jumat
+                                            {{ $jadwalJumat ? $jadwalJumat->tanggal : 'Belum Ada Jadwal' }}</h6>
 
-@include('user.partial-html._template-top')
+                                        <table class="table table-sm text-white">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Tema Khutbah</th>
+                                                    <td class="px-2">:</td>
+                                                    <td>{{ $jadwalJumat->tema_khutbah }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Khatib</th>
+                                                    <td class="px-2">:</td>
+                                                    <td>{{ $jadwalJumat->nama_khatib }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Imam</th>
+                                                    <td class="px-2">:</td>
+                                                    <td>{{ $jadwalJumat->nama_imam }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Muadzin</th>
+                                                    <td class="px-2">:</td>
+                                                    <td>{{ $jadwalJumat->nama_muadzin }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
 
-<div class="flex justify-center">
-    <!-- Kontainer utama -->
-    <div id="card-overflow" class="w-[460px] bg-[#f5fbf7] h-screen px-4 pt-1 pb-[100px] relative overflow-y-auto">
-        <!-- Header dengan gradasi -->
-        <div class="absolute top-[-200px] right-0 w-[100%]">
-            <img src="{{ asset('backround.png') }}" class="w-[100%] rounded-b-[35px]"
-                style="--tw-brightness: brightness(95%) !important;
-    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);"
-                alt="">
-        </div>
-
-        <!-- Header konten -->
-        <div class="flex justify-between relative mt-4 z-10">
-            <div class="grid justify-items-start">
-                <img src="{{ asset('logo-user-white.png') }}" alt="site logo" style="width: 100px; height: 55px">
-            </div>
-            <div class="text-end">
-                <div class="text-[15px] text-white font-bold" id="clock"></div>
-                <div class="text-[13px] text-white" id="hijri-date"></div>
-            </div>
-        </div>
-
-        <div
-            class="max-w-xl mx-auto mt-7 bg-white/40 backdrop-blur-lg shadow-lg rounded-xl overflow-hidden z-10 relative">
-            <div class="!bg-[#DC7633] backdrop-blur-lg text-white text-center py-3 text-[15px] font-extrabold">
-                Masjid Agung UIN Alauddin Makassar
-                <div class="my-2 text-center text-[15px] font-bold">
-                    Waktu Sholat Berikutnya: <span id="nextPrayer">--</span>
-                </div>
-            </div>
-            <div class="grid grid-cols-5 gap-2 p-2 text-center">
-                <div class="bg-green-100 text-green-900 rounded-lg shadow p-2">
-                    <div class="text-xs font-semibold">Subuh</div>
-                    <div id="subuh" class="text-sm font-bold">--:--</div>
-                </div>
-                <div class="bg-yellow-100 text-yellow-900 rounded-lg shadow p-2">
-                    <div class="text-xs font-semibold">Dzuhur</div>
-                    <div id="dzuhur" class="text-sm font-bold">--:--</div>
-                </div>
-                <div class="bg-blue-100 text-blue-900 rounded-lg shadow p-2">
-                    <div class="text-xs font-semibold">Ashar</div>
-                    <div id="ashar" class="text-sm font-bold">--:--</div>
-                </div>
-                <div class="bg-orange-100 text-orange-900 rounded-lg shadow p-2">
-                    <div class="text-xs font-semibold">Maghrib</div>
-                    <div id="maghrib" class="text-sm font-bold">--:--</div>
-                </div>
-                <div class="bg-purple-100 text-purple-900 rounded-lg shadow p-2">
-                    <div class="text-xs font-semibold">Isya</div>
-                    <div id="isya" class="text-sm font-bold">--:--</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="overflow-x-auto no-scrollbar relative z-10">
-
-            <div class="overflow-hidden bg-white shadow rounded-lg mt-6">
-                <div class="px-4 py-5">
-                    <h3 class="text-lg font-medium leading-6 text-gray-900">Jadwal Juma'at
-                        {{ $jadwalJumat ? $jadwalJumat->tanggal : 'Belum Ada Jadwal' }}</h3>
-                    @if ($jadwalJumat)
-                        <div class="flex items-start gap-2 mt-4">
-                            <img src="{{ asset('/public/banner/' . $jadwalJumat->banner) }}" alt="Logo Masjid"
-                                class="object-contain rounded" style="height: 110px">
-                            <table class="text-sm text-gray-700">
-                                <tr>
-                                    <td class="text-[13px] font-semibold">Tema Khutbah</td>
-                                    <td class="px-1">:</td>
-                                    <td class="text-[13px]">{{ $jadwalJumat->tema_khutbah }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-[13px] font-semibold">Khatib</td>
-                                    <td class="px-1">:</td>
-                                    <td class="text-[13px]">{{ $jadwalJumat->nama_khatib }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-[13px] font-semibold">Imam</td>
-                                    <td class="px-1">:</td>
-                                    <td class="text-[13px]">{{ $jadwalJumat->nama_imam }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-[13px] font-semibold">Muadzim</td>
-                                    <td class="px-1">:</td>
-                                    <td class="text-[13px]">{{ $jadwalJumat->nama_muadzin }}</td>
-                                </tr>
-                            </table>
+                                        <!-- Tombol opsional -->
+                                        <!-- <a href="#" class="btn btn-warning mt-2 fw-bold px-4">Lihat Detail</a> -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    @endif
+                    </div>
+                    <div class="featured-item"
+                        style="background-image: url({{ asset('assets-landing/images/resources/slide2.jpg') }});">
+                        <div class="featured-cap">
+                            <img src="{{ asset('assets-landing/images/resources/bsml-txt.png') }}" alt="bsml-txt2.png">
+                            <h1><img src="{{ asset('assets-landing/images/resources/ayat-txt.png') }}" alt="ayat-txt2.png">
+                            </h1>
+                            <img class = "before-imge" src="{{ asset('assets-landing/images/pshape.png') }}"
+                                alt="">
+                            <h3>Dia meninggikan langit dan mengatur keseimbangan</h3>
+                            <span>(Surat Ar-Rahman Ayat 7)</span>
+                            <div class="d-flex justify-content-center">
+                                <div class="d-flex justify-content-center align-items-center mt-4 theme-bg rounded pt-3 px-3"
+                                    style="gap:10px; text-align: -webkit-center; width: max-content">
+                                    <!-- Gambar Banner -->
+                                    <div>
+                                        <img src="{{ asset('/public/banner/' . $jadwalJumat->banner) }}"
+                                            alt="Banner Jadwal Jumat" class="rounded shadow-sm"
+                                            style="max-height: 150px; object-fit: cover; width: fit-content;">
+                                    </div>
+
+                                    <!-- Konten Teks -->
+                                    <div>
+                                        <h6 class="fw-bold text-white">Jadwal Jumat
+                                            {{ $jadwalJumat ? $jadwalJumat->tanggal : 'Belum Ada Jadwal' }}</h6>
+
+                                        <table class="table table-sm text-white">
+                                            <tbody>
+                                                <tr>
+                                                    <th>Tema Khutbah</th>
+                                                    <td class="px-2">:</td>
+                                                    <td>{{ $jadwalJumat->tema_khutbah }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Khatib</th>
+                                                    <td class="px-2">:</td>
+                                                    <td>{{ $jadwalJumat->nama_khatib }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Imam</th>
+                                                    <td class="px-2">:</td>
+                                                    <td>{{ $jadwalJumat->nama_imam }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Muadzin</th>
+                                                    <td class="px-2">:</td>
+                                                    <td>{{ $jadwalJumat->nama_muadzin }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <!-- Tombol opsional -->
+                                        <!-- <a href="#" class="btn btn-warning mt-2 fw-bold px-4">Lihat Detail</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- Featured Area Wrap -->
+        </div>
+    </section><!-- Slider Area -->
+
+    <section>
+        <div class="gap">
+            <div class="container">
+                <div class="abt-sec-wrp style2">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-lg-6">
+                            <div class="abt-vdo style2 brd-rd5">
+                                <img src="{{ asset('backround.png') }}" alt="abt-img2.jpg" itemprop="image">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-lg-6">
+                            <div class="abt-desc">
+                                <div class="sec-tl">
+                                    <span class="theme-clr">Sejarah</span>
+                                    <h2 itemprop="headline">Masjid Sultang Agung</h2>
+                                    <img src="{{ asset('assets-landing/images/pshape.png') }}" alt="">
+                                </div>
+                                <p itemprop="description">{!! \Illuminate\Support\Str::words(strip_tags($sejarah->isi), 50, '...') !!}</p>
+                                <a class="theme-btn theme-bg brd-rd5" href="{{ route('about') }}" title=""
+                                    itemprop="url">Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- About Sec Wrap -->
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="gap white-layer opc7">
+            <div class="fixed-bg" style="background-image: url(assets/images/parallax1.jpg);"></div>
+            <div class="container">
+                <div class="sec-tl">
+                    <span class="theme-clr">Pilih Negara & Kota Untuk</span>
+                    <h2 itemprop="headline">Waktu Sholat</h2>
+                    <img src="assets/images/pshape.png" alt="">
+                </div>
+                <div class="prayer-timing-wrp">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 col-lg-5">
+                            <div class="timing-mockp"><img
+                                    src="{{ asset('assets-landing/images/resources/prayer-time-mockp.png') }}"
+                                    alt="prayer-time-mockp.png" itemprop="image"></div>
+                        </div>
+                        <div class="col-md-7 col-sm-12 col-lg-7">
+                            <div class="timing-data">
+                                <div class="cntry-selc">
+                                    <div class="selec-wrp brd-rd5">
+                                        <select id="comboA" onchange="get_azan_time()">
+                                            <option value="Indonesia">Indonesia</option>
+                                        </select>
+                                    </div>
+                                    <div class="selec-wrp brd-rd5">
+                                        <select id="comboB" onchange="get_azan_time()">
+                                            <option value="Makassar">Makassar</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id ="result-update"></div>
+                                <div class="prayer-timings text-center">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th><span>Nama Sholat</span><img
+                                                        src="{{ asset('assets-landing/images/pshape.png') }}"
+                                                        alt=""></th>
+                                                <th><span>Waktu Azan</span><img
+                                                        src="{{ asset('assets-landing/images/pshape.png') }}"
+                                                        alt=""></th>
+                                                <th><span>Waktu Sholat</span><img
+                                                        src="{{ asset('assets-landing/images/pshape.png') }}"
+                                                        alt=""></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class = "">
+                                                <td><span>Fajar</span></td>
+                                                <td class ="fajr-azan-time">--:--</td>
+                                                <td class ="fajr-azan-prayer">--:--</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span>Subuh</span></td>
+                                                <td class ="sunrise-azan-time">--:--</td>
+                                                <td class ="sunrise-azan-prayer">--:--</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span>Dzuhur</span></td>
+                                                <td class ="zohar-azan-time">--:--</td>
+                                                <td class ="zohar-azan-prayer">--:--</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span>Asar</span></td>
+                                                <td class ="asr-azan-time">--:--</td>
+                                                <td class ="asr-azan-prayer">--:--</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span>Maghrib</span></td>
+                                                <td class ="maghrib-azan-time">--:--</td>
+                                                <td class ="maghrib-azan-prayer">--:--</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span>Isha</span></td>
+                                                <td class ="isha-azan-time">--:--</td>
+                                                <td class ="isha-azan-prayer">--:--</td>
+                                            </tr>
+                                            {{-- <tr>
+                                                <td><span>SunSet</span></td>
+                                                <td class ="juma-azan-time">--:--</td>
+                                                <td class ="juma-azan-prayer">--:--</td>
+                                            </tr> --}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- Prayer Timing Wrap -->
+            </div>
+        </div>
+    </section>
+    {{-- <section>
+        <div class="gap white-layer opc7">
+            <img class = "vector-bg-service" src="{{ asset('assets-landing/images/bg-vector-3.png') }}" alt="vector-bg"
+                itemprop="image">
+            <div class="container">
+                <div class="sec-tl text-center">
+                    <span class="theme-clr">Jadwal Juma'at</span>
+                    <h2 itemprop="headline">Petugas Jumat</h2>
+                    <img src="assets/images/pshape.png" alt="">
+                </div>
+                <div class="serv-wrp remove-ext3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="serv-bx text-center">
+                                <i class="flaticon-mosque theme-clr"></i>
+                                <h5 itemprop="headline"><a href="service-detail.html" title=""
+                                        itemprop="url">Mosque Development</a></h5>
+                                <div class="srv-inf theme-bg brd-rd10">
+                                    <p itemprop="description">Renovation of mosques sit amet, consectetur elit, sed
+                                        do eiusmod tempor incididunt</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- Services Wrap -->
+            </div>
+        </div>
+    </section> --}}
+
+    <section>
+        <div class="gap black-layer opc8">
+            <div class="fixed-bg" style="background-image: url({{ asset('assets-landing/images/parallax2.jpg') }});">
+            </div>
+            <div class="container">
+                <div class="sec-tl text-center">
+                    <span class="theme-clr">Tentang Islam</span>
+                    <h2 itemprop="headline">Rukun Islam</h2>
+                    <img src="{{ asset('assets-landing/images/pshape.png') }}" alt="">
+                </div>
+                <div class="remove-ext3">
+                    <ul class="plrs-wrp text-center">
+                        <li>
+                            <div class="plr-bx">
+                                <i class="flaticon-clicker brd-rd50"></i>
+                                <h5 itemprop="headline">Syahadat</h5>
+                                <span class="theme-clr">(Keyakinan)</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="plr-bx">
+                                <i class="flaticon-muslim-man-praying brd-rd50"></i>
+                                <h5 itemprop="headline">Sholat</h5>
+                                <span class="theme-clr">(Doa)</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="plr-bx">
+                                <i class="flaticon-islamic-ramadan brd-rd50"></i>
+                                <h5 itemprop="headline">Puasa</h5>
+                                <span class="theme-clr">(Menahan Dahaga dan Hawa Nafsu)</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="plr-bx">
+                                <i class="flaticon-money brd-rd50"></i>
+                                <h5 itemprop="headline">Zakat</h5>
+                                <span class="theme-clr">(sedekah)</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="plr-bx">
+                                <i class="flaticon-kaaba-building brd-rd50"></i>
+                                <h5 itemprop="headline">Haji</h5>
+                                <span class="theme-clr">(Ziarah)</span>
+                            </div>
+                        </li>
+                    </ul><!-- Pillars Wrap -->
                 </div>
             </div>
-
-            <div class="overflow-hidden mt-6">
-                <div class="flex justify-between items-center">
-                    <h3 class="!text-[18px] font-bold leading-6 text-gray-900">Donasi Masjid</h3>
-                    <a href="{{ route('donasi-campaign-user') }}"
-                        class="text-xs !text-[#DC7633] hover:!text-green-900 font-semibold">Lihat
-                        Semua</a>
+        </div>
+    </section>
+    <section>
+        <div class="gap">
+            <div class="container">
+                <div class="sec-tl text-center">
+                    <span class="theme-clr">Terbaru & Terupdate</span>
+                    <h2 itemprop="headline">Donasi & Kegiatan</h2>
+                    <img src="assets/images/pshape.png" alt="">
                 </div>
-                <div class="grid grid-cols-2 gap-2 mt-2">
-                    @forelse ($donasis as $donasi)
-                        <a href="{{ route('detail-donasi-campaign', ['params' => $donasi->uuid]) }}" id="donasi-card"
-                            class="bg-white shadow rounded-lg hover:!shadow-lg hover:!text-green-900 transition-shadow duration-200">
-                            <img src="{{ asset('/public/campaign/' . $donasi->gambar) }}" alt="Banner Donasi"
-                                class="w-full !h-[150px] block rounded-t-lg" loading="lazy">
-                            <div class="p-2">
-                                <h4 class="text-sm font-semibold">{{ $donasi->judul }}</h4>
-                                <div class="mt-2 text-gray-800 text-xs sm:text-sm">
-                                    <div class="grid grid-cols-2 gap-2 border-b !py-[5px]">
-                                        <div class="font-medium">🎯 Target Dana</div>
-                                        <div class="text-right font-bold text-green-700">
-                                            Rp {{ number_format($donasi->target_dana, 0, ',', '.') }}
-                                        </div>
+                <div class="remove-ext3">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-12 col-lg-7">
+                            @forelse ($donasis as $dn)
+                                <div class="post-bx lst brd-rd5">
+                                    <div class="post-thmb">
+                                        <a href="{{ route('detail-donasi-campaign', ['params' => $dn->uuid]) }}"
+                                            title="" itemprop="url">
+                                            <img src="{{ asset('/public/campaign/' . $dn->gambar) }}"
+                                                alt="post-img1-1.jpg" itemprop="image" class="img-fit-container">
+                                        </a>
                                     </div>
-                                    <div class="grid grid-cols-2 gap-2 border-b !py-[5px]">
-                                        <div class="font-medium">💰 Terkumpul</div>
-                                        <div class="text-right font-bold text-blue-700">
-                                            Rp {{ number_format($donasi->total_donasi, 0, ',', '.') }}
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-2 border-b !py-[5px]">
-                                        <div class="font-medium">⏳ Sisa Waktu</div>
+                                    <div class="post-inf">
+                                        <h5 itemprop="headline"><a
+                                                href="{{ route('detail-donasi-campaign', ['params' => $dn->uuid]) }}"
+                                                title=""
+                                                itemprop="url">{{ \Illuminate\Support\Str::limit(strip_tags($dn->judul), 25, '...') }}</a>
+                                        </h5>
                                         @php
                                             $sisaHari = \Carbon\Carbon::now()->diffInDays(
-                                                \Carbon\Carbon::parse($donasi->tanggal_selesai),
+                                                \Carbon\Carbon::parse($dn->tanggal_selesai),
                                                 false,
                                             );
                                         @endphp
-                                        <div
-                                            class="text-right font-bold {{ $sisaHari > 0 ? 'text-yellow-600' : 'text-red-600' }}">
-                                            {{ $sisaHari > 0 ? "Tinggal $sisaHari hari lagi" : 'Berakhir' }}
-                                        </div>
+                                        <ul class="pst-mta">
+                                            <li>🎯 Target Dana Rp {{ number_format($dn->target_dana, 0, ',', '.') }}</li>
+                                            <li>💰 Terkumpul Rp {{ number_format($dn->total_donasi, 0, ',', '.') }}</li>
+                                            <li>⏳ Sisa Waktu
+                                                {{ $sisaHari > 0 ? "Tinggal $sisaHari hari lagi" : 'Berakhir' }}</li>
+                                        </ul>
+                                        <p itemprop="description">{!! \Illuminate\Support\Str::limit(strip_tags($dn->deskripsi), 40, '...') !!}
+                                        </p>
+                                        <a href="{{ route('detail-donasi-campaign', ['params' => $dn->uuid]) }}"
+                                            title="" itemprop="url">Lihat Detail</a>
                                     </div>
                                 </div>
-
-                            </div>
-                        </a>
-                    @empty
-                        {{-- Tampilkan pesan jika kosong --}}
-                        <p class="text-center text-gray-500 col-span-2">Tidak ada donasi tersedia saat ini.</p>
-                    @endforelse
-
-                </div>
-            </div>
-
-            <div class="overflow-hidden mt-6">
-                <div class="flex justify-between items-center">
-                    <h3 class="!text-[18px] font-bold leading-6 text-gray-900">Kegiatan Masjid</h3>
-                </div>
-                {{-- Hapus class grid dan col-span --}}
-                <div class="kegiatan-carousel mt-2">
-                    @forelse ($kegiatans as $kegiatan)
-                        <div class="px-1">
-                            <a href="{{ route('detail-kegiatan', ['params' => $kegiatan->uuid]) }}"
-                                class="bg-white shadow rounded-lg hover:!shadow-lg hover:!text-green-900 transition-shadow duration-200 block">
-                                <img src="{{ asset('/public/kegiatan/' . $kegiatan->banner) }}" alt="Banner Kegiatan"
-                                    class="w-full !h-[150px] block rounded-t-lg" loading="lazy">
-                                <div class="p-2">
-                                    <div class="text-sm font-semibold truncate">{{ $kegiatan->nama_kegiatan }}</div>
-                                    <div class="text-xs text-gray-500 mt-2">
-                                        {{ Carbon::parse($kegiatan->tanggal)->translatedFormat('l, d F Y') }}
-                                        {{ Carbon::parse($kegiatan->waktu)->format('H:i') }}
+                            @empty
+                                <div class="col-12">
+                                    <div class="alert alert-warning text-center">
+                                        <strong>Perhatian!</strong> Data donasi belum tersedia.
                                     </div>
-                                    <div class="text-xs text-gray-500 flex items-center gap-1 mb-1">
-                                        <iconify-icon class="text-red-500" icon="codicon:location"></iconify-icon>
-                                        {{ $kegiatan->tempat }}
-                                    </div>
-                                    <p class="text-xs">
-                                        {{ Str::words(strip_tags($kegiatan->deskripsi), 20, '...') }}
-                                    </p>
                                 </div>
-                            </a>
+                            @endforelse
                         </div>
-                    @empty
-                        <p class="text-center text-gray-500">Tidak ada kegiatan tersedia saat ini.</p>
-                    @endforelse
+                        <div class="col-md-5 col-sm-12 col-lg-5">
+                            @forelse ($kegiatans as $kg)
+                                <div class="event-bx brd-rd5"
+                                    style="background-image: url({{ asset('/public/kegiatan/' . $kg->banner) }});">
+                                    <span class="theme-clr">{{ Carbon::parse($kg->tanggal)->translatedFormat('d') }}
+                                        <i>{{ Carbon::parse($kg->tanggal)->translatedFormat('F') }}</i></span>
+                                    <h5 itemprop="headline"><a
+                                            href="{{ route('detail-kegiatan', ['params' => $kg->uuid]) }}" title=""
+                                            itemprop="url">{{ \Illuminate\Support\Str::limit(strip_tags($kg->nama_kegiatan), 33, '...') }}</a>
+                                    </h5>
+                                    <ul class="pst-mta">
+                                        <li><i class="fas fa-map-marker-alt theme-clr"></i> {{ $kg->tempat }}</li>
+                                        <li><i class="far fa-clock theme-clr"></i>
+                                            {{ Carbon::parse($kg->waktu)->format('H:i') }} - Selesai</li>
+                                    </ul>
+                                    <a href="{{ route('detail-kegiatan', ['params' => $kg->uuid]) }}" title=""
+                                        itemprop="url">Lihat Detail</a>
+                                </div>
+                            @empty
+                                <div class="col-12">
+                                    <div class="alert alert-warning text-center">
+                                        <strong>Perhatian!</strong> Data kegiatan belum tersedia.
+                                    </div>
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="overflow-hidden mt-6">
-                <div class="flex justify-center items-center">
-                    <h3 class="!text-[22px] font-bold leading-6 text-gray-900">Donatur Tetap</h3>
+        </div>
+    </section>
+    <section>
+        <div class="gap">
+            <div class="container">
+                <div class="sec-tl text-center">
+                    <span class="theme-clr">Donatur Tetap</span>
+                    <h2 itemprop="headline">Nama Yang Menjadi Donatur</h2>
+                    <img src="{{ asset('assets-landing/images/pshape.png') }}" alt="">
                 </div>
-                <!-- Tabel Full Width -->
-                <div id="card-overflow" class="overflow-x-auto mt-3">
-                    <table
-                        class="min-w-full table-fixed text-sm text-left text-gray-700 border border-gray-200 rounded-lg">
-                        <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
+                <div class="team-sec remove-ext7">
+                    @php
+                        $totalSaldo = $donaturTetaps->sum('total_donasi');
+                    @endphp
+
+                    <table class="table table-bordered table-sm text-left">
+                        <thead class="thead-light text-uppercase text-xs">
                             <tr>
-                                <th class="px-4 py-2 border-b w-1/2">Nama</th>
-                                <th class="px-4 py-2 border-b w-1/2">Nominal</th>
-                                <th class="px-4 py-2 border-b w-1/2">Frekuensi</th>
-                                <th class="px-4 py-2 border-b w-1/2">Total</th>
+                                <th scope="col" class="w-25">Nama</th>
+                                <th scope="col" class="w-25">Nominal</th>
+                                <th scope="col" class="w-25">Frekuensi</th>
+                                <th scope="col" class="w-25">Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($donaturTetaps as $donaturTetap)
                                 <tr class="bg-white">
-                                    <td class="px-4 py-2">{{ $donaturTetap->nama }}</td>
-                                    <td class="px-4 py-2">
-                                        {{ $donaturTetap->nominal }}
-                                    </td>
-                                    <td class="px-4 py-2">{{ $donaturTetap->frekuensi }}</td>
-                                    <td class="px-4 py-2">Rp
-                                        {{ number_format($donaturTetap->total_donasi, 0, ',', '.') }}</td>
+                                    <td>{{ $donaturTetap->nama }}</td>
+                                    <td>{{ $donaturTetap->nominal }}</td>
+                                    <td>{{ $donaturTetap->frekuensi }}</td>
+                                    <td>Rp {{ number_format($donaturTetap->total_donasi, 0, ',', '.') }}</td>
                                 </tr>
                             @empty
-                                <td class="px-4 py-2 text-gray-500 font-bold text-center" colspan="4">Tidak ada
-                                    data
-                                </td>
+                                <tr>
+                                    <td class="text-center font-weight-bold text-muted" colspan="4">Tidak ada data</td>
+                                </tr>
                             @endforelse
                         </tbody>
+                        @if ($donaturTetaps->count())
+                            <tfoot>
+                                <tr class="bg-light font-weight-bold">
+                                    <td colspan="3" class="text-right">Total Saldo</td>
+                                    <td>Rp {{ number_format($totalSaldo, 0, ',', '.') }}</td>
+                                </tr>
+                            </tfoot>
+                        @endif
                     </table>
-                </div>
+
+                </div><!-- Team Sec -->
             </div>
-
-            @include('user.layouts._footer')
-
-            @include('user.layouts._sidebar')
         </div>
-    </div>
-</div>
-
-@include('user.partial-html._template-bottom')
-
-<!-- Moment dan Moment Hijri -->
-<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment-hijri@2.1.2/moment-hijri.min.js"></script>
-
-<script>
-    // Atur locale Indonesia
-    moment.locale('id');
-
-    const hijriMonths = [
-        'Muharram', 'Safar', 'Rabiul Awal', 'Rabiul Akhir',
-        'Jumadil Awal', 'Jumadil Akhir', 'Rajab', 'Syaban',
-        'Ramadhan', 'Syawal', 'Zulkaidah', 'Zulhijjah'
-    ];
-
-    function updateClock() {
-        const now = moment();
-
-        // Format waktu
-        const timeString = now.format("HH:mm:ss");
-
-        // Tanggal Masehi (Indonesia)
-        const dateString = now.format("dddd, D MMMM YYYY");
-
-        // Tanggal Hijriah manual pakai array
-        const hijriDate = now.clone().locale('en').format("iD-iM-iYYYY").split("-");
-        const hijriFormatted = `${hijriDate[0]} ${hijriMonths[parseInt(hijriDate[1]) - 1]} ${hijriDate[2]} H`;
-
-        // Tampilkan
-        document.getElementById("clock").innerHTML = timeString;
-        document.getElementById("hijri-date").innerHTML = hijriFormatted;
-    }
-
-    updateClock();
-    setInterval(updateClock, 1000);
-
-    async function loadJadwalSholat() {
-        const response = await fetch(
-            "https://api.aladhan.com/v1/timingsByCity?city=Makassar&country=Indonesia&method=2");
-        const result = await response.json();
-        const jadwal = result.data.timings;
-
-        // Set waktu sholat ke HTML
-        document.getElementById("subuh").innerText = jadwal.Fajr;
-        document.getElementById("dzuhur").innerText = jadwal.Dhuhr;
-        document.getElementById("ashar").innerText = jadwal.Asr;
-        document.getElementById("maghrib").innerText = jadwal.Maghrib;
-        document.getElementById("isya").innerText = jadwal.Isha;
-
-        // Simpan waktu ke dalam objek
-        const prayerTimes = {
-            Subuh: jadwal.Fajr,
-            Dzuhur: jadwal.Dhuhr,
-            Ashar: jadwal.Asr,
-            Maghrib: jadwal.Maghrib,
-            Isya: jadwal.Isha
-        };
-
-        function getNextPrayer() {
-            const now = new Date();
-            const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-            let nearestName = "Subuh (besok)";
-            let nearestTime = 24 * 60 + 1; // waktu besar untuk perbandingan default
-
-            for (const [name, timeStr] of Object.entries(prayerTimes)) {
-                const [hour, minute] = timeStr.split(":").map(Number);
-                const prayerMinutes = hour * 60 + minute;
-                if (prayerMinutes > currentMinutes && prayerMinutes < nearestTime) {
-                    nearestTime = prayerMinutes;
-                    nearestName = name;
-                }
-            }
-
-            document.getElementById("nextPrayer").innerText = nearestName;
-        }
-
-        // Jalankan dan perbarui tiap menit
-        getNextPrayer();
-        setInterval(getNextPrayer, 60000);
-    }
-
-    loadJadwalSholat();
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('.kegiatan-carousel').slick({
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            arrows: false,
-            dots: false,
-            infinite: true,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            responsive: [{
-                // breakpoint: 768,
-                settings: {
-                    slidesToShow: 1
-                }
-            }]
-        });
-    });
-</script>
-
-
-{{-- <script>
-    $(document).ready(function() {
-        // Event saat file dipilih
-        $(document).on('change', '#input-foto', function(e) {
-            e.preventDefault();
-
-            var file = this.files[0]; // Ambil file yang dipilih
-            var formData = new FormData(); // Buat objek FormData
-            formData.append('foto', file);
-
-            var uuid = $(this).closest('label').attr('data-uuid');
-
-            // Tampilkan pesan loading (opsional)
-            Swal.fire({
-                title: 'Mengunggah...',
-                text: 'Mohon tunggu.',
-                icon: 'info',
-                showConfirmButton: false,
-                allowOutsideClick: false,
-            });
-
-            const route = "{{ route('user.upload-bukti', ['uuid' => ':uuid']) }}".replace(
-                ":uuid",
-                uuid
-            );
-
-            // Kirim AJAX
-            $.ajax({
-                url: route,
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                success: function(response) {
-                    if (response.success) {
-                        Swal.fire({
-                            text: "Data Sedang Di Proses",
-                            icon: "success",
-                            showConfirmButton: false,
-                            timer: 1500,
-                        }).then(() => {
-                            window.location.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            title: response.message,
-                            text: response.data,
-                            icon: "warning",
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
-                    }
-                },
-                error: function(xhr) {
-                    Swal.fire({
-                        title: 'Gagal',
-                        text: xhr.responseJSON.message || 'Terjadi kesalahan.',
-                        icon: 'error',
-                        showConfirmButton: true,
-                    });
-                },
-            });
-        });
-    });
-</script> --}}
-
-</body>
-
-</html>
+    </section>
+@endsection

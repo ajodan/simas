@@ -198,12 +198,12 @@
             e.preventDefault();
             let type = $(this).attr('data-type');
             if (type == 'add') {
-                control.submitFormMultipartData('/admin/jadwal-jumat-add', 'Tambah',
+                control.submitFormMultipartData('/admin/kegiatan/jadwal-jumat-add', 'Tambah',
                     'Jadwal Jumat',
                     'POST');
             } else {
                 let uuid = $("input[name='uuid']").val();
-                control.submitFormMultipartData('/admin/jadwal-jumat-update/' + uuid,
+                control.submitFormMultipartData('/admin/kegiatan/jadwal-jumat-update/' + uuid,
                     'Update',
                     'Jadwal Jumat', 'POST');
             }
@@ -213,7 +213,7 @@
             e.preventDefault();
             $(".title_side_form").html(`Update Jadwal Jumat`);
             $(".text-danger").html("");
-            let url = '/admin/jadwal-jumat-show/' + $(this).attr('data-uuid');
+            let url = '/admin/kegiatan/jadwal-jumat-show/' + $(this).attr('data-uuid');
             $.ajax({
                 url: url,
                 method: "GET",
@@ -255,7 +255,7 @@
 
         $(document).on('click', '.button-delete', function(e) {
             e.preventDefault();
-            let url = '/admin/jadwal-jumat-delete/' + $(this).attr('data-uuid');
+            let url = '/admin/kegiatan/jadwal-jumat-delete/' + $(this).attr('data-uuid');
             let label = $(this).attr('data-label');
             control.ajaxDelete(url, label)
         })
@@ -279,7 +279,7 @@
                     [0, 'asc']
                 ],
                 processing: true,
-                ajax: '/admin/jadwal-jumat-get',
+                ajax: '/admin/kegiatan/jadwal-jumat-get',
                 columns: [{
                     data: null,
                     render: function(data, type, row, meta) {

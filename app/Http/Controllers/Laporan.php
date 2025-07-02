@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CampaignDonasi;
 use App\Models\DonasiCampaign;
 use App\Models\DonasiDonaturTetap;
+use App\Models\DonasiManual;
 use App\Models\DonaturTetap;
 use App\Models\Realisasi;
 use Illuminate\Http\Request;
@@ -72,11 +73,26 @@ class Laporan extends BaseController
                 ];
             });
 
+        $donasiManual = DonasiManual::get()
+            ->filter(function ($item) use ($startDate, $endDate) {
+                $tanggal = \Carbon\Carbon::createFromFormat('d-m-Y', $item->tanggal);
+                return $tanggal->between($startDate, $endDate);
+            })
+            ->map(function ($item) {
+                return (object)[
+                    'tanggal' => \Carbon\Carbon::createFromFormat('d-m-Y', $item->tanggal)->format('Y-m-d'),
+                    'deskripsi' => 'Donasi ' . $item->jenis_donasi . ' dari ' . $item->nama_donatur,
+                    'pemasukan' => $item->jumlah,
+                    'pengeluaran' => 0
+                ];
+            });
+
         // Gabungkan semua data
         $merged = collect()
             ->merge($donasiCampaigns)
             ->merge($donasiDonaturTetaps)
             ->merge($realisasi)
+            ->merge($donasiManual)
             ->sortBy('tanggal')
             ->values();
 
@@ -121,7 +137,6 @@ class Laporan extends BaseController
                 ];
             });
 
-        // Ambil dan mapping Realisasi
         $realisasi = Realisasi::get()
             ->filter(function ($item) use ($startDate, $endDate) {
                 $tanggal = \Carbon\Carbon::createFromFormat('d-m-Y', $item->tanggal_realisasi);
@@ -136,11 +151,26 @@ class Laporan extends BaseController
                 ];
             });
 
+        $donasiManual = DonasiManual::get()
+            ->filter(function ($item) use ($startDate, $endDate) {
+                $tanggal = \Carbon\Carbon::createFromFormat('d-m-Y', $item->tanggal);
+                return $tanggal->between($startDate, $endDate);
+            })
+            ->map(function ($item) {
+                return (object)[
+                    'tanggal' => \Carbon\Carbon::createFromFormat('d-m-Y', $item->tanggal_realisasi)->format('Y-m-d'),
+                    'deskripsi' => 'Donasi ' . $item->jenis_donasi . ' dari ' . $item->nama_donatur,
+                    'pemasukan' => $item->jumlah,
+                    'pengeluaran' => 0
+                ];
+            });
+
         // Gabungkan semua data
         $merged = collect()
             ->merge($donasiCampaigns)
             ->merge($donasiDonaturTetaps)
             ->merge($realisasi)
+            ->merge($donasiManual)
             ->sortBy('tanggal')
             ->values();
 

@@ -118,12 +118,17 @@ class CampaignDonasiController extends BaseController
     public function donasi_campaign_user()
     {
         $module = 'Campaign Donasi';
-        $data = CampaignDonasi::where('status', true)->latest()->get();
-        $data->each(function ($item) {
-            $donasiCampaigns = DonasiCampaign::where('uuid_campaign', $item->uuid)
+        $data = CampaignDonasi::where('status', true)
+            ->latest()
+            ->paginate(6);
+
+        $data->getCollection()->transform(function ($item) {
+            $totalDonasi = DonasiCampaign::where('uuid_campaign', $item->uuid)
                 ->where('status', 'approved')
-                ->get();
-            $item->total_donasi = $donasiCampaigns->sum('nominal_donasi');
+                ->sum('nominal_donasi');
+
+            $item->total_donasi = $totalDonasi;
+            return $item;
         });
         return view('user.campaigndonasi.index', compact('module', 'data'));
     }
@@ -134,11 +139,13 @@ class CampaignDonasiController extends BaseController
         if (!$data) {
             return redirect()->route('user.dashboard.user')->with('error', 'Campaign not found');
         }
-        $module = 'Detail Campaign Donasi';
+        $module = $data->judul;
 
         $dataPendonasis = DonasiCampaign::where('uuid_campaign', $data->uuid)->where('status', 'approved')->get();
         $totalDonasi = $dataPendonasis->sum('nominal_donasi');
-        return view('user.campaigndonasi.detail', compact('module', 'data', 'dataPendonasis', 'totalDonasi'));
+
+        $dataDonasiTerbaru = CampaignDonasi::latest()->take(4)->get();
+        return view('user.campaigndonasi.detail', compact('module', 'data', 'dataPendonasis', 'totalDonasi', 'dataDonasiTerbaru'));
     }
 
     public function donasi_campaign(StoreDonasiCampaignRequest $store)

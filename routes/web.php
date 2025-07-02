@@ -30,6 +30,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/about', 'Dashboard@about')->name('about');
 
+    Route::post('/pengajuan', 'PengajuanBarangController@store')->name('pengajuan');
+
+    Route::get('dokumentasi', 'DokumentasiController@dokumentasi')->name('dokumentasi');
+
     Route::get('/monitoring', 'Dashboard@monitorin')->name('monitoring');
 
     Route::group(['prefix' => 'login', 'middleware' => ['guest'], 'as' => 'login.'], function () {
@@ -48,6 +52,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::delete('/data-jamaah-delete/{params}', 'DataJamaahController@delete')->name('data-jamaah-delete');
 
         Route::prefix('data-donasi')->group(function () {
+            Route::get('/donasi-manual', 'DonasiManualController@index')->name('donasi-manual');
+            Route::get('/donasi-manual-get', 'DonasiManualController@get')->name('donasi-manual-get');
+            Route::post('/donasi-manual-add', 'DonasiManualController@add')->name('donasi-manual-add');
+            Route::get('/donasi-manual-show/{params}', 'DonasiManualController@show')->name('donasi-manual-show');
+            Route::post('/donasi-manual-update/{params}', 'DonasiManualController@update')->name('donasi-manual-update');
+            Route::delete('/donasi-manual-delete/{params}', 'DonasiManualController@delete')->name('donasi-manual-delete');
+
             Route::get('donatur-tetap', 'DonaturTetapController@index')->name('donatur-tetap');
             Route::get('donatur-tetap-get', 'DonaturTetapController@get')->name('donatur-tetap-get');
             Route::post('donatur-tetap-add', 'DonaturTetapController@add')->name('donatur-tetap-add');
@@ -69,32 +80,34 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('donasi-campaign-get/{params}', 'CampaignDonasiController@get_list_donasi_campaign')->name('donasi-campaign-get');
             Route::get('donasi-camaign-approve/{params}', 'CampaignDonasiController@aprove_donasi_campaign')->name('donasi-campaign-approve');
             Route::delete('donasi-campaign-delete/{params}', 'CampaignDonasiController@delete_donasi_campaign')->name('donasi-campaign-delete');
+
+            Route::get('/realisasi-dana', 'RealisasiController@index')->name('realisasi-dana');
+            Route::get('/realisasi-dana-get', 'RealisasiController@get')->name('realisasi-dana-get');
+            Route::post('/realisasi-dana-add', 'RealisasiController@add')->name('realisasi-dana-add');
+            Route::get('/realisasi-dana-show/{params}', 'RealisasiController@show')->name('realisasi-dana-show');
+            Route::post('/realisasi-dana-update/{params}', 'RealisasiController@update')->name('realisasi-dana-update');
+            Route::delete('/realisasi-dana-delete/{params}', 'RealisasiController@delete')->name('realisasi-dana-delete');
+
+            Route::get('/laporan', 'Laporan@index')->name('laporan');
+            Route::get('/laporan-get/{params}', 'Laporan@get')->name('laporan-get');
+            Route::get('/laporan-export/{params}', 'Laporan@export_to_excel')->name('laporan-export');
         });
 
-        Route::get('/jadwal-jumat', 'JadwalJumatController@index')->name('jadwal-jumat');
-        Route::get('/jadwal-jumat-get', 'JadwalJumatController@get')->name('jadwal-jumat-get');
-        Route::post('/jadwal-jumat-add', 'JadwalJumatController@add')->name('jadwal-jumat-add');
-        Route::get('/jadwal-jumat-show/{params}', 'JadwalJumatController@show')->name('jadwal-jumat-show');
-        Route::post('/jadwal-jumat-update/{params}', 'JadwalJumatController@update')->name('jadwal-jumat-update');
-        Route::delete('/jadwal-jumat-delete/{params}', 'JadwalJumatController@delete')->name('jadwal-jumat-delete');
+        Route::prefix('kegiatan')->group(function () {
+            Route::get('/jadwal-jumat', 'JadwalJumatController@index')->name('jadwal-jumat');
+            Route::get('/jadwal-jumat-get', 'JadwalJumatController@get')->name('jadwal-jumat-get');
+            Route::post('/jadwal-jumat-add', 'JadwalJumatController@add')->name('jadwal-jumat-add');
+            Route::get('/jadwal-jumat-show/{params}', 'JadwalJumatController@show')->name('jadwal-jumat-show');
+            Route::post('/jadwal-jumat-update/{params}', 'JadwalJumatController@update')->name('jadwal-jumat-update');
+            Route::delete('/jadwal-jumat-delete/{params}', 'JadwalJumatController@delete')->name('jadwal-jumat-delete');
 
-        Route::get('/kegiatan', 'KegiatanController@index')->name('kegiatan');
-        Route::get('/kegiatan-get', 'KegiatanController@get')->name('kegiatan-get');
-        Route::post('/kegiatan-add', 'KegiatanController@add')->name('kegiatan-add');
-        Route::get('/kegiatan-show/{params}', 'KegiatanController@show')->name('kegiatan-show');
-        Route::post('/kegiatan-update/{params}', 'KegiatanController@update')->name('kegiatan-update');
-        Route::delete('/kegiatan-delete/{params}', 'KegiatanController@delete')->name('kegiatan-delete');
-
-        Route::get('/realisasi-dana', 'RealisasiController@index')->name('realisasi-dana');
-        Route::get('/realisasi-dana-get', 'RealisasiController@get')->name('realisasi-dana-get');
-        Route::post('/realisasi-dana-add', 'RealisasiController@add')->name('realisasi-dana-add');
-        Route::get('/realisasi-dana-show/{params}', 'RealisasiController@show')->name('realisasi-dana-show');
-        Route::post('/realisasi-dana-update/{params}', 'RealisasiController@update')->name('realisasi-dana-update');
-        Route::delete('/realisasi-dana-delete/{params}', 'RealisasiController@delete')->name('realisasi-dana-delete');
-
-        Route::get('/laporan', 'Laporan@index')->name('laporan');
-        Route::get('/laporan-get/{params}', 'Laporan@get')->name('laporan-get');
-        Route::get('/laporan-export/{params}', 'Laporan@export_to_excel')->name('laporan-export');
+            Route::get('/kegiatan', 'KegiatanController@index')->name('kegiatan');
+            Route::get('/kegiatan-get', 'KegiatanController@get')->name('kegiatan-get');
+            Route::post('/kegiatan-add', 'KegiatanController@add')->name('kegiatan-add');
+            Route::get('/kegiatan-show/{params}', 'KegiatanController@show')->name('kegiatan-show');
+            Route::post('/kegiatan-update/{params}', 'KegiatanController@update')->name('kegiatan-update');
+            Route::delete('/kegiatan-delete/{params}', 'KegiatanController@delete')->name('kegiatan-delete');
+        });
 
         Route::get('/visimisi', 'VisiMisiController@index')->name('visimisi');
         Route::get('/visimisi-get', 'VisiMisiController@get')->name('visimisi-get');
@@ -111,6 +124,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::delete('/sejarah-delete/{params}', 'SejarahController@delete')->name('sejarah-delete');
 
         Route::get('/chart', 'Dashboard@areaChart')->name('chart');
+
+        Route::get('/dokumentasi', 'DokumentasiController@index')->name('dokumentasi');
+        Route::get('/dokumentasi-get', 'DokumentasiController@get')->name('dokumentasi-get');
+        Route::post('/dokumentasi-add', 'DokumentasiController@add')->name('dokumentasi-add');
+        Route::get('/dokumentasi-show/{params}', 'DokumentasiController@show')->name('dokumentasi-show');
+        Route::post('/dokumentasi-update/{params}', 'DokumentasiController@update')->name('dokumentasi-update');
+        Route::delete('/dokumentasi-delete/{params}', 'DokumentasiController@delete')->name('dokumentasi-delete');
+
+        Route::get('pengajuan', 'PengajuanBarangController@index')->name('pengajuan');
+        Route::get('pengajuan-get', 'PengajuanBarangController@get')->name('pengajuan-get');
+        Route::get('/pengajuan-show/{params}', 'PengajuanBarangController@show')->name('pengajuan-show');
+        Route::post('/pengajuan-update/{params}', 'PengajuanBarangController@update')->name('pengajuan-update');
+        Route::delete('/pengajuan-delete/{params}', 'PengajuanBarangController@delete')->name('pengajuan-delete');
     });
 
     Route::get('/logout', 'Auth@logout')->name('logout');
