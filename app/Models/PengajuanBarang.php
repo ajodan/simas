@@ -14,6 +14,7 @@ class PengajuanBarang extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'uuid',
+        'organisasi',
         'penanggung_jawab',
         'barang',
         'nomor',

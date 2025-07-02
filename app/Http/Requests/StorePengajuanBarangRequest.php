@@ -23,6 +23,7 @@ class StorePengajuanBarangRequest extends FormRequest
     {
         return [
             'penanggung_jawab' => 'required',
+            'organisasi' => 'required',
             'barang' => 'required',
             'nomor' => 'required',
             'surat' => 'required',
@@ -33,6 +34,7 @@ class StorePengajuanBarangRequest extends FormRequest
     {
         return [
             'penanggung_jawab.required' => 'Kolom penanggung jawab harus di isi.',
+            'organisasi.required' => 'Kolom organisasi/individu jawab harus di isi.',
             'barang.required' => 'Kolom barang harus di isi.',
             'nomor.required' => 'Kolom nomor harus di isi.',
             'surat.required' => 'Kolom surat harus di isi.',

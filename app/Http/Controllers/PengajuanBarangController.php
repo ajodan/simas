@@ -33,6 +33,7 @@ class PengajuanBarangController extends BaseController
         try {
             $data = new PengajuanBarang();
             $data->penanggung_jawab = $store->penanggung_jawab;
+            $data->organisasi = $store->organisasi;
             $data->barang = $store->barang;
             $data->nomor = $store->nomor;
             $data->surat = $newSurat;

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->string('penanggung_jawab');
+            $table->string('organisasi');
             $table->string('barang');
             $table->string('nomor');
             $table->string('surat');

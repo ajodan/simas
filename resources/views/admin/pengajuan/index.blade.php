@@ -14,6 +14,7 @@
                                     <thead class="text-center">
                                         <tr class="fw-bolder fs-6 text-gray-800">
                                             <th>No</th>
+                                            <th>Nama Organisasi/Individu</th>
                                             <th>Penanggung Jawab</th>
                                             <th>Nama Barang</th>
                                             <th>Nomor Whatsapp</th>
@@ -163,6 +164,9 @@
                     render: function(data, type, row, meta) {
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }
+                }, {
+                    data: 'organisasi',
+                    className: 'text-center',
                 }, {
                     data: 'penanggung_jawab',
                     className: 'text-center',

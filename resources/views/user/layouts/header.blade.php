@@ -48,6 +48,15 @@
                                     <div class="modal-body">
                                         <form id="form-submit">
                                             <div class="form-group">
+                                                <label for="organisasi">Nama Organisasi/Individu</label>
+                                                <input type="text" id="organisasi" name="organisasi"
+                                                    class="form-control"
+                                                    placeholder="Masukkan nama organisasi/individu">
+                                                <div class="text-danger organisasi_error small mt-1">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label for="penanggung-jawab">Penanggung Jawab</label>
                                                 <input type="text" id="penanggung-jawab" name="penanggung_jawab"
                                                     class="form-control" placeholder="Masukkan penanggung jawab">
@@ -56,9 +65,9 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="barang">Nama Barang</label>
+                                                <label for="barang">Nama Fasilitas</label>
                                                 <input type="text" id="barang" name="barang" class="form-control"
-                                                    placeholder="Masukkan nama barang">
+                                                    placeholder="Masukkan nama fasilitas">
                                                 <div class="text-danger barang_error small mt-1">
                                                 </div>
                                             </div>
