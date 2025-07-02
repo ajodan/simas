@@ -51,7 +51,7 @@
 
     </main><!-- Main Wrapper -->
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAuMXqxko3XzV4LngCe3QVhsy19ICKojM"></script>
+    {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAuMXqxko3XzV4LngCe3QVhsy19ICKojM"></script> --}}
     <script src="{{ asset('assets-landing/js/jquery.min.js') }}"></script>
     <script src="{{ asset('assets-landing/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets-landing/js/plugins.min.js') }}"></script>
