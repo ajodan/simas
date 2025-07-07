@@ -120,31 +120,95 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="bg-black/40 backdrop-blur-xl shadow-md rounded-2xl p-6 !border-s-4 !border-[#DC7633]">
-                            <p class="text-white italic !text-lg font-bold">“Tidak perlu menunggu mampu untuk beramal
-                                besar.
-                                Lakukan
-                                sekecil apa
-                                pun
-                                kebaikan, karena
-                                bisa jadi amal kecil itulah yang mengantarkanmu ke surga. Allah mencintai amal yang
-                                sedikit
-                                tapi dilakukan terus-menerus.”</p>
-                            <p class="!text-sm text-white">🕌 HR. Bukhari no. 6465 dan Muslim no. 782</p>
+                        <div class="overflow-hidden">
+                            <div class="kata-carousel">
+                                <div
+                                    class="bg-black/40 backdrop-blur-xl shadow-md rounded-2xl p-6 !border-s-4 !border-[#DC7633]">
+                                    <p class="text-white italic !text-lg font-bold">“Tidak perlu menunggu mampu untuk
+                                        beramal
+                                        besar.
+                                        Lakukan
+                                        sekecil apa
+                                        pun
+                                        kebaikan, karena
+                                        bisa jadi amal kecil itulah yang mengantarkanmu ke surga. Allah mencintai amal
+                                        yang
+                                        sedikit
+                                        tapi dilakukan terus-menerus.”</p>
+                                    <p class="!text-sm text-white">🕌 HR. Bukhari no. 6465 dan Muslim no. 782</p>
+                                </div>
+                                <div
+                                    class="bg-black/40 backdrop-blur-xl shadow-md rounded-2xl p-6 !border-s-4 !border-[#DC7633]">
+                                    <p class="text-white italic !text-lg font-bold">“Jangan menunggu sempurna untuk
+                                        mulai
+                                        berbuat baik.
+                                        Karena satu langkah kecil di jalan Allah,
+                                        lebih berarti daripada niat besar tanpa amal.
+                                        Teruslah berbuat kebaikan meski kecil,
+                                        karena Allah mencintai amal yang terus dilakukan.”</p>
+                                    <p class="!text-sm text-white">🕌 HR. Bukhari no. 6464 dan Muslim no. 783</p>
+                                </div>
+                                <div
+                                    class="bg-black/40 backdrop-blur-xl shadow-md rounded-2xl p-6 !border-s-4 !border-[#DC7633]">
+                                    <p class="text-white italic !text-lg font-bold">“Satu senyum, satu doa, atau satu
+                                        uluran
+                                        tangan,
+                                        bisa menjadi amal besar di sisi Allah.
+                                        Jangan remehkan kebaikan sekecil apapun,
+                                        karena bisa jadi itulah yang menyelamatkanmu.
+                                        Ikhlaskan niat, dan teruslah menebar kebaikan.”</p>
+                                    <p class="!text-sm text-white">🕌 HR. Muslim No. 2626</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="bg-[#DC7633]/60 backdrop-blur-xl shadow-md rounded-2xl p-6 pb-4">
                             <marquee behavior="scroll" direction="left" scrollamount="5"
                                 class="text-white italic font-semibold">
                                 @if ($jadwalJumat)
-                                    Yang membawakan khutbah jum'at tanggal {{ $jadwalJumat->tanggal }} oleh
-                                    {{ $jadwalJumat->nama_khatib }} dengan tema {{ $jadwalJumat->tema_khutbah }}. 🕌
+                                    Khutbah jum'at tanggal {{ $jadwalJumat->tanggal }} oleh
+                                    {{ $jadwalJumat->nama_khatib }} di Masjid Agung Sultan Alauddin. 🕌
                                     Harap
-                                    Matikan HP Saat Sholat
+                                    Matikan HP Saat Sholat 🕌
                                 @else
-                                    Tidak ada data
+                                    Tidak ada data 🕌
                                 @endif
                             </marquee>
+                        </div>
+
+                        <div class="overflow-hidden">
+                            <div class="kegiatan-carousel">
+                                @forelse ($kegiatans as $kegiatan)
+                                    <div
+                                        class="!flex items-center gap-4 bg-[#DC7633]/80 backdrop-blur-lg shadow-lg rounded-lg overflow-hidden p-2 w-full">
+                                        <img src="{{ asset('/public/kegiatan/' . $kegiatan->banner) }}"
+                                            alt="Banner Kegiatan"
+                                            class="!w-[150px] !h-[150px] object-cover rounded-xl" loading="lazy">
+
+                                        <div class="flex-1 text-left">
+                                            <h3 class="text-lg font-bold text-white mb-2">
+                                                {{ $kegiatan->nama_kegiatan }}
+                                            </h3>
+
+                                            <div class="flex gap-1 items-center text-md text-white mb-1">
+                                                <iconify-icon class="text-green-600 mr-1"
+                                                    icon="mdi:calendar-clock"></iconify-icon>
+                                                {{ Carbon::parse($kegiatan->tanggal)->translatedFormat('l, d F Y') }}
+                                                {{ $kegiatan->jam }}
+                                            </div>
+
+                                            <div class="flex gap-1 items-center text-md text-white">
+                                                <iconify-icon class="text-red-500 mr-1"
+                                                    icon="mdi:map-marker"></iconify-icon>
+                                                {{ $kegiatan->tempat }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <p class="text-center text-gray-500 text-xl font-semibold py-10">
+                                        Tidak ada kegiatan tersedia saat ini.
+                                    </p>
+                                @endforelse
+                            </div>
                         </div>
 
                     </div>
@@ -160,48 +224,77 @@
                                 </div>
                             </div>
 
-                            <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-2xl p-4 text-white text-center">
-                                <div class="grid place-items-center">
-                                    <div class="text-black text-[36px] font-bold"
-                                        style="font-family: 'Times New Roman', serif;">Kas Masjid Saat Ini</div>
-                                    <div class="text-[25px] font-bold">
-                                        Rp {{ number_format($kas, 0, ',', '.') }}</div>
+                            <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-2xl p-6 text-white">
+                                <div class="text-center">
+                                    <h3 class="text-2xl font-bold uppercase mb-1">LAPORAN KEUANGAN</h3>
+                                    <h4 class="text-lg font-semibold mb-4">MASJID AGUNG SULTAN ALAUDDIN</h4>
+                                    <h5 class="text-sm font-light">Periode: {{ $bulan }}
+                                        {{ $tahun }}</h5>
                                 </div>
                             </div>
 
                             <div class="overflow-hidden">
-                                <div class="kegiatan-carousel">
-                                    @forelse ($kegiatans as $kegiatan)
-                                        <div
-                                            class="!flex items-center gap-4 bg-[#DC7633]/80 backdrop-blur-lg shadow-lg rounded-lg overflow-hidden p-2 w-full">
-                                            <img src="{{ asset('/public/kegiatan/' . $kegiatan->banner) }}"
-                                                alt="Banner Kegiatan"
-                                                class="!w-[150] !h-[150px] object-cover rounded-xl" loading="lazy">
-
-                                            <div class="flex-1 text-left">
-                                                <h3 class="text-lg font-bold text-white mb-2">
-                                                    {{ $kegiatan->nama_kegiatan }}
-                                                </h3>
-
-                                                <div class="flex gap-1 items-center text-md text-white mb-1">
-                                                    <iconify-icon class="text-green-600 mr-1"
-                                                        icon="mdi:calendar-clock"></iconify-icon>
-                                                    {{ Carbon::parse($kegiatan->tanggal)->translatedFormat('l, d F Y') }}
-                                                    {{ Carbon::parse($kegiatan->waktu)->format('H:i') }}
-                                                </div>
-
-                                                <div class="flex gap-1 items-center text-md text-white">
-                                                    <iconify-icon class="text-red-500 mr-1"
-                                                        icon="mdi:map-marker"></iconify-icon>
-                                                    {{ $kegiatan->tempat }}
-                                                </div>
-                                            </div>
+                                <div class="laporan-carousel">
+                                    <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-2xl p-6 text-white">
+                                        <div class="text-center">
+                                            <h3 class="text-2xl font-bold uppercase mb-1 text-white">PEMASUKAN
+                                                ({{ $bulan }}
+                                                {{ $tahun }})</h3>
                                         </div>
-                                    @empty
-                                        <p class="text-center text-gray-500 text-xl font-semibold py-10">
-                                            Tidak ada kegiatan tersedia saat ini.
-                                        </p>
-                                    @endforelse
+
+                                        <ol class="list-decimal list-inside mb-3 px-6">
+                                            @forelse ($pemasukan as $item)
+                                                <li>{{ $item->deskripsi }} : <span class="font-semibold">Rp
+                                                        {{ number_format($item->jumlah, 0, ',', '.') }}</span></li>
+                                            @empty
+                                                <li>Tidak ada data pemasukan</li>
+                                            @endforelse
+                                        </ol>
+                                        <hr class="border-white/50 my-4">
+                                        <p class="font-semibold text-lg">TOTAL PEMASUKAN: Rp
+                                            {{ number_format($totalPemasukan, 0, ',', '.') }}</p>
+                                    </div>
+
+                                    <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-2xl p-6 text-white">
+                                        <div class="text-center">
+                                            <h3 class="text-2xl font-bold uppercase mb-1 text-white">PENGELUARAN
+                                                ({{ $bulan }}
+                                                {{ $tahun }})</h3>
+                                        </div>
+
+                                        <ol class="list-decimal list-inside px-6 mb-3">
+                                            @forelse ($pengeluaran as $item)
+                                                <li>{{ $item->deskripsi }} : <span class="font-semibold">Rp
+                                                        {{ number_format($item->jumlah, 0, ',', '.') }}</span></li>
+                                            @empty
+                                                <li>Tidak ada data pengeluaran</li>
+                                            @endforelse
+                                        </ol>
+                                        <hr class="border-white/50 my-4">
+                                        <p class="font-semibold text-lg">TOTAL PENGELUARAN: Rp
+                                            {{ number_format($totalPengeluaran, 0, ',', '.') }}</p>
+                                    </div>
+
+                                    <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-2xl p-6 text-white">
+                                        <div class="text-center">
+                                            <h3 class="text-2xl font-bold uppercase mb-1 text-white">REKAPITULASI</h3>
+                                        </div>
+
+
+                                        <ul class="list-disc list-inside">
+                                            <li>Total Pemasukan : <span class="font-medium">Rp
+                                                    {{ number_format($totalPemasukan, 0, ',', '.') }}</span></li>
+                                            <li>Total Pengeluaran : <span class="font-medium">Rp
+                                                    {{ number_format($totalPengeluaran, 0, ',', '.') }}</span></li>
+                                            <hr class="border-white/50 my-4">
+                                            <li><strong>Saldo Akhir ({{ $bulan }} {{ $tahun }}) : Rp
+                                                    {{ number_format($saldoAkhir, 0, ',', '.') }}</strong></li>
+                                        </ul>
+
+                                        <p class="italic mt-6 text-sm text-center">Mari terus berkontribusi untuk
+                                            memakmurkan
+                                            masjid kita!</p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -327,6 +420,43 @@
     <script>
         $(document).ready(function() {
             $('.kegiatan-carousel').slick({
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                autoplay: true,
+                autoplaySpeed: 8000,
+                infinite: true,
+                arrows: false,
+                dots: false,
+                pauseOnHover: false,
+                cssEase: 'linear'
+            });
+
+            // Re-render iconify-icon setiap kali slide diubah
+            $('.kegiatan-carousel').on('afterChange', function() {
+                if (window.Iconify) {
+                    Iconify.scan(); // inisialisasi ulang icon
+                }
+            });
+        });
+
+
+        $(document).ready(function() {
+            $('.laporan-carousel').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 8000, // 8 detik
+                infinite: true,
+                arrows: false,
+                dots: false,
+                pauseOnHover: false,
+                fade: true, // Efek fade agar elegan
+                cssEase: 'linear'
+            });
+        });
+
+        $(document).ready(function() {
+            $('.kata-carousel').slick({
                 slidesToShow: 1,
                 slidesToScroll: 1,
                 autoplay: true,

@@ -23,22 +23,27 @@
             <div class="container">
                 <div class="gallery-wrap">
                     <div class="row mrg10">
-                        @forelse ($data as $dk)
-                            <div class="col-md-4 col-sm-6 col-lg-4">
-                                <div class="gallery-item brd-rd5">
-                                    <a href="{{ asset('/public/dokumentasi/' . $dk->foto) }}" data-fancybox="gallery"
-                                        title="" itemprop="url"><img
-                                            src="{{ asset('/public/dokumentasi/' . $dk->foto) }}" alt="gallery-img1-1.jpg"
-                                            itemprop="image"></a>
+                        <div class="row">
+                            @forelse ($data as $dk)
+                                <div class="col-md-6 col-lg-4 mb-4">
+                                    <div class="card shadow-sm h-100 border-0">
+                                        <a href="{{ asset('/public/dokumentasi/' . $dk->foto) }}" data-fancybox="gallery">
+                                            <img src="{{ asset('/public/dokumentasi/' . $dk->foto) }}"
+                                                class="card-img-top rounded-top" alt="{{ $dk->judul }}">
+                                        </a>
+                                        <div class="card-body text-center">
+                                            <h5 class="card-title mb-0">{{ $dk->judul }}</h5>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        @empty
-                            <div class="col-12">
-                                <div class="alert alert-warning text-center">
-                                    <strong>Perhatian!</strong> Data kegiatan belum tersedia.
+                            @empty
+                                <div class="col-12">
+                                    <div class="alert alert-warning text-center">
+                                        <strong>Perhatian!</strong> Data kegiatan belum tersedia.
+                                    </div>
                                 </div>
-                            </div>
-                        @endforelse
+                            @endforelse
+                        </div>
                     </div>
                 </div><!-- Gallery Wrap -->
             </div>

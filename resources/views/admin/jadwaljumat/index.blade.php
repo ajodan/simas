@@ -30,11 +30,7 @@
                                         <tr class="fw-bolder fs-6 text-gray-800">
                                             <th>No</th>
                                             <th>Tanggal</th>
-                                            <th>Tema Khutbah</th>
                                             <th>Nama Khatib</th>
-                                            <th>Nama Imam</th>
-                                            <th>Nama Muadzim</th>
-                                            <th>Banner</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -107,35 +103,9 @@
                     </div>
 
                     <div class="mb-10">
-                        <label class="form-label">Tema Khutbah</label>
-                        <input type="text" id="tema_khutbah" class="form-control" name="tema_khutbah">
-                        <small class="text-danger tema_khutbah_error"></small>
-                    </div>
-
-                    <div class="mb-10">
                         <label class="form-label">Nama Khatib</label>
                         <input type="text" id="nama_khatib" class="form-control" name="nama_khatib">
                         <small class="text-danger nama_khatib_error"></small>
-                    </div>
-
-                    <div class="mb-10">
-                        <label class="form-label">Nama Imam</label>
-                        <input type="text" id="nama_imam" class="form-control" name="nama_imam">
-                        <small class="text-danger nama_imam_error"></small>
-                    </div>
-
-                    <div class="mb-10">
-                        <label class="form-label">Nama Muadzim</label>
-                        <input type="text" id="nama_muadzin" class="form-control" name="nama_muadzin">
-                        <small class="text-danger nama_muadzin_error"></small>
-                    </div>
-
-                    <div class="mb-10">
-                        <label class="form-label">Banner</label>
-                        <input type="file" accept="image/*" id="banner" class="form-control" name="banner">
-                        <small class="text-danger banner_error"></small>
-
-                        <div class="mt-3" id="logoInfoContainer"></div>
                     </div>
 
                     <div class="separator separator-dashed mt-8 mb-5"></div>
@@ -165,34 +135,6 @@
         $(".kt_datepicker_7").flatpickr({
             dateFormat: "d-m-Y",
         });
-
-        $('#banner').change(function() {
-            previewImage(this);
-        });
-
-        function previewImage(input) {
-            var logoInfoContainer = $('#logoInfoContainer');
-            var logoError = $('.banner_error');
-
-            // Reset error message
-            logoError.text('');
-
-            // Cek apakah file yang dipilih adalah gambar
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-                    // Tampilkan gambar
-                    logoInfoContainer.html('<img id="img-foto" src="' + e.target.result + '" style="max-width:100%;">');
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                // Tampilkan pesan error jika file tidak valid
-                logoError.text('Pilih file gambar yang valid.');
-                logoInfoContainer.html('');
-            }
-        }
 
         $(document).on('submit', ".form-data", function(e) {
             e.preventDefault();
@@ -289,42 +231,8 @@
                     data: 'tanggal',
                     className: 'text-center',
                 }, {
-                    data: 'tema_khutbah',
-                    className: 'text-left',
-                }, {
                     data: 'nama_khatib',
                     className: 'text-left',
-                }, {
-                    data: 'nama_imam',
-                    className: 'text-left',
-                }, {
-                    data: 'nama_muadzin',
-                    className: 'text-left',
-                }, {
-                    data: 'banner',
-                    className: 'text-center',
-                    render: function(data, type, row, meta) {
-                        let result;
-                        result =
-                            `
-                                <!--begin::Overlay-->
-                                <a class="d-block overlay fancybox" data-fancybox="lightbox-group" href="{{ asset('/public/banner/${data}') }}">
-                                    <!--begin::Image-->
-                                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-100px"
-                                        style="background-image:url('/public/banner/${data}')">
-                                    </div>
-                                    <!--end::Image-->
-
-                                    <!--begin::Action-->
-                                    <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
-                                        <i class="bi bi-eye-fill text-white fs-3x"></i>
-                                    </div>
-                                    <!--end::Action-->
-                                </a>
-                                <!--end::Overlay-->
-                            `;
-                        return result;
-                    }
                 }, {
                     data: 'uuid',
                 }],

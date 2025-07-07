@@ -23,16 +23,8 @@ class JadwalJumatController extends BaseController
 
     public function add(StoreJadwalJumatRequest $request)
     {
-        $newBanner = '';
-        if ($request->file('banner')) {
-            $extension = $request->file('banner')->extension();
-            $newBanner = 'banner' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('banner')->storeAs('public/banner', $newBanner);
-        }
-
         // Gabungkan hasil validasi + banner
         $data = $request->validated();
-        $data['banner'] = $newBanner;
 
         $jadwal = JadwalJumat::create($data);
         return $this->sendResponse($jadwal, 'Add data success');
@@ -60,20 +52,6 @@ class JadwalJumatController extends BaseController
 
         $validated = $request->validated();
 
-        if ($request->file('banner')) {
-            $oldBannerPath = public_path('public/banner/' . $jadwal->banner);
-            if (File::exists($oldBannerPath)) {
-                File::delete($oldBannerPath);
-            }
-
-            $extension = $request->file('banner')->extension();
-            $newBanner = 'banner-' . now()->timestamp . '.' . $extension;
-            $request->file('banner')->storeAs('public/banner', $newBanner);
-
-            // Tambahkan banner ke array validated
-            $validated['banner'] = $newBanner;
-        }
-
         // Update model
         $jadwal->update($validated);
 
@@ -84,10 +62,6 @@ class JadwalJumatController extends BaseController
     {
         $data = JadwalJumat::where('uuid', $params)->first();
         if ($data) {
-            $oldBannerPath = public_path('public/banner/' . $data->banner);
-            if (File::exists($oldBannerPath)) {
-                File::delete($oldBannerPath);
-            }
             $data->delete();
             return $this->sendResponse($data, 'Delete data success');
         } else {

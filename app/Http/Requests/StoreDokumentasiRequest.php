@@ -22,6 +22,7 @@ class StoreDokumentasiRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'judul' => 'required',
             'foto' => 'required',
         ];
     }
@@ -29,6 +30,7 @@ class StoreDokumentasiRequest extends FormRequest
     public function messages()
     {
         return [
+            'judul.required' => 'Kolom judul harus di isi.',
             'foto.required' => 'Kolom foto harus di isi.',
         ];
     }

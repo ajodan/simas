@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('dokumentasis', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
+            $table->string('judul');
             $table->string('foto');
             $table->timestamps();
         });

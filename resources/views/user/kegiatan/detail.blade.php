@@ -59,7 +59,7 @@
                                     <ul class="pst-mta">
                                         <li><i class="fas fa-map-marker-alt theme-clr"></i> {{ $data->tempat }}</li>
                                         <li><i class="far fa-clock theme-clr"></i>
-                                            {{ Carbon::parse($data->waktu)->format('H:i') }} - Selesai</li>
+                                            {{ $data->jam }} - Selesai</li>
                                     </ul>
                                 </div>
                                 <div class="event-detail-desc">

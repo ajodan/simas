@@ -15,11 +15,7 @@ class JadwalJumat extends Model
     protected $fillable = [
         'uuid',
         'tanggal',
-        'tema_khutbah',
         'nama_khatib',
-        'nama_imam',
-        'nama_muadzin',
-        'banner',
     ];
 
     protected static function boot()

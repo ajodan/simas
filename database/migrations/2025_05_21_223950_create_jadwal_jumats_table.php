@@ -15,11 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->string('tanggal');
-            $table->string('tema_khutbah');
             $table->string('nama_khatib');
-            $table->string('nama_imam');
-            $table->string('nama_muadzin');
-            $table->string('banner')->nullable();
             $table->timestamps();
         });
     }

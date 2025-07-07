@@ -23,11 +23,7 @@ class UpdateJadwalJumatRequest extends FormRequest
     {
         return [
             'tanggal' => 'required',
-            'tema_khutbah' => 'required',
             'nama_khatib' => 'required',
-            'nama_imam' => 'required',
-            'nama_muadzin' => 'required',
-            'banner' => 'nullable',
         ];
     }
 
@@ -35,10 +31,7 @@ class UpdateJadwalJumatRequest extends FormRequest
     {
         return [
             'tanggal.required' => 'Kolom tanggal harus di isi.',
-            'tema_khutbah.required' => 'Kolom tema khutbah harus di isi.',
             'nama_khatib.required' => 'Kolom khatib harus di isi.',
-            'nama_imam.required' => 'Kolom nama imam harus di isi.',
-            'nama_muadzin.required' => 'Kolom nama muadzin harus di isi.',
         ];
     }
 }

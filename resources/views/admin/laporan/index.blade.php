@@ -55,15 +55,29 @@
                                             <th>Deskripsi</th>
                                             <th>Pemasukan</th>
                                             <th>Pengeluaran</th>
-                                            <th>Kas</th>
+                                            <th>Saldo Akhir</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
                                     <tfoot id="tfoot" class="bg-info rounded d-none">
                                         <tr class="fw-bolder fs-6 text-white">
-                                            <td style="text-align: center !important;" colspan="4">Total Saldo</td>
+                                            <td style="text-align: left !important;" colspan="3">Total Pemasukan</td>
+                                            <td style="text-align: left !important; font-weight: bolder" colspan="3"
+                                                id="total-pemasukan">
+                                                Rp 0
+                                            </td>
+                                        </tr>
+                                        <tr class="fw-bolder fs-6 text-white">
+                                            <td style="text-align: left !important;" colspan="4">Total Pengeluaran</td>
                                             <td style="text-align: left !important; font-weight: bolder" colspan="2"
+                                                id="total-pengeluaran">
+                                                Rp 0
+                                            </td>
+                                        </tr>
+                                        <tr class="fw-bolder fs-6 text-white">
+                                            <td style="text-align: left !important;" colspan="5">Total Saldo</td>
+                                            <td style="text-align: left !important; font-weight: bolder" colspan="1"
                                                 id="total-saldo">
                                                 Rp 0
                                             </td>
@@ -199,6 +213,8 @@
                     });
 
                     // Update the total row in the footer
+                    $('#total-pemasukan').html('Rp ' + numeral(pemasukan).format('0,0'));
+                    $('#total-pengeluaran').html('Rp ' + numeral(pengeluaran).format('0,0'));
                     $('#total-saldo').html('Rp ' + numeral(pemasukan - pengeluaran).format('0,0'));
                 },
             });

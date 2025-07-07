@@ -29,6 +29,7 @@
                                     <thead class="text-center">
                                         <tr class="fw-bolder fs-6 text-gray-800">
                                             <th>No</th>
+                                            <th>Judul</th>
                                             <th>Foto Dokumentasi</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -94,6 +95,12 @@
 
                     <input type="hidden" name="id">
                     <input type="hidden" name="uuid">
+
+                    <div class="mb-10">
+                        <label class="form-label">Judul</label>
+                        <input type="text" class="form-control" name="judul">
+                        <small class="text-danger judul_error"></small>
+                    </div>
 
                     <div class="mb-10">
                         <label class="form-label">Foto Dokumentasi</label>
@@ -246,6 +253,9 @@
                     render: function(data, type, row, meta) {
                         return meta.row + meta.settings._iDisplayStart + 1;
                     }
+                }, {
+                    data: 'judul',
+                    className: 'text-center',
                 }, {
                     data: 'foto',
                     className: 'text-center',

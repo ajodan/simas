@@ -14,6 +14,7 @@ class Dokumentasi extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'uuid',
+        'judul',
         'foto',
     ];
 

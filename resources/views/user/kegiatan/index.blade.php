@@ -62,7 +62,7 @@
                                         <ul class="pst-mta">
                                             <li><i class="fas fa-map-marker-alt theme-clr"></i> {{ $kg->tempat }}</li>
                                             <li><i class="far fa-clock theme-clr"></i>
-                                                {{ Carbon::parse($kg->waktu)->format('H:i') }} - Selesai</li>
+                                                {{ $kg->jam }} - Selesai</li>
                                         </ul>
                                         <p itemprop="description">
                                             {{ \Illuminate\Support\Str::limit(strip_tags($kg->deskripsi), 33, '...') }}</p>

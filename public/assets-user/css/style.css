@@ -2727,6 +2727,11 @@ select:is(.dark *) {
     transition-duration: 4000ms;
 }
 
+.kegiatan-carousel .slick-track {
+    display: flex;
+    gap: 10px;
+}
+
 /*============================================= Slider Dots Css End =============================================*/
 /* Full Calendar Customize Css Start */
 .fc-border-separate tr.fc-last th {

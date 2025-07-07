@@ -212,11 +212,80 @@ class Dashboard extends BaseController
             ->first();
         $kegiatans = Kegiatan::latest()->get();
 
-        $campaign = DonasiCampaign::where('status', 'approved')->sum('nominal_donasi');
-        $donaturTetap = DonasiDonaturTetap::where('status', 'approved')->sum('nominal_donasi');
-        $donasiRealisasi = Realisasi::sum('jumlah');
+        $startDate = Carbon::now()->startOfMonth();
+        $endDate = Carbon::now()->endOfMonth();
 
-        $kas = $campaign + $donaturTetap - $donasiRealisasi;
-        return view('user.monitoring.index', compact('module', 'jadwalJumat', 'kegiatans', 'kas'));
+        // Donasi Campaign (Donasi Online)
+        $donasiCampaigns = DonasiCampaign::where('status', 'approved')
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->get()
+            ->map(function ($item) {
+                $campaign = CampaignDonasi::where('uuid', $item->uuid_campaign)->first();
+                return (object)[
+                    'tanggal' => $item->created_at->format('Y-m-d'),
+                    'deskripsi' => 'Donasi untuk ' . ($campaign->judul ?? '-') . ' dari ' . $item->nama_pendonasi,
+                    'jumlah' => $item->nominal_donasi,
+                ];
+            });
+
+        // Donatur Tetap
+        $donaturTetap = DonasiDonaturTetap::where('status', 'approved')
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->get()
+            ->map(function ($item) {
+                return (object)[
+                    'tanggal' => $item->created_at->format('Y-m-d'),
+                    'deskripsi' => 'Donasi dari donatur tetap ' . $item->nama_pendonasi,
+                    'jumlah' => $item->nominal_donasi,
+                ];
+            });
+
+        // Donasi Manual
+        $donasiManual = DonasiManual::get()
+            ->filter(function ($item) use ($startDate, $endDate) {
+                $tanggal = Carbon::createFromFormat('d-m-Y', $item->tanggal);
+                return $tanggal->between($startDate, $endDate);
+            })
+            ->map(function ($item) {
+                return (object)[
+                    'tanggal' => Carbon::createFromFormat('d-m-Y', $item->tanggal)->format('Y-m-d'),
+                    'deskripsi' => 'Donasi ' . $item->jenis_donasi . ($item->jenis_donasi == 'kotak infaq jumat' ? '' : ' dari ' . $item->nama_donatur),
+                    'jumlah' => $item->jumlah,
+                ];
+            });
+
+        // Realisasi (Pengeluaran)
+        $pengeluaran = Realisasi::get()
+            ->filter(function ($item) use ($startDate, $endDate) {
+                $tanggal = Carbon::createFromFormat('d-m-Y', $item->tanggal_realisasi);
+                return $tanggal->between($startDate, $endDate);
+            })
+            ->map(function ($item) {
+                return (object)[
+                    'tanggal' => Carbon::createFromFormat('d-m-Y', $item->tanggal_realisasi)->format('Y-m-d'),
+                    'deskripsi' => $item->keterangan,
+                    'jumlah' => $item->jumlah,
+                ];
+            });
+
+        // Gabung dan hitung
+        $pemasukan = collect()->merge($donasiCampaigns)->merge($donaturTetap)->merge($donasiManual);
+        $totalPemasukan = $pemasukan->sum('jumlah');
+
+        $totalPengeluaran = $pengeluaran->sum('jumlah');
+        $saldoAkhir = $totalPemasukan - $totalPengeluaran;
+
+        return view('user.monitoring.index', [
+            'module' => $module,
+            'jadwalJumat' => $jadwalJumat,
+            'kegiatans' => $kegiatans,
+            'bulan' => $startDate->translatedFormat('F'),
+            'tahun' => $startDate->year,
+            'pemasukan' => $pemasukan,
+            'pengeluaran' => $pengeluaran,
+            'totalPemasukan' => $totalPemasukan,
+            'totalPengeluaran' => $totalPengeluaran,
+            'saldoAkhir' => $saldoAkhir,
+        ]);
     }
 }

@@ -81,11 +81,12 @@ class Laporan extends BaseController
             ->map(function ($item) {
                 return (object)[
                     'tanggal' => \Carbon\Carbon::createFromFormat('d-m-Y', $item->tanggal)->format('Y-m-d'),
-                    'deskripsi' => 'Donasi ' . $item->jenis_donasi . ' dari ' . $item->nama_donatur,
+                    'deskripsi' => 'Donasi ' . $item->jenis_donasi . ($item->jenis_donasi == 'kotak infaq jumat' ? ' ' : ' dari ' . $item->nama_donatur),
                     'pemasukan' => $item->jumlah,
                     'pengeluaran' => 0
                 ];
             });
+
 
         // Gabungkan semua data
         $merged = collect()
@@ -159,7 +160,7 @@ class Laporan extends BaseController
             ->map(function ($item) {
                 return (object)[
                     'tanggal' => \Carbon\Carbon::createFromFormat('d-m-Y', $item->tanggal)->format('Y-m-d'),
-                    'deskripsi' => 'Donasi ' . $item->jenis_donasi . ' dari ' . $item->nama_donatur,
+                    'deskripsi' => 'Donasi ' . $item->jenis_donasi . ($item->jenis_donasi == 'kotak infaq jumat' ? ' ' : ' dari ' . $item->nama_donatur),
                     'pemasukan' => $item->jumlah,
                     'pengeluaran' => 0
                 ];
@@ -188,7 +189,7 @@ class Laporan extends BaseController
         $sheet->setCellValue('C3', 'DESKRIPSI');
         $sheet->setCellValue('D3', 'PEMASUKAN');
         $sheet->setCellValue('E3', 'PENGELUARAN');
-        $sheet->setCellValue('F3', 'KAS');
+        $sheet->setCellValue('F3', 'SALDO AKHIR');
 
         $row = 4;
         $subtotalTotal = 0;

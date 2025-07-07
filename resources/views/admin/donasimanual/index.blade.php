@@ -105,8 +105,14 @@
                     </div>
 
                     <div class="mb-10">
-                        <label class="form-label">Jenis Donasi</label>
-                        <input type="text" id="jenis_donasi" class="form-control" name="jenis_donasi">
+                        <label class="form-label">Kategori</label>
+                        <select name="jenis_donasi" id="jenis_donasi" class="form-select" data-control="select2">
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="sumbangan langsung">Sumbangan Langsung</option>
+                            <option value="potongan gaji dosen">Potongan Gaji Dosen</option>
+                            <option value="donasi">Donasi</option>
+                            <option value="kotak infaq jumat">Kotak Infaq Jum'at</option>
+                        </select>
                         <small class="text-danger jenis_donasi_error"></small>
                     </div>
 
