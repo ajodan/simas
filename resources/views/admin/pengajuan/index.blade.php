@@ -16,7 +16,7 @@
                                             <th>No</th>
                                             <th>Nama Organisasi/Individu</th>
                                             <th>Penanggung Jawab</th>
-                                            <th>Nama Barang</th>
+                                            <th>Nama Fasilitas</th>
                                             <th>Nomor Whatsapp</th>
                                             <th>Surat</th>
                                             <th>Status</th>
