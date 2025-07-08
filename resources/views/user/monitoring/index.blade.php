@@ -85,38 +85,38 @@
                         <!-- Jadwal Sholat -->
                         <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-2xl p-6">
                             <!-- Waktu Sholat Berikutnya -->
-                            <div class="text-center text-lg font-semibold text-black drop-shadow">
+                            <div class="text-center text-2xl font-semibold text-black drop-shadow">
                                 Waktu Sholat Berikutnya: <span id="nextPrayer" class="text-[#DC7633]">--</span>
                             </div>
                             <div class="grid grid-cols-5 gap-4 mt-4">
                                 <!-- Subuh -->
                                 <div class="bg-green-50/20 text-green-900 rounded-xl shadow p-3 text-center">
                                     <div class="text-sm font-semibold">Subuh</div>
-                                    <div id="subuh" class="text-lg font-bold">05:03</div>
+                                    <div id="subuh" class="text-2xl font-bold">05:03</div>
                                 </div>
 
                                 <!-- Dzuhur -->
                                 <div class="bg-yellow-50/20 text-yellow-900 rounded-xl shadow p-3 text-center">
                                     <div class="text-sm font-semibold">Dzuhur</div>
-                                    <div id="dzuhur" class="text-lg font-bold">12:00</div>
+                                    <div id="dzuhur" class="text-2xl font-bold">12:00</div>
                                 </div>
 
                                 <!-- Ashar -->
                                 <div class="bg-blue-50/20 text-blue-900 rounded-xl shadow p-3 text-center">
                                     <div class="text-sm font-semibold">Ashar</div>
-                                    <div id="ashar" class="text-lg font-bold">15:23</div>
+                                    <div id="ashar" class="text-2xl font-bold">15:23</div>
                                 </div>
 
                                 <!-- Maghrib -->
                                 <div class="bg-orange-50/20 text-orange-900 rounded-xl shadow p-3 text-center">
                                     <div class="text-sm font-semibold">Maghrib</div>
-                                    <div id="maghrib" class="text-lg font-bold">17:55</div>
+                                    <div id="maghrib" class="text-2xl font-bold">17:55</div>
                                 </div>
 
                                 <!-- Isya -->
                                 <div class="bg-purple-50/20 text-purple-900 rounded-xl shadow p-3 text-center">
                                     <div class="text-sm font-semibold">Isya</div>
-                                    <div id="isya" class="text-lg font-bold">18:56</div>
+                                    <div id="isya" class="text-2xl font-bold">18:56</div>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                             <div class="kata-carousel">
                                 <div
                                     class="bg-black/40 backdrop-blur-xl shadow-md rounded-2xl p-6 !border-s-4 !border-[#DC7633]">
-                                    <p class="text-white italic !text-lg font-bold">“Tidak perlu menunggu mampu untuk
+                                    <p class="text-white italic !text-2xl font-bold">“Tidak perlu menunggu mampu untuk
                                         beramal
                                         besar.
                                         Lakukan
@@ -139,7 +139,7 @@
                                 </div>
                                 <div
                                     class="bg-black/40 backdrop-blur-xl shadow-md rounded-2xl p-6 !border-s-4 !border-[#DC7633]">
-                                    <p class="text-white italic !text-lg font-bold">“Jangan menunggu sempurna untuk
+                                    <p class="text-white italic !text-2xl font-bold">“Jangan menunggu sempurna untuk
                                         mulai
                                         berbuat baik.
                                         Karena satu langkah kecil di jalan Allah,
@@ -150,7 +150,7 @@
                                 </div>
                                 <div
                                     class="bg-black/40 backdrop-blur-xl shadow-md rounded-2xl p-6 !border-s-4 !border-[#DC7633]">
-                                    <p class="text-white italic !text-lg font-bold">“Satu senyum, satu doa, atau satu
+                                    <p class="text-white italic !text-2xl font-bold">“Satu senyum, satu doa, atau satu
                                         uluran
                                         tangan,
                                         bisa menjadi amal besar di sisi Allah.
@@ -161,19 +161,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-[#DC7633]/60 backdrop-blur-xl shadow-md rounded-2xl p-6 pb-4">
-                            <marquee behavior="scroll" direction="left" scrollamount="5"
-                                class="text-white italic font-semibold">
-                                @if ($jadwalJumat)
-                                    Khutbah jum'at tanggal {{ $jadwalJumat->tanggal }} oleh
-                                    {{ $jadwalJumat->nama_khatib }} di Masjid Agung Sultan Alauddin. 🕌
-                                    Harap
-                                    Matikan HP Saat Sholat 🕌
-                                @else
-                                    Tidak ada data 🕌
-                                @endif
-                            </marquee>
-                        </div>
 
                         <div class="overflow-hidden">
                             <div class="kegiatan-carousel">
@@ -181,11 +168,11 @@
                                     <div
                                         class="!flex items-center gap-4 bg-[#DC7633]/80 backdrop-blur-lg shadow-lg rounded-lg overflow-hidden p-2 w-full">
                                         <img src="{{ asset('/public/kegiatan/' . $kegiatan->banner) }}"
-                                            alt="Banner Kegiatan"
-                                            class="!w-[150px] !h-[150px] object-cover rounded-xl" loading="lazy">
+                                            alt="Banner Kegiatan" class="!w-[150px] !h-[150px] object-cover rounded-xl"
+                                            loading="lazy">
 
                                         <div class="flex-1 text-left">
-                                            <h3 class="text-lg font-bold text-white mb-2">
+                                            <h3 class="text-2xl font-bold text-white mb-2">
                                                 {{ $kegiatan->nama_kegiatan }}
                                             </h3>
 
@@ -211,6 +198,20 @@
                             </div>
                         </div>
 
+                        <div class="bg-[#DC7633]/60 backdrop-blur-xl shadow-md rounded-2xl p-6 pb-4">
+                            <marquee behavior="scroll" direction="left" scrollamount="5"
+                                class="text-white italic font-semibold text-2xl">
+                                @if ($jadwalJumat)
+                                    Khutbah jum'at tanggal {{ $jadwalJumat->tanggal }} oleh
+                                    {{ $jadwalJumat->nama_khatib }} di Masjid Agung Sultan Alauddin. 🕌
+                                    Harap
+                                    Matikan HP Saat Sholat 🕌
+                                @else
+                                    Tidak ada data 🕌
+                                @endif
+                            </marquee>
+                        </div>
+
                     </div>
 
                     <!-- Info Kegiatan -->
@@ -224,11 +225,11 @@
                                 </div>
                             </div>
 
-                            <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-2xl p-6 text-white">
+                            <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-3xl p-6 text-white">
                                 <div class="text-center">
-                                    <h3 class="text-2xl font-bold uppercase mb-1">LAPORAN KEUANGAN</h3>
-                                    <h4 class="text-lg font-semibold mb-4">MASJID AGUNG SULTAN ALAUDDIN</h4>
-                                    <h5 class="text-sm font-light">Periode: {{ $bulan }}
+                                    <h3 class="text-3xl font-bold uppercase mb-1">LAPORAN KEUANGAN</h3>
+                                    <h4 class="text-xl font-semibold mb-4">MASJID AGUNG SULTAN ALAUDDIN</h4>
+                                    <h5 class="text-md font-light">Periode: {{ $bulan }}
                                         {{ $tahun }}</h5>
                                 </div>
                             </div>
@@ -242,8 +243,8 @@
                                                 {{ $tahun }})</h3>
                                         </div>
 
-                                        <ol class="list-decimal list-inside mb-3 px-6">
-                                            @forelse ($pemasukan as $item)
+                                        <ol class="text-xl list-decimal list-inside mb-3 px-6">
+                                            @forelse ($pemasukan_per_kategori as $item)
                                                 <li>{{ $item->deskripsi }} : <span class="font-semibold">Rp
                                                         {{ number_format($item->jumlah, 0, ',', '.') }}</span></li>
                                             @empty
@@ -251,8 +252,8 @@
                                             @endforelse
                                         </ol>
                                         <hr class="border-white/50 my-4">
-                                        <p class="font-semibold text-lg">TOTAL PEMASUKAN: Rp
-                                            {{ number_format($totalPemasukan, 0, ',', '.') }}</p>
+                                        <p class="font-semibold text-xl">TOTAL PEMASUKAN: Rp
+                                            {{ number_format($total_pemasukan, 0, ',', '.') }}</p>
                                     </div>
 
                                     <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-2xl p-6 text-white">
@@ -262,8 +263,8 @@
                                                 {{ $tahun }})</h3>
                                         </div>
 
-                                        <ol class="list-decimal list-inside px-6 mb-3">
-                                            @forelse ($pengeluaran as $item)
+                                        <ol class="text-xl list-decimal list-inside px-6 mb-3">
+                                            @forelse ($pengeluaran_per_kategori as $item)
                                                 <li>{{ $item->deskripsi }} : <span class="font-semibold">Rp
                                                         {{ number_format($item->jumlah, 0, ',', '.') }}</span></li>
                                             @empty
@@ -271,8 +272,8 @@
                                             @endforelse
                                         </ol>
                                         <hr class="border-white/50 my-4">
-                                        <p class="font-semibold text-lg">TOTAL PENGELUARAN: Rp
-                                            {{ number_format($totalPengeluaran, 0, ',', '.') }}</p>
+                                        <p class="font-semibold text-xl">TOTAL PENGELUARAN: Rp
+                                            {{ number_format($total_pengeluaran, 0, ',', '.') }}</p>
                                     </div>
 
                                     <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-2xl p-6 text-white">
@@ -281,14 +282,14 @@
                                         </div>
 
 
-                                        <ul class="list-disc list-inside">
+                                        <ul class="text-xl list-disc list-inside">
                                             <li>Total Pemasukan : <span class="font-medium">Rp
-                                                    {{ number_format($totalPemasukan, 0, ',', '.') }}</span></li>
+                                                    {{ number_format($total_pemasukan, 0, ',', '.') }}</span></li>
                                             <li>Total Pengeluaran : <span class="font-medium">Rp
-                                                    {{ number_format($totalPengeluaran, 0, ',', '.') }}</span></li>
+                                                    {{ number_format($total_pengeluaran, 0, ',', '.') }}</span></li>
                                             <hr class="border-white/50 my-4">
                                             <li><strong>Saldo Akhir ({{ $bulan }} {{ $tahun }}) : Rp
-                                                    {{ number_format($saldoAkhir, 0, ',', '.') }}</strong></li>
+                                                    {{ number_format($saldo_akhir, 0, ',', '.') }}</strong></li>
                                         </ul>
 
                                         <p class="italic mt-6 text-sm text-center">Mari terus berkontribusi untuk

@@ -99,14 +99,14 @@
                     <input type="hidden" name="uuid">
 
                     <div class="mb-10">
-                        <label class="form-label">Tanggal Ralisasi</label>
+                        <label class="form-label">Tanggal</label>
                         <input type="text" id="tanggal_realisasi" class="form-control kt_datepicker_7"
                             name="tanggal_realisasi">
                         <small class="text-danger tanggal_realisasi_error"></small>
                     </div>
 
                     <div class="mb-10">
-                        <label class="form-label">Kategori Realisasi</label>
+                        <label class="form-label">Kategori</label>
                         <select name="kategori" class="form-select" data-control="select2" id="from_select"
                             data-placeholder="Pilih jenis inputan">
                         </select>
@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="mb-10">
-                        <label class="form-label">Jumlah Realisasi</label>
+                        <label class="form-label">Jumlah</label>
                         <input type="text" id="jumlah" class="form-control" name="jumlah">
                         <small class="text-danger jumlah_error"></small>
                     </div>
@@ -278,13 +278,22 @@
         };
 
         const frekuensi = [{
-                text: "Bantuan Sosial",
+                text: "Operasional Harian",
             },
             {
-                text: "Operasional Masjid",
+                text: "Inventaris dan Peralatan",
             },
             {
-                text: "Renovasi",
+                text: "Pembangunan dan Renovasi",
+            },
+            {
+                text: "Gaji/Honorarium",
+            },
+            {
+                text: "Pemeliharaan dan Perbaikan",
+            },
+            {
+                text: "Kegiatan Keagamaan",
             },
         ];
 

@@ -82,7 +82,7 @@
                                                     <tr>
                                                         <th>Tempat</th>
                                                         <td class="px-2">:</td>
-                                                        <td>Masjid Agung Sultang Alauddin</td>
+                                                        <td>Masjid Agung Sultan Alauddin</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Khatib</th>
@@ -126,7 +126,7 @@
                             <div class="abt-desc">
                                 <div class="sec-tl">
                                     <span class="theme-clr">Sejarah</span>
-                                    <h2 itemprop="headline">Masjid Sultang Agung</h2>
+                                    <h2 itemprop="headline">Masjid Agung Sultan</h2>
                                     <img src="{{ asset('assets-landing/images/pshape.png') }}" alt="">
                                 </div>
                                 <p itemprop="description">
