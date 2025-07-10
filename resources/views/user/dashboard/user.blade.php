@@ -39,6 +39,16 @@
                                                         <td class="px-2">:</td>
                                                         <td>{{ $jadwalJumat->nama_khatib }}</td>
                                                     </tr>
+                                                    <tr>
+                                                        <th>Imam</th>
+                                                        <td class="px-2">:</td>
+                                                        <td>{{ $jadwalJumat->nama_imam }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Muadzin</th>
+                                                        <td class="px-2">:</td>
+                                                        <td>{{ $jadwalJumat->nama_muadzin }}</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
 
@@ -62,7 +72,8 @@
                             <img src="{{ asset('assets-landing/images/resources/bsml-txt.png') }}" alt="bsml-txt2.png">
                             <h1><img src="{{ asset('assets-landing/images/resources/ayat-txt.png') }}" alt="ayat-txt2.png">
                             </h1>
-                            <img class = "before-imge" src="{{ asset('assets-landing/images/pshape.png') }}" alt="">
+                            <img class = "before-imge" src="{{ asset('assets-landing/images/pshape.png') }}"
+                                alt="">
                             <h3>Dia meninggikan langit dan mengatur keseimbangan</h3>
                             <span>(Surat Ar-Rahman Ayat 7)</span>
                             <div class="d-flex justify-content-center">
@@ -88,6 +99,16 @@
                                                         <th>Khatib</th>
                                                         <td class="px-2">:</td>
                                                         <td>{{ $jadwalJumat->nama_khatib }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Imam</th>
+                                                        <td class="px-2">:</td>
+                                                        <td>{{ $jadwalJumat->nama_imam }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Muadzin</th>
+                                                        <td class="px-2">:</td>
+                                                        <td>{{ $jadwalJumat->nama_muadzin }}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

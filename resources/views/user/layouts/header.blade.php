@@ -22,14 +22,14 @@
             <nav>
                 <div>
                     <ul>
-                        <li><a href="{{ route('dashboard-user') }}" title="" itemprop="url">Home</a></li>
+                        <li><a href="{{ route('dashboard-user') }}" title="" itemprop="url">Beranda</a></li>
                         <li><a href="{{ route('donasi-campaign-user') }}" title="" itemprop="url">Donasi</a>
                         </li>
                         <li><a href="{{ route('kegiatan') }}" title="" itemprop="url">Kegiatan</a></li>
                         <li><a href="{{ route('dokumentasi') }}" title="" itemprop="url">Dokumentasi</a></li>
-                        <li><a href="{{ route('about') }}" title="" itemprop="url">About</a></li>
+                        <li><a href="{{ route('about') }}" title="" itemprop="url">Tentang</a></li>
                         <li><a class="py-0 px-2 theme-btn theme-bg brd-rd5" href="#" title="" itemprop="url"
-                                data-toggle="modal" data-target="#modal-pengajuan">Peminjaman Fasilitas</a></li>
+                                data-toggle="modal" data-target="#modal-pengajuan">Ajukan Peminjaman</a></li>
 
                         <!-- Modal -->
                         <div class="modal fade" id="modal-pengajuan" tabindex="-1" role="dialog" aria-hidden="true">
@@ -37,7 +37,7 @@
                                 <div class="modal-content">
                                     <!-- Modal Header (Optional) -->
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Form Peminjaman Fasilitas</h5>
+                                        <h5 class="modal-title">Form Peminjaman Tempat</h5>
                                         <button type="button" id="close-modal" class="close" data-dismiss="modal"
                                             aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -61,14 +61,6 @@
                                                 <input type="text" id="penanggung-jawab" name="penanggung_jawab"
                                                     class="form-control" placeholder="Masukkan penanggung jawab">
                                                 <div class="text-danger penanggung_jawab_error small mt-1">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="barang">Nama Fasilitas</label>
-                                                <input type="text" id="barang" name="barang" class="form-control"
-                                                    placeholder="Masukkan nama fasilitas">
-                                                <div class="text-danger barang_error small mt-1">
                                                 </div>
                                             </div>
 

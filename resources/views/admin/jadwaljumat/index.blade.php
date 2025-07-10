@@ -31,6 +31,8 @@
                                             <th>No</th>
                                             <th>Tanggal</th>
                                             <th>Nama Khatib</th>
+                                            <th>Nama Imam</th>
+                                            <th>Nama Muadzin</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -106,6 +108,18 @@
                         <label class="form-label">Nama Khatib</label>
                         <input type="text" id="nama_khatib" class="form-control" name="nama_khatib">
                         <small class="text-danger nama_khatib_error"></small>
+                    </div>
+
+                    <div class="mb-10">
+                        <label class="form-label">Nama Imam</label>
+                        <input type="text" id="nama_imam" class="form-control" name="nama_imam">
+                        <small class="text-danger nama_imam_error"></small>
+                    </div>
+
+                    <div class="mb-10">
+                        <label class="form-label">Nama Muadzim</label>
+                        <input type="text" id="nama_muadzin" class="form-control" name="nama_muadzin">
+                        <small class="text-danger nama_muadzin_error"></small>
                     </div>
 
                     <div class="separator separator-dashed mt-8 mb-5"></div>
@@ -232,7 +246,16 @@
                     className: 'text-center',
                 }, {
                     data: 'nama_khatib',
-                    className: 'text-left',
+                    className: 'text-center',
+                }, {
+                    data: 'nama_khatib',
+                    className: 'text-center',
+                }, {
+                    data: 'nama_muadzin',
+                    className: 'text-center',
+                    render: function(data, type, row, meta) {
+                        return data ? data : '-';
+                    }
                 }, {
                     data: 'uuid',
                 }],

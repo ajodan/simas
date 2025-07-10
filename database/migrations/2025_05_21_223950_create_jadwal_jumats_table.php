@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->string('tanggal');
+            $table->string('nama_imam');
             $table->string('nama_khatib');
+            $table->string('nama_muadzin')->nullable();
             $table->timestamps();
         });
     }

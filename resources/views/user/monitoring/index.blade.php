@@ -72,20 +72,20 @@
             <div class="p-7 z-10 relative">
                 <div class="grid grid-cols-3 gap-6 items-start">
                     <!-- Info Masjid -->
-                    <div class="col-span-2 space-y-6 grid gap-3">
+                    <div class="col-span-2 space-y-6 grid gap-6">
                         <div
                             class="bg-white/30 backdrop-blur-xl shadow-md rounded-2xl flex items-center gap-4 px-6 py-4">
-                            <iconify-icon icon="mdi:mosque-outline" class="text-[70px] text-[#DC7633]"></iconify-icon>
-                            <div class="text-black text-[36px] font-bold"
+                            <iconify-icon icon="mdi:mosque-outline" class="text-[75px] text-[#DC7633]"></iconify-icon>
+                            <div class="text-black text-[45px] font-bold"
                                 style="font-family: 'Times New Roman', serif;">
                                 Masjid Sultan Agung UINAM
                             </div>
                         </div>
 
                         <!-- Jadwal Sholat -->
-                        <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-2xl p-6">
+                        <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-2xl p-7">
                             <!-- Waktu Sholat Berikutnya -->
-                            <div class="text-center text-2xl font-semibold text-black drop-shadow">
+                            <div class="text-center text-3xl font-semibold text-black drop-shadow">
                                 Waktu Sholat Berikutnya: <span id="nextPrayer" class="text-[#DC7633]">--</span>
                             </div>
                             <div class="grid grid-cols-5 gap-4 mt-4">
@@ -166,13 +166,13 @@
                             <div class="kegiatan-carousel">
                                 @forelse ($kegiatans as $kegiatan)
                                     <div
-                                        class="!flex items-center gap-4 bg-[#DC7633]/80 backdrop-blur-lg shadow-lg rounded-lg overflow-hidden p-2 w-full">
+                                        class="!flex items-center gap-4 bg-[#DC7633]/80 backdrop-blur-lg shadow-lg rounded-lg overflow-hidden p-3 w-full">
                                         <img src="{{ asset('/public/kegiatan/' . $kegiatan->banner) }}"
                                             alt="Banner Kegiatan" class="!w-[150px] !h-[150px] object-cover rounded-xl"
                                             loading="lazy">
 
                                         <div class="flex-1 text-left">
-                                            <h3 class="text-2xl font-bold text-white mb-2">
+                                            <h3 class="text-3xl font-bold text-white mb-2">
                                                 {{ $kegiatan->nama_kegiatan }}
                                             </h3>
 

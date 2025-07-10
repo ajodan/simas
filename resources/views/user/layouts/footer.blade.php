@@ -17,7 +17,7 @@
                                         style="border:0;" allowfullscreen="" loading="lazy"
                                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                                 </div>
-                                {{-- <span><i class="fas fa-map-marker-alt theme-clr"></i>Lokasi Masjid Agung Sultang
+                                {{-- <span><i class="fas fa-map-marker-alt theme-clr"></i>Lokasi Masjid Agung Sultan
                                     Alauddin</span> --}}
                             </div>
                         </div>

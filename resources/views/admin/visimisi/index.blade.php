@@ -138,12 +138,12 @@
             e.preventDefault();
             let type = $(this).attr('data-type');
             if (type == 'add') {
-                control.submitFormMultipartData('/admin/visimisi-add', 'Tambah',
+                control.submitFormMultipartData('/admin/tentang/visimisi-add', 'Tambah',
                     'Visi Misi',
                     'POST');
             } else {
                 let uuid = $("input[name='uuid']").val();
-                control.submitFormMultipartData('/admin/visimisi-update/' + uuid,
+                control.submitFormMultipartData('/admin/tentang/visimisi-update/' + uuid,
                     'Update',
                     'Visi Misi', 'POST');
             }
@@ -151,13 +151,13 @@
 
         $(document).on('click', '.button-update', function(e) {
             e.preventDefault();
-            let url = '/admin/visimisi-show/' + $(this).attr('data-uuid');
+            let url = '/admin/tentang/visimisi-show/' + $(this).attr('data-uuid');
             control.overlay_form('Update', 'Visi Misi', url);
         })
 
         $(document).on('click', '.button-delete', function(e) {
             e.preventDefault();
-            let url = '/admin/visimisi-delete/' + $(this).attr('data-uuid');
+            let url = '/admin/tentang/visimisi-delete/' + $(this).attr('data-uuid');
             let label = $(this).attr('data-label');
             control.ajaxDelete(url, label)
         })
@@ -181,7 +181,7 @@
                     [0, 'asc']
                 ],
                 processing: true,
-                ajax: '/admin/visimisi-get',
+                ajax: '/admin/tentang/visimisi-get',
                 columns: [{
                     data: null,
                     render: function(data, type, row, meta) {

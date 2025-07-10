@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="pg-tp-wrp text-center">
                     <div class="pg-tp-inr">
-                        <h1 itemprop="headline">Dokumentasi Kegiatan dan acara Masjid Agung Sultang Alauddin</h1>
+                        <h1 itemprop="headline">Dokumentasi Kegiatan dan acara Masjid Agung Sultan Alauddin</h1>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard-user') }}" title=""
                                     itemprop="url">Home</a></li>

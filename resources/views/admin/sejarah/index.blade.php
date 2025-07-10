@@ -129,12 +129,12 @@
             e.preventDefault();
             let type = $(this).attr('data-type');
             if (type == 'add') {
-                control.submitFormMultipartData('/admin/sejarah-add', 'Tambah',
+                control.submitFormMultipartData('/admin/tentang/sejarah-add', 'Tambah',
                     'Sejarah',
                     'POST');
             } else {
                 let uuid = $("input[name='uuid']").val();
-                control.submitFormMultipartData('/admin/sejarah-update/' + uuid,
+                control.submitFormMultipartData('/admin/tentang/sejarah-update/' + uuid,
                     'Update',
                     'Sejarah', 'POST');
             }
@@ -142,13 +142,13 @@
 
         $(document).on('click', '.button-update', function(e) {
             e.preventDefault();
-            let url = '/admin/sejarah-show/' + $(this).attr('data-uuid');
+            let url = '/admin/tentang/sejarah-show/' + $(this).attr('data-uuid');
             control.overlay_form('Update', 'Sejarah', url);
         })
 
         $(document).on('click', '.button-delete', function(e) {
             e.preventDefault();
-            let url = '/admin/sejarah-delete/' + $(this).attr('data-uuid');
+            let url = '/admin/tentang/sejarah-delete/' + $(this).attr('data-uuid');
             let label = $(this).attr('data-label');
             control.ajaxDelete(url, label)
         })
@@ -172,7 +172,7 @@
                     [0, 'asc']
                 ],
                 processing: true,
-                ajax: '/admin/sejarah-get',
+                ajax: '/admin/tentang/sejarah-get',
                 columns: [{
                     data: null,
                     render: function(data, type, row, meta) {

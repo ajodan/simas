@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="pg-tp-wrp text-center">
                     <div class="pg-tp-inr">
-                        <h1 itemprop="headline">Tentang Masjid Agung Sultang Alauddin</h1>
+                        <h1 itemprop="headline">Tentang Masjid Agung Sultan Alauddin</h1>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard-user') }}" title=""
                                     itemprop="url">Home</a></li>
@@ -34,7 +34,7 @@
                             <div class="abt-desc">
                                 <div class="sec-tl">
                                     <span class="theme-clr">Sejarah</span>
-                                    <h2 itemprop="headline">Tentang Masjid Agung Sultang Aluddin</h2>
+                                    <h2 itemprop="headline">Tentang Masjid Agung Sultan Aluddin</h2>
                                 </div>
                                 <p itemprop="description">{!! $sejarah->isi !!}</p>
                                 {{-- <a class="theme-btn theme-bg brd-rd5" href="#" title="" itemprop="url">READ

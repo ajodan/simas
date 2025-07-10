@@ -11,7 +11,7 @@ class PengajuanBarangController extends BaseController
 {
     public function index()
     {
-        $module = 'Peminjaman Fasilitas';
+        $module = 'Peminjaman Tempat';
         return view('admin.pengajuan.index', compact('module'));
     }
 
@@ -34,7 +34,7 @@ class PengajuanBarangController extends BaseController
             $data = new PengajuanBarang();
             $data->penanggung_jawab = $store->penanggung_jawab;
             $data->organisasi = $store->organisasi;
-            $data->barang = $store->barang;
+            $data->barang = '-';
             $data->nomor = $store->nomor;
             $data->surat = $newSurat;
             $data->save();

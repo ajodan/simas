@@ -111,19 +111,21 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::delete('/kegiatan-delete/{params}', 'KegiatanController@delete')->name('kegiatan-delete');
         });
 
-        Route::get('/visimisi', 'VisiMisiController@index')->name('visimisi');
-        Route::get('/visimisi-get', 'VisiMisiController@get')->name('visimisi-get');
-        Route::post('/visimisi-add', 'VisiMisiController@add')->name('visimisi-add');
-        Route::get('/visimisi-show/{params}', 'VisiMisiController@show')->name('visimisi-show');
-        Route::post('/visimisi-update/{params}', 'VisiMisiController@update')->name('visimisi-update');
-        Route::delete('/visimisi-delete/{params}', 'VisiMisiController@delete')->name('visimisi-delete');
+        Route::prefix('tentang')->group(function () {
+            Route::get('/visimisi', 'VisiMisiController@index')->name('visimisi');
+            Route::get('/visimisi-get', 'VisiMisiController@get')->name('visimisi-get');
+            Route::post('/visimisi-add', 'VisiMisiController@add')->name('visimisi-add');
+            Route::get('/visimisi-show/{params}', 'VisiMisiController@show')->name('visimisi-show');
+            Route::post('/visimisi-update/{params}', 'VisiMisiController@update')->name('visimisi-update');
+            Route::delete('/visimisi-delete/{params}', 'VisiMisiController@delete')->name('visimisi-delete');
 
-        Route::get('/sejarah', 'SejarahController@index')->name('sejarah');
-        Route::get('/sejarah-get', 'SejarahController@get')->name('sejarah-get');
-        Route::post('/sejarah-add', 'SejarahController@add')->name('sejarah-add');
-        Route::get('/sejarah-show/{params}', 'SejarahController@show')->name('sejarah-show');
-        Route::post('/sejarah-update/{params}', 'SejarahController@update')->name('sejarah-update');
-        Route::delete('/sejarah-delete/{params}', 'SejarahController@delete')->name('sejarah-delete');
+            Route::get('/sejarah', 'SejarahController@index')->name('sejarah');
+            Route::get('/sejarah-get', 'SejarahController@get')->name('sejarah-get');
+            Route::post('/sejarah-add', 'SejarahController@add')->name('sejarah-add');
+            Route::get('/sejarah-show/{params}', 'SejarahController@show')->name('sejarah-show');
+            Route::post('/sejarah-update/{params}', 'SejarahController@update')->name('sejarah-update');
+            Route::delete('/sejarah-delete/{params}', 'SejarahController@delete')->name('sejarah-delete');
+        });
 
         Route::get('/chart', 'Dashboard@areaChart')->name('chart');
 
