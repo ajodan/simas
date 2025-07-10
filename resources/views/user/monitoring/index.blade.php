@@ -157,7 +157,7 @@
                                         Jangan remehkan kebaikan sekecil apapun,
                                         karena bisa jadi itulah yang menyelamatkanmu.
                                         Ikhlaskan niat, dan teruslah menebar kebaikan.”</p>
-                                    <p class="!text-sm text-white">🕌 HR. Muslim No. 2626</p>
+                                    <p class="!text-md text-white">🕌 HR. Muslim No. 2626</p>
                                 </div>
                             </div>
                         </div>
