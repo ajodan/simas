@@ -10,7 +10,7 @@ class RealisasiController extends BaseController
 {
     public function index()
     {
-        $module = 'Catat Pengeluaran';
+        $module = 'Catatan Pengeluaran';
         return view('admin.realisasi.index', compact('module'));
     }
 

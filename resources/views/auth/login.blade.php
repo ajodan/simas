@@ -45,7 +45,7 @@
         <div class="d-flex flex-column justify-content-center flex-lg-row flex-column-fluid">
             <!--begin::Body-->
             <div class="d-none d-lg-flex justify-content-center align-items-center w-50">
-                <img src="{{ asset('logo-user.png') }}" style="width: 350px" alt="">
+                <img src="{{ asset('logo-user-white.png') }}" style="width: 350px" alt="">
             </div>
             <!--begin::Body-->
             <!--begin::Aside-->
@@ -56,7 +56,7 @@
                     <div class="py-20 shadow-lg"
                         style="background: rgb(110 101 101 / 50%); padding: 50px; border-radius: 10px">
                         <div class="d-flex d-lg-none justify-content-center align-items-center">
-                            <img src="{{ asset('logo-user.png') }}" style="width: 100px; margin-bottom: 10px"
+                            <img src="{{ asset('logo-user-white.png') }}" style="width: 100px; margin-bottom: 10px"
                                 alt="">
                         </div>
                         <!--begin::Form-->

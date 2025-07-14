@@ -10,7 +10,7 @@ class DonasiManualController extends BaseController
 {
     public function index()
     {
-        $module = 'Donasi Manual';
+        $module = 'Catatan Pemasukan';
         return view('admin.donasimanual.index', compact('module'));
     }
 

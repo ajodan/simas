@@ -36,7 +36,11 @@
                                     <span class="theme-clr">Sejarah</span>
                                     <h2 itemprop="headline">Tentang Masjid Agung Sultan Aluddin</h2>
                                 </div>
-                                <p itemprop="description">{!! $sejarah->isi !!}</p>
+                                @if ($sejarah)
+                                    <p itemprop="description">{!! $sejarah->isi !!}</p>
+                                @else
+                                    <p itemprop="description">Belum ada data.</p>
+                                @endif
                                 {{-- <a class="theme-btn theme-bg brd-rd5" href="#" title="" itemprop="url">READ
                                     MORE</a> --}}
                             </div>
@@ -76,6 +80,48 @@
 
                     </div>
                 </div><!-- About Sec Wrap -->
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="gap">
+            <div class="container">
+                <div class="sec-tl text-center">
+                    <span class="theme-clr">Struktur Organisasi</span>
+                    <h2 itemprop="headline">Nama Pengurus Masjid Sultan Alauddin</h2>
+                    <img src="{{ asset('assets-landing/images/pshape.png') }}" alt="">
+                </div>
+                <div class="team-sec remove-ext7">
+                    @php
+                        $grouped = $struktur_organisasi->groupBy('unit');
+                    @endphp
+                    @forelse ($grouped as $unit => $anggota)
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header bg-primary text-white">
+                                <strong>{{ $loop->iteration }}. {{ strtoupper($unit) }}</strong>
+                            </div>
+                            <div class="card-body">
+                                @php
+                                    $jabatanGrouped = $anggota->groupBy('posisi');
+                                @endphp
+
+                                @foreach ($jabatanGrouped as $jabatan => $personils)
+                                    <p class="mb-1 font-weight-bold">{{ $jabatan }}:</p>
+                                    <ul class="mb-3">
+                                        @foreach ($personils as $person)
+                                            <li>{{ $person->nama }}</li>
+                                        @endforeach
+                                    </ul>
+                                @endforeach
+                            </div>
+                        </div>
+                    @empty
+                        <div class="alert alert-info">
+                            Tidak ada anggota untuk unit ini.
+                        </div>
+                    @endforelse
+                </div><!-- Team Sec -->
             </div>
         </div>
     </section>

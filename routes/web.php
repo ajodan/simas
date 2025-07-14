@@ -125,6 +125,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/sejarah-show/{params}', 'SejarahController@show')->name('sejarah-show');
             Route::post('/sejarah-update/{params}', 'SejarahController@update')->name('sejarah-update');
             Route::delete('/sejarah-delete/{params}', 'SejarahController@delete')->name('sejarah-delete');
+
+            Route::get('/struktur-organisasi', 'StrukturOrganisasiController@index')->name('struktur-organisasi');
+            Route::get('/struktur-organisasi-get', 'StrukturOrganisasiController@get')->name('struktur-organisasi-get');
+            Route::post('/struktur-organisasi-add', 'StrukturOrganisasiController@add')->name('struktur-organisasi-add');
+            Route::get('/struktur-organisasi-show/{params}', 'StrukturOrganisasiController@show')->name('struktur-organisasi-show');
+            Route::post('/struktur-organisasi-update/{params}', 'StrukturOrganisasiController@update')->name('struktur-organisasi-update');
+            Route::delete('/struktur-organisasi-delete/{params}', 'StrukturOrganisasiController@delete')->name('struktur-organisasi-delete');
         });
 
         Route::get('/chart', 'Dashboard@areaChart')->name('chart');

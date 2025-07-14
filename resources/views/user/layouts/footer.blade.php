@@ -90,23 +90,8 @@
                         </div>
                         <div class="col-md-4 col-sm-6 col-lg-4">
                             <div class="widget">
-                                <h5 itemprop="headline">Kontak Cepat</h5>
-                                <form>
-                                    <div class="row mrg10">
-                                        <div class="col-md-12 col-sm-12 col-lg-12">
-                                            <input class="brd-rd5" type="text" placeholder="Nama">
-                                        </div>
-                                        <div class="col-md-12 col-sm-12 col-lg-12">
-                                            <input class="brd-rd5" type="email" placeholder="Email">
-                                        </div>
-                                        <div class="col-md-12 col-sm-12 col-lg-12">
-                                            <textarea class="brd-rd5" placeholder="Pesan"></textarea>
-                                        </div>
-                                        <div class="col-md-12 col-sm-12 col-lg-12">
-                                            <button class="brd-rd5 theme-btn theme-bg">KIRIM</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <h5 itemprop="headline">Sedekah Tidak Akan Membuatmu Miskin</h5>
+                                <p itemprop="description"><strong>Rekening BSI:</strong> 1717 1515 49</p>
                             </div>
                         </div>
                     </div>

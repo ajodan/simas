@@ -27,7 +27,7 @@
                         </li>
                         <li><a href="{{ route('kegiatan') }}" title="" itemprop="url">Kegiatan</a></li>
                         <li><a href="{{ route('dokumentasi') }}" title="" itemprop="url">Dokumentasi</a></li>
-                        <li><a href="{{ route('about') }}" title="" itemprop="url">Tentang</a></li>
+                        <li><a href="{{ route('about') }}" title="" itemprop="url">Tentang Kami</a></li>
                         <li><a class="py-0 px-2 theme-btn theme-bg brd-rd5" href="#" title="" itemprop="url"
                                 data-toggle="modal" data-target="#modal-pengajuan">Ajukan Peminjaman</a></li>
 

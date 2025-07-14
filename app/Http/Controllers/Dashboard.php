@@ -16,6 +16,7 @@ use App\Models\JamKerja;
 use App\Models\Kegiatan;
 use App\Models\Realisasi;
 use App\Models\Sejarah;
+use App\Models\StrukturOrganisasi;
 use App\Models\User;
 use App\Models\VisiMisi;
 use Illuminate\Http\Request;
@@ -200,7 +201,9 @@ class Dashboard extends BaseController
         $sejarah = Sejarah::first();
         $visi = VisiMisi::where('kategori', 'Visi')->get();
         $misi = VisiMisi::where('kategori', 'Misi')->get();
-        return view('user.about.index', compact('module', 'sejarah', 'visi', 'misi'));
+        $struktur_organisasi = StrukturOrganisasi::all();
+        // dd($struktur_organisasi);
+        return view('user.about.index', compact('module', 'sejarah', 'visi', 'misi', 'struktur_organisasi'));
     }
 
     public function monitorin()

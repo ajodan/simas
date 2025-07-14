@@ -10,7 +10,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="shortcut icon" href="{{ asset('logo-user.png') }}">
+    <link rel="shortcut icon" href="{{ asset('logo-user-white.png') }}">
     <link rel="stylesheet" href="{{ asset('assets-landing/css/icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets-landing/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets-landing/css/plugins.min.css') }}">

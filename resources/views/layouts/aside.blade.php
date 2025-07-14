@@ -301,7 +301,8 @@
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-title"
-                            style="{{ $path[1] == 'tentang' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Tentang</span>
+                            style="{{ $path[1] == 'tentang' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Tentang
+                            Masjid</span>
                         <span class="menu-arrow"></span>
                     </a>
                     <!--end::Menu link-->
@@ -342,6 +343,28 @@
                                 </span>
                                 <span class="menu-title"
                                     style="{{ isset($path[2]) && $path[2] === 'sejarah' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Sejarah</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!--end::Menu item-->
+
+                    <!--begin::Menu item-->
+                    <div class="menu-sub gap-2 menu-sub-accordion my-2">
+                        <div class="menu-item pe-0">
+                            <a class="menu-link {{ isset($path[2]) && $path[2] === 'struktur-organisasi' ? 'active' : '' }}"
+                                href="{{ route('admin.struktur-organisasi') }}">
+                                <span class="menu-icon">
+                                    <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                                    <span class="svg-icon svg-icon-2">
+                                        {!! isset($path[2]) && $path[2] === 'struktur-organisasi'
+                                            ? '<i class="fas fa-sitemap" style="color: #F4BE2A; font-size: 16px"></i>'
+                                            : '<i class="fas fa-sitemap" style="color: #FFFFFF; font-size: 16px"></i>' !!}
+                                    </span>
+                                    <!--end::Svg Icon-->
+                                </span>
+                                <span class="menu-title"
+                                    style="{{ isset($path[2]) && $path[2] === 'struktur-organisasi' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Struktur
+                                    Organisasi</span>
                             </a>
                         </div>
                     </div>
