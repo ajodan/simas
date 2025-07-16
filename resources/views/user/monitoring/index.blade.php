@@ -78,7 +78,7 @@
                             <img src="{{ asset('logo-user-white.png') }}" class="w-[130px]" alt="">
                             <div class="text-black text-[45px] font-bold"
                                 style="font-family: 'Times New Roman', serif;">
-                                MASJID AGUNG SILTANG ALAUDDIN
+                                MASJID AGUNG SILTAN ALAUDDIN
                             </div>
                         </div>
 
