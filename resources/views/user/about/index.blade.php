@@ -88,7 +88,6 @@
         <div class="gap">
             <div class="container">
                 <div class="sec-tl text-center">
-                    <span class="theme-clr">Struktur Organisasi</span>
                     <h2 itemprop="headline">Nama Pengurus Masjid Sultan Alauddin</h2>
                     <img src="{{ asset('assets-landing/images/pshape.png') }}" alt="">
                 </div>
@@ -107,7 +106,9 @@
                                 @endphp
 
                                 @foreach ($jabatanGrouped as $jabatan => $personils)
-                                    <p class="mb-1 font-weight-bold">{{ $jabatan }}:</p>
+                                    @if ($jabatan)
+                                        <p class="mb-1 font-weight-bold">{{ $jabatan }}</p>
+                                    @endif
                                     <ul class="mb-3">
                                         @foreach ($personils as $person)
                                             <li>{{ $person->nama }}</li>

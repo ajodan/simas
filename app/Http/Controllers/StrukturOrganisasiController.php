@@ -11,7 +11,7 @@ class StrukturOrganisasiController extends BaseController
 {
     public function index()
     {
-        $module = 'Struktur Organisasi';
+        $module = 'Daftar Pengurus Masjid';
         return view('admin.strukturrganisasi.index', compact('module'));
     }
 

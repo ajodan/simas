@@ -363,8 +363,8 @@
                                     <!--end::Svg Icon-->
                                 </span>
                                 <span class="menu-title"
-                                    style="{{ isset($path[2]) && $path[2] === 'struktur-organisasi' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Struktur
-                                    Organisasi</span>
+                                    style="{{ isset($path[2]) && $path[2] === 'struktur-organisasi' ? 'color: #F4BE2A' : 'color: #FFFFFF' }}">Daftar
+                                    Pengurus</span>
                             </a>
                         </div>
                     </div>
