@@ -43,7 +43,7 @@
             </div>
 
             @if ($role === 'admin')
-                <!--begin::Menu item-->
+                {{-- <!--begin::Menu item-->
                 <div class="menu-item">
                     <a class="menu-link {{ isset($path[1]) && $path[1] === 'data-jamaah' ? 'active' : '' }}"
                         href="{{ route('admin.data-jamaah') }}">
@@ -60,7 +60,7 @@
                             Jamaah</span>
                     </a>
                 </div>
-                <!--end::Menu item-->
+                <!--end::Menu item--> --}}
 
                 <div class="menu-item menu-link-indention menu-accordion {{ $path[1] == 'data-donasi' ? 'show' : '' }}"
                     data-kt-menu-trigger="click">
@@ -123,7 +123,7 @@
                         <!--end::Menu item-->
                     </div>
 
-                    <!--begin::Menu sub-->
+                    {{-- <!--begin::Menu sub-->
                     <div class="menu-sub gap-2 menu-sub-accordion my-2">
                         <!--begin::Menu item-->
                         <div class="menu-item pe-0">
@@ -143,7 +143,7 @@
                             </a>
                         </div>
                         <!--end::Menu item-->
-                    </div>
+                    </div> --}}
 
                     <!--begin::Menu sub-->
                     <div class="menu-sub gap-2 menu-sub-accordion my-2">

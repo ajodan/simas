@@ -303,7 +303,7 @@
                     className: 'text-left',
                 }, {
                     data: 'target_dana',
-                    className: 'text-left',
+                    className: 'text-center',
                     render: function(data, type, row, meta) {
                         const value = numeral(data).format(
                             '0,0'); // Format to rupiah
@@ -311,7 +311,7 @@
                     }
                 }, {
                     data: 'total_donasi',
-                    className: 'text-left',
+                    className: 'text-center',
                     render: function(data, type, row, meta) {
                         const value = numeral(data).format(
                             '0,0'); // Format to rupiah

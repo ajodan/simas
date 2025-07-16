@@ -142,6 +142,7 @@
                     className: 'text-center',
                 }, {
                     data: 'nominal_donasi',
+                    className: 'text-center',
                     render: function(data, type, row) {
                         return new Intl.NumberFormat('id-ID', {
                             style: 'currency',

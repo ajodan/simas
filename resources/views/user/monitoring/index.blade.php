@@ -72,13 +72,13 @@
             <div class="p-7 z-10 relative">
                 <div class="grid grid-cols-3 gap-6 items-start">
                     <!-- Info Masjid -->
-                    <div class="col-span-2 space-y-6 grid gap-6">
+                    <div class="col-span-2 space-y-6 grid gap-3">
                         <div
                             class="bg-white/30 backdrop-blur-xl shadow-md rounded-2xl flex items-center gap-4 px-6 py-4">
-                            <iconify-icon icon="mdi:mosque-outline" class="text-[75px] text-[#DC7633]"></iconify-icon>
+                            <img src="{{ asset('logo-user-white.png') }}" class="w-[130px]" alt="">
                             <div class="text-black text-[45px] font-bold"
                                 style="font-family: 'Times New Roman', serif;">
-                                Masjid Sultan Agung UINAM
+                                Masjid Agung Sultan Alauddin
                             </div>
                         </div>
 
@@ -124,7 +124,7 @@
                             <div class="kata-carousel">
                                 <div
                                     class="bg-black/40 backdrop-blur-xl shadow-md rounded-2xl p-6 !border-s-4 !border-[#DC7633]">
-                                    <p class="text-white italic !text-2xl font-bold">“Tidak perlu menunggu mampu untuk
+                                    <p class="text-white italic !text-3xl font-bold">“Tidak perlu menunggu mampu untuk
                                         beramal
                                         besar.
                                         Lakukan
@@ -139,7 +139,7 @@
                                 </div>
                                 <div
                                     class="bg-black/40 backdrop-blur-xl shadow-md rounded-2xl p-6 !border-s-4 !border-[#DC7633]">
-                                    <p class="text-white italic !text-2xl font-bold">“Jangan menunggu sempurna untuk
+                                    <p class="text-white italic !text-3xl font-bold">“Jangan menunggu sempurna untuk
                                         mulai
                                         berbuat baik.
                                         Karena satu langkah kecil di jalan Allah,
@@ -150,7 +150,7 @@
                                 </div>
                                 <div
                                     class="bg-black/40 backdrop-blur-xl shadow-md rounded-2xl p-6 !border-s-4 !border-[#DC7633]">
-                                    <p class="text-white italic !text-2xl font-bold">“Satu senyum, satu doa, atau satu
+                                    <p class="text-white italic !text-3xl font-bold">“Satu senyum, satu doa, atau satu
                                         uluran
                                         tangan,
                                         bisa menjadi amal besar di sisi Allah.
@@ -203,7 +203,9 @@
                                 class="text-white italic font-semibold text-2xl">
                                 @if ($jadwalJumat)
                                     Khutbah jum'at tanggal {{ $jadwalJumat->tanggal }} oleh
-                                    {{ $jadwalJumat->nama_khatib }} di Masjid Agung Sultan Alauddin. 🕌
+                                    {{ $jadwalJumat->nama_khatib }} di Masjid Agung Sultan Alauddin 🕌 Imam
+                                    {{ $jadwalJumat->nama_imam }} 🕌 Muadzim
+                                    {{ $jadwalJumat->nama_muadzin }}
                                     Harap
                                     Matikan HP Saat Sholat 🕌
                                 @else

@@ -46,18 +46,18 @@ class Laporan extends BaseController
                 ];
             });
 
-        // Ambil dan mapping Donasi Donatur Tetap
-        $donasiDonaturTetaps = DonasiDonaturTetap::where('status', 'approved')
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->get()
-            ->map(function ($item) {
-                return (object)[
-                    'tanggal' => $item->created_at->format('Y-m-d'),
-                    'deskripsi' => 'Donasi dari donatur tetap ' . $item->nama_pendonasi,
-                    'pemasukan' => $item->nominal_donasi,
-                    'pengeluaran' => 0
-                ];
-            });
+        // // Ambil dan mapping Donasi Donatur Tetap
+        // $donasiDonaturTetaps = DonasiDonaturTetap::where('status', 'approved')
+        //     ->whereBetween('created_at', [$startDate, $endDate])
+        //     ->get()
+        //     ->map(function ($item) {
+        //         return (object)[
+        //             'tanggal' => $item->created_at->format('Y-m-d'),
+        //             'deskripsi' => 'Donasi dari donatur tetap ' . $item->nama_pendonasi,
+        //             'pemasukan' => $item->nominal_donasi,
+        //             'pengeluaran' => 0
+        //         ];
+        //     });
 
         $realisasi = Realisasi::get()
             ->filter(function ($item) use ($startDate, $endDate) {
@@ -91,7 +91,7 @@ class Laporan extends BaseController
         // Gabungkan semua data
         $merged = collect()
             ->merge($donasiCampaigns)
-            ->merge($donasiDonaturTetaps)
+            // ->merge($donasiDonaturTetaps)
             ->merge($realisasi)
             ->merge($donasiManual)
             ->sortBy('tanggal')
@@ -125,18 +125,18 @@ class Laporan extends BaseController
                 ];
             });
 
-        // Ambil dan mapping Donasi Donatur Tetap
-        $donasiDonaturTetaps = DonasiDonaturTetap::where('status', 'approved')
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->get()
-            ->map(function ($item) {
-                return (object)[
-                    'tanggal' => $item->created_at->format('Y-m-d'),
-                    'deskripsi' => 'Donasi dari donatur tetap ' . $item->nama_pendonasi,
-                    'pemasukan' => $item->nominal_donasi,
-                    'pengeluaran' => 0
-                ];
-            });
+        // // Ambil dan mapping Donasi Donatur Tetap
+        // $donasiDonaturTetaps = DonasiDonaturTetap::where('status', 'approved')
+        //     ->whereBetween('created_at', [$startDate, $endDate])
+        //     ->get()
+        //     ->map(function ($item) {
+        //         return (object)[
+        //             'tanggal' => $item->created_at->format('Y-m-d'),
+        //             'deskripsi' => 'Donasi dari donatur tetap ' . $item->nama_pendonasi,
+        //             'pemasukan' => $item->nominal_donasi,
+        //             'pengeluaran' => 0
+        //         ];
+        //     });
 
         $realisasi = Realisasi::get()
             ->filter(function ($item) use ($startDate, $endDate) {
@@ -169,7 +169,7 @@ class Laporan extends BaseController
         // Gabungkan semua data
         $merged = collect()
             ->merge($donasiCampaigns)
-            ->merge($donasiDonaturTetaps)
+            // ->merge($donasiDonaturTetaps)
             ->merge($realisasi)
             ->merge($donasiManual)
             ->sortBy('tanggal')

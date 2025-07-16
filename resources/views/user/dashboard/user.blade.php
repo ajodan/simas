@@ -423,7 +423,7 @@
             </div>
         </div>
     </section>
-    <section>
+    {{-- <section>
         <div class="gap">
             <div class="container">
                 <div class="sec-tl text-center">
@@ -472,7 +472,7 @@
                 </div><!-- Team Sec -->
             </div>
         </div>
-    </section>
+    </section> --}}
 @endsection
 @section('scripts')
     <script>

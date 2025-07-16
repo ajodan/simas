@@ -296,16 +296,16 @@
                     className: 'text-center',
                 }, {
                     data: 'tempat',
-                    className: 'text-left',
+                    className: 'text-center',
                 }, {
                     data: 'tanggal',
-                    className: 'text-left',
+                    className: 'text-center',
                 }, {
                     data: 'jam',
-                    className: 'text-left',
+                    className: 'text-center',
                 }, {
                     data: 'deskripsi',
-                    className: 'text-left',
+                    className: 'text-center',
                 }, {
                     data: 'banner',
                     className: 'text-center',

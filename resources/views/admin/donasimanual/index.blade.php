@@ -226,7 +226,7 @@
                     className: 'text-center',
                 }, {
                     data: 'jumlah',
-                    className: 'text-left',
+                    className: 'text-center',
                     render: function(data, type, row, meta) {
                         const value = numeral(data).format(
                             '0,0'); // Format to rupiah

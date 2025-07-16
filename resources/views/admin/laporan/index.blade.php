@@ -148,21 +148,21 @@
                     className: 'text-center',
                 }, {
                     data: 'pemasukan',
-                    className: 'text-right',
+                    className: 'text-center',
                     render: function(data, type, row, meta) {
                         return data ? 'Rp ' + numeral(data).format(
                             '0,0') : '-';
                     }
                 }, {
                     data: 'pengeluaran',
-                    className: 'text-right',
+                    className: 'text-center',
                     render: function(data, type, row, meta) {
                         return data ? 'Rp ' + numeral(data).format(
                             '0,0') : '-';
                     }
                 }, {
                     data: null,
-                    className: 'text-right',
+                    className: 'text-center',
                     render: function(data, type, row) {
                         let pengeluaran = 0;
                         let pemasukan = 0;

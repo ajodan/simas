@@ -37,10 +37,10 @@ class Dashboard extends BaseController
     {
         $module = 'Dashboard';
         $campaign = DonasiCampaign::where('status', 'approved')->sum('nominal_donasi');
-        $donaturTetap = DonasiDonaturTetap::where('status', 'approved')->sum('nominal_donasi');
+        // $donaturTetap = DonasiDonaturTetap::where('status', 'approved')->sum('nominal_donasi');
         $donasiRealisasi = Realisasi::sum('jumlah');
 
-        $kas = $campaign + $donaturTetap - $donasiRealisasi;
+        $kas = $campaign - $donasiRealisasi;
         return view('dashboard.admin', compact('module', 'kas'));
     }
 
@@ -63,26 +63,26 @@ class Dashboard extends BaseController
 
         $kegiatans = Kegiatan::latest()->take(3)->get();
 
-        $donaturTetaps = DonaturTetap::all();
-        $donaturTetaps->map(function ($item) {
-            $jamaah = DataJamaah::where('uuid', $item->uuid_user)->first();
+        // $donaturTetaps = DonaturTetap::all();
+        // $donaturTetaps->map(function ($item) {
+        //     $jamaah = DataJamaah::where('uuid', $item->uuid_user)->first();
 
-            $donasi = DonasiDonaturTetap::where('uuid_donatur', $item->uuid)
-                ->where('status', 'approved')
-                ->sum('nominal_donasi');
+        //     $donasi = DonasiDonaturTetap::where('uuid_donatur', $item->uuid)
+        //         ->where('status', 'approved')
+        //         ->sum('nominal_donasi');
 
-            $item->total_donasi = $donasi ? $donasi : 0;
+        //     $item->total_donasi = $donasi ? $donasi : 0;
 
-            if ($jamaah) {
-                $item->nama = $jamaah->nama;
-            } else {
-                $item->nama = null;
-            }
-            return $item;
-        });
+        //     if ($jamaah) {
+        //         $item->nama = $jamaah->nama;
+        //     } else {
+        //         $item->nama = null;
+        //     }
+        //     return $item;
+        // });
 
         $sejarah = Sejarah::first();
-        return view('user.dashboard.user', compact('module', 'jadwalJumat', 'donasis', 'kegiatans', 'donaturTetaps', 'sejarah'));
+        return view('user.dashboard.user', compact('module', 'jadwalJumat', 'donasis', 'kegiatans', 'sejarah'));
     }
 
     public function getWaktuAzan(Request $request)
@@ -156,11 +156,11 @@ class Dashboard extends BaseController
                 ->where('status', 'approved')
                 ->sum('nominal_donasi');
 
-            $pemasukanDonaturTetap = DonasiDonaturTetap::whereDay('created_at', $day)
-                ->whereMonth('created_at', $month)
-                ->whereYear('created_at', $year)
-                ->where('status', 'approved')
-                ->sum('nominal_donasi');
+            // $pemasukanDonaturTetap = DonasiDonaturTetap::whereDay('created_at', $day)
+            //     ->whereMonth('created_at', $month)
+            //     ->whereYear('created_at', $year)
+            //     ->where('status', 'approved')
+            //     ->sum('nominal_donasi');
 
             // Perbaikan di bagian Realisasi
             $tanggalRealisasiFormatted = str_pad($day, 2, '0', STR_PAD_LEFT) . '-' . str_pad($month, 2, '0', STR_PAD_LEFT) . '-' . $year;
@@ -173,7 +173,7 @@ class Dashboard extends BaseController
             $pemasukan = DonasiManual::where('tanggal', $pemasukanFormatted)
                 ->sum('jumlah');
 
-            $result['pemasukan'][] = $pemasukanCampaign + $pemasukanDonaturTetap + $pemasukan;
+            $result['pemasukan'][] = $pemasukanCampaign + $pemasukan;
             $result['pengeluaran'][] = $pengeluaran;
         }
 
@@ -235,17 +235,17 @@ class Dashboard extends BaseController
         }
 
         // === Donatur Tetap ===
-        $totalDonaturTetap = DonasiDonaturTetap::where('status', 'approved')
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->where('nominal_donasi', '>', 0)
-            ->sum('nominal_donasi');
+        // $totalDonaturTetap = DonasiDonaturTetap::where('status', 'approved')
+        //     ->whereBetween('created_at', [$startDate, $endDate])
+        //     ->where('nominal_donasi', '>', 0)
+        //     ->sum('nominal_donasi');
 
-        if ($totalDonaturTetap > 0) {
-            $pemasukan->push((object)[
-                'deskripsi' => 'Donatur Tetap',
-                'jumlah' => $totalDonaturTetap,
-            ]);
-        }
+        // if ($totalDonaturTetap > 0) {
+        //     $pemasukan->push((object)[
+        //         'deskripsi' => 'Donatur Tetap',
+        //         'jumlah' => $totalDonaturTetap,
+        //     ]);
+        // }
 
         // === Donasi Manual (kelompok per jenis_donasi) ===
         $donasiManual = DonasiManual::get()
