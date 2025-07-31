@@ -74,7 +74,7 @@
                     <!-- Info Masjid -->
                     <div class="col-span-2 space-y-6 grid gap-3">
                         <div
-                            class="bg-white/30 backdrop-blur-xl shadow-md rounded-2xl flex items-center gap-4 px-6 py-4">
+                            class="bg-white/30 backdrop-blur-xl shadow-md rounded-2xl flex items-center gap-4 px-6 py-5">
                             <img src="{{ asset('logo-user-white.png') }}" class="w-[130px]" alt="">
                             <div class="text-black text-[40px] font-bold"
                                 style="font-family: 'Times New Roman', serif;">

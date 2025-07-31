@@ -37,10 +37,11 @@ class Dashboard extends BaseController
     {
         $module = 'Dashboard';
         $campaign = DonasiCampaign::where('status', 'approved')->sum('nominal_donasi');
+        $donasiManual = DonasiManual::sum('jumlah');
         // $donaturTetap = DonasiDonaturTetap::where('status', 'approved')->sum('nominal_donasi');
         $donasiRealisasi = Realisasi::sum('jumlah');
 
-        $kas = $campaign - $donasiRealisasi;
+        $kas = $campaign + $donasiManual - $donasiRealisasi;
         return view('dashboard.admin', compact('module', 'kas'));
     }
 

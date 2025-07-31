@@ -1,6 +1,7 @@
 <footer>
-    <div class="gap no-gap">
-        <img class = "vector-bg-footer" src="assets/images/bg-vector.png" alt="vector-bg" itemprop="image">
+    <div class="gap" style="padding-bottom: 220px">
+        <img class = "vector-bg-footer" src="{{ asset('assets-landing/images/bg-vector.png') }}" alt="vector-bg"
+            itemprop="image">
         <div class="container">
             <div class="footer-data brd-rd20 overlap-220">
                 <div class="footer-data-inr">
@@ -105,7 +106,7 @@
         </div>
     </div>
 </footer>
-<section>
+{{-- <section>
     <div class="gap theme-bg bottom-spac50 top-spac270">
         <div class="container">
             <div class="newsletter-wrp">
@@ -123,4 +124,4 @@
             </div><!-- Newsletter Wrap -->
         </div>
     </div>
-</section>
+</section> --}}
