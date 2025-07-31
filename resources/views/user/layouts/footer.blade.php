@@ -69,7 +69,8 @@
                                     <li><i class="far fa-envelope theme-clr"></i><a href="#" title=""
                                             itemprop="url">bismillah@mail.com</a></li>
                                     <li><i class="fas fa-phone theme-clr"></i><span>+62 812-2997-7345</span></li>
-                                    <li><i class="fas fa-map-marker-alt theme-clr"></i>Romangolong, Kec. Somba Opu</li>
+                                    <li><i class="fas fa-map-marker-alt theme-clr"></i>Romangolong, Kec. Somba Opu,
+                                        Kabupaten Gowa, Sulawesi Selatan 92113.</li>
                                 </ul>
                                 {{-- <div class="scl1">
                                     <a href="#" title="Twitter" itemprop="url" target="_blank"><i
