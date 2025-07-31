@@ -68,12 +68,10 @@
                                 <ul class="cnt-inf">
                                     <li><i class="far fa-envelope theme-clr"></i><a href="#" title=""
                                             itemprop="url">bismillah@mail.com</a></li>
-                                    <li><i class="fas fa-phone theme-clr"></i><span>1800-123-456-7</span></li>
-                                    <li><i class="fas fa-map-marker-alt theme-clr"></i>19-J David Road H Block,
-                                        America</li>
-                                    <li><i class="fas fa-fax theme-clr"></i>1800-123-456-7</li>
+                                    <li><i class="fas fa-phone theme-clr"></i><span>+62 812-2997-7345</span></li>
+                                    <li><i class="fas fa-map-marker-alt theme-clr"></i>Romangolong, Kec. Somba Opu</li>
                                 </ul>
-                                <div class="scl1">
+                                {{-- <div class="scl1">
                                     <a href="#" title="Twitter" itemprop="url" target="_blank"><i
                                             class="fab fa-twitter"></i></a>
                                     <a href="#" title="Facebook" itemprop="url" target="_blank"><i
@@ -86,7 +84,7 @@
                                             class="fab fa-instagram"></i></a>
                                     <a href="#" title="Youtube" itemprop="url" target="_blank"><i
                                             class="fab fa-youtube"></i></a>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-6 col-lg-4">
