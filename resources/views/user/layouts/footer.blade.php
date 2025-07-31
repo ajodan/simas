@@ -92,6 +92,7 @@
                         <div class="col-md-4 col-sm-6 col-lg-4">
                             <div class="widget">
                                 <h5 itemprop="headline">Sedekah Tidak Akan Membuatmu Miskin</h5>
+                                <img src="{{ asset('qris.png') }}" width="200px" alt="">
                                 <p itemprop="description"><strong>Rekening BSI:</strong> 1717 1515 49</p>
                             </div>
                         </div>
