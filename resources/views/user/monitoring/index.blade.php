@@ -283,14 +283,13 @@
                                             <h3 class="text-2xl font-bold uppercase mb-1 text-white">REKAPITULASI</h3>
                                         </div>
 
-
                                         <ul class="text-xl list-disc list-inside">
                                             <li>Total Pemasukan : <span class="font-medium">Rp
                                                     {{ number_format($total_pemasukan, 0, ',', '.') }}</span></li>
                                             <li>Total Pengeluaran : <span class="font-medium">Rp
                                                     {{ number_format($total_pengeluaran, 0, ',', '.') }}</span></li>
                                             <hr class="border-white/50 my-4">
-                                            <li><strong>Saldo Akhir ({{ $bulan }} {{ $tahun }}) : Rp
+                                            <li><strong>Saldo Akhir : Rp
                                                     {{ number_format($saldo_akhir, 0, ',', '.') }}</strong></li>
                                         </ul>
 

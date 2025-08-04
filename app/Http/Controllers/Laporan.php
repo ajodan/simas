@@ -8,6 +8,7 @@ use App\Models\DonasiDonaturTetap;
 use App\Models\DonasiManual;
 use App\Models\DonaturTetap;
 use App\Models\Realisasi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -75,18 +76,28 @@ class Laporan extends BaseController
 
         $donasiManual = DonasiManual::get()
             ->filter(function ($item) use ($startDate, $endDate) {
-                $tanggal = \Carbon\Carbon::createFromFormat('d-m-Y', $item->tanggal);
+                try {
+                    $tanggal = Carbon::createFromFormat('d-m-Y', $item->tanggal);
+                } catch (\Exception $e) {
+                    return false; // Abaikan jika format salah
+                }
                 return $tanggal->between($startDate, $endDate);
             })
             ->map(function ($item) {
+                $tanggal = Carbon::createFromFormat('d-m-Y', $item->tanggal)->format('Y-m-d');
+                $deskripsi = 'Donasi ' . $item->jenis_donasi;
+
+                if ($item->jenis_donasi !== 'kotak infaq jumat' && !empty($item->nama_donatur)) {
+                    $deskripsi .= ' dari ' . $item->nama_donatur;
+                }
+
                 return (object)[
-                    'tanggal' => \Carbon\Carbon::createFromFormat('d-m-Y', $item->tanggal)->format('Y-m-d'),
-                    'deskripsi' => 'Donasi ' . $item->jenis_donasi . ($item->jenis_donasi == 'kotak infaq jumat' ? ' ' : ' dari ' . $item->nama_donatur),
+                    'tanggal' => $tanggal,
+                    'deskripsi' => $deskripsi,
                     'pemasukan' => $item->jumlah,
                     'pengeluaran' => 0
                 ];
             });
-
 
         // Gabungkan semua data
         $merged = collect()

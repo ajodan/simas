@@ -289,9 +289,16 @@ class Dashboard extends BaseController
             ->values();
 
         // === Hitung total
-        $totalPemasukan = $pemasukan->sum('jumlah');
-        $totalPengeluaran = $pengeluaran->sum('jumlah');
-        $saldoAkhir = $totalPemasukan - $totalPengeluaran;
+        // $totalPemasukan = $pemasukan->sum('jumlah');
+        // $totalPengeluaran = $pengeluaran->sum('jumlah');
+        // $saldoAkhir = $totalPemasukan - $totalPengeluaran;
+
+        $campaign = DonasiCampaign::where('status', 'approved')->sum('nominal_donasi');
+        $donasiManual = DonasiManual::sum('jumlah');
+        // $donaturTetap = DonasiDonaturTetap::where('status', 'approved')->sum('nominal_donasi');
+        $donasiRealisasi = Realisasi::sum('jumlah');
+
+        $kas = $campaign + $donasiManual - $donasiRealisasi;
 
         return view('user.monitoring.index', [
             'module' => $module,
@@ -301,9 +308,9 @@ class Dashboard extends BaseController
             'tahun' => $startDate->year,
             'pemasukan_per_kategori' => $pemasukan,
             'pengeluaran_per_kategori' => $pengeluaran,
-            'total_pemasukan' => $totalPemasukan,
-            'total_pengeluaran' => $totalPengeluaran,
-            'saldo_akhir' => $saldoAkhir,
+            'total_pemasukan' => $campaign + $donasiManual,
+            'total_pengeluaran' => $donasiRealisasi,
+            'saldo_akhir' => $kas,
         ]);
     }
 }
