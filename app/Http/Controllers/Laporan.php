@@ -85,10 +85,10 @@ class Laporan extends BaseController
             })
             ->map(function ($item) {
                 $tanggal = Carbon::createFromFormat('d-m-Y', $item->tanggal)->format('Y-m-d');
-                $deskripsi = 'Donasi ' . $item->jenis_donasi;
+                $deskripsi = 'Donasi ' . $item->jenis_donasi . ' dari ' . $item->nama_donatur;
 
                 if ($item->jenis_donasi == 'kotak infaq jumat') {
-                    $deskripsi .= 'Donasi ' . $item->jenis_donasi;
+                    $deskripsi = 'Donasi ' . $item->jenis_donasi;
                 }
 
                 return (object)[
