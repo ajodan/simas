@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }} | {{ $module }}</title>
-    <link rel="icon" type="image/png" href="{{ asset('shortcut.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('logo-user-white.png') }}">
     <!-- google fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
@@ -92,34 +92,65 @@
                                 <!-- Subuh -->
                                 <div class="bg-green-50/20 text-green-900 rounded-xl shadow p-3 text-center">
                                     <div class="text-sm font-semibold">Subuh</div>
-                                    <div id="subuh" class="text-2xl font-bold">05:03</div>
+                                    <div id="subuh" class="text-2xl font-bold">--:--</div>
                                 </div>
 
                                 <!-- Dzuhur -->
                                 <div class="bg-yellow-50/20 text-yellow-900 rounded-xl shadow p-3 text-center">
                                     <div class="text-sm font-semibold">Dzuhur</div>
-                                    <div id="dzuhur" class="text-2xl font-bold">12:00</div>
+                                    <div id="dzuhur" class="text-2xl font-bold">--:--</div>
                                 </div>
 
                                 <!-- Ashar -->
                                 <div class="bg-blue-50/20 text-blue-900 rounded-xl shadow p-3 text-center">
                                     <div class="text-sm font-semibold">Ashar</div>
-                                    <div id="ashar" class="text-2xl font-bold">15:23</div>
+                                    <div id="ashar" class="text-2xl font-bold">--:--</div>
                                 </div>
 
                                 <!-- Maghrib -->
                                 <div class="bg-orange-50/20 text-orange-900 rounded-xl shadow p-3 text-center">
                                     <div class="text-sm font-semibold">Maghrib</div>
-                                    <div id="maghrib" class="text-2xl font-bold">17:55</div>
+                                    <div id="maghrib" class="text-2xl font-bold">--:--</div>
                                 </div>
 
                                 <!-- Isya -->
                                 <div class="bg-purple-50/20 text-purple-900 rounded-xl shadow p-3 text-center">
                                     <div class="text-sm font-semibold">Isya</div>
-                                    <div id="isya" class="text-2xl font-bold">18:56</div>
+                                    <div id="isya" class="text-2xl font-bold">--:--</div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Fullscreen Countdown -->
+                        <div id="iqomahCountdown"
+                            class="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center transition-opacity duration-1000 ease-in-out opacity-0 pointer-events-none">
+
+                            <!-- Video Background -->
+                            <div class="absolute inset-0 z-0">
+                                <video autoplay muted loop class="w-full h-full object-cover">
+                                    <source src="{{ asset('backgroun-video.mp4') }}" type="video/mp4">
+                                    Browser Anda tidak mendukung tag video.
+                                </video>
+                                <div class="absolute inset-0 bg-black/70"></div>
+                            </div>
+
+                            <!-- Konten Countdown -->
+                            <div id="countdownContent"
+                                class="relative z-10 flex flex-col items-center justify-center h-full text-white text-center transition-all duration-1000 transform opacity-0 scale-95">
+                                <p class="text-[6vw] font-semibold uppercase drop-shadow-lg">
+                                    IQOMAH <span id="nextPrayerCountdown"></span>
+                                </p>
+                                <div id="countdownNumber"
+                                    class="text-[14vw] font-extrabold tracking-widest drop-shadow-2xl">
+                                    00:00
+                                </div>
+                                <audio id="bipSound">
+                                    <source src="{{ asset('bep.mp3') }}" type="audio/mpeg">
+                                    Browser Anda tidak mendukung audio.
+                                </audio>
+                            </div>
+                        </div>
+
                         <div class="overflow-hidden">
                             <div class="kata-carousel">
                                 <div
@@ -168,8 +199,8 @@
                                     <div
                                         class="!flex items-center gap-4 bg-[#DC7633]/80 backdrop-blur-lg shadow-lg rounded-lg overflow-hidden p-3 w-full">
                                         <img src="{{ asset('/public/kegiatan/' . $kegiatan->banner) }}"
-                                            alt="Banner Kegiatan" class="!w-[150px] !h-[150px] object-cover rounded-xl"
-                                            loading="lazy">
+                                            alt="Banner Kegiatan"
+                                            class="!w-[150px] !h-[150px] object-cover rounded-xl" loading="lazy">
 
                                         <div class="flex-1 text-left">
                                             <h3 class="text-3xl font-bold text-white mb-2">
@@ -370,21 +401,17 @@
         updateClock();
         setInterval(updateClock, 1000);
 
+        let prayerTimesGlobal = {};
+        let nextPrayerNameGlobal = "";
+        let countdownAktif = false;
+
         async function loadJadwalSholat() {
             const response = await fetch(
                 "https://api.aladhan.com/v1/timingsByCity?city=Makassar&country=Indonesia&method=2");
             const result = await response.json();
             const jadwal = result.data.timings;
 
-            // Set waktu sholat ke HTML
-            document.getElementById("subuh").innerText = jadwal.Fajr;
-            document.getElementById("dzuhur").innerText = jadwal.Dhuhr;
-            document.getElementById("ashar").innerText = jadwal.Asr;
-            document.getElementById("maghrib").innerText = jadwal.Maghrib;
-            document.getElementById("isya").innerText = jadwal.Isha;
-
-            // Simpan waktu ke dalam objek
-            const prayerTimes = {
+            prayerTimesGlobal = {
                 Subuh: jadwal.Fajr,
                 Dzuhur: jadwal.Dhuhr,
                 Ashar: jadwal.Asr,
@@ -392,30 +419,103 @@
                 Isya: jadwal.Isha
             };
 
+            document.getElementById("subuh").innerText = jadwal.Fajr;
+            document.getElementById("dzuhur").innerText = jadwal.Dhuhr;
+            document.getElementById("ashar").innerText = jadwal.Asr;
+            document.getElementById("maghrib").innerText = jadwal.Maghrib;
+            document.getElementById("isya").innerText = jadwal.Isha;
+
             function getNextPrayer() {
                 const now = new Date();
                 const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
                 let nearestName = "Subuh (besok)";
-                let nearestTime = 24 * 60 + 1; // waktu besar untuk perbandingan default
+                let nearestTime = 24 * 60 + 1;
 
-                for (const [name, timeStr] of Object.entries(prayerTimes)) {
+                for (const [name, timeStr] of Object.entries(prayerTimesGlobal)) {
                     const [hour, minute] = timeStr.split(":").map(Number);
                     const prayerMinutes = hour * 60 + minute;
+
                     if (prayerMinutes > currentMinutes && prayerMinutes < nearestTime) {
                         nearestTime = prayerMinutes;
                         nearestName = name;
                     }
                 }
 
+                nextPrayerNameGlobal = nearestName;
                 document.getElementById("nextPrayer").innerText = nearestName;
+                document.getElementById("nextPrayerCountdown").innerText = nearestName;
             }
 
-            // Jalankan dan perbarui tiap menit
             getNextPrayer();
             setInterval(getNextPrayer, 60000);
         }
 
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && !countdownAktif) {
+                countdownAktif = true;
+                startIqomahCountdown(60); // 1 menit
+            }
+        });
+
+        function startIqomahCountdown(seconds) {
+            const overlay = document.getElementById("iqomahCountdown");
+            const countdownNumber = document.getElementById("countdownNumber");
+            const countdownContent = document.getElementById("countdownContent");
+            const bip = document.getElementById("bipSound");
+
+            // Reset tampilan awal
+            overlay.classList.remove("pointer-events-none");
+            overlay.classList.add("opacity-0");
+            countdownContent.classList.add("opacity-0", "scale-95");
+            countdownContent.classList.remove("opacity-100", "scale-100");
+
+            // Trigger animasi transisi
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    overlay.classList.remove("opacity-0");
+                    overlay.classList.add("opacity-100");
+
+                    countdownContent.classList.remove("opacity-0", "scale-95");
+                    countdownContent.classList.add("opacity-100", "scale-100");
+                });
+            });
+
+            let current = seconds;
+
+            function formatTime(seconds) {
+                const m = Math.floor(seconds / 60);
+                const s = seconds % 60;
+                return `- ${String(m).padStart(2, '0')} : ${String(s).padStart(2, '0')}`;
+            }
+
+            countdownNumber.innerText = formatTime(current);
+
+            const interval = setInterval(() => {
+                current--;
+                countdownNumber.innerText = formatTime(current);
+
+                if (current === 4) {
+                    if (bip) {
+                        bip.currentTime = 0;
+                        bip.play();
+                    }
+                }
+
+                if (current <= 0) {
+                    clearInterval(interval);
+                    countdownAktif = false;
+
+                    overlay.classList.remove("opacity-100");
+                    overlay.classList.add("opacity-0", "pointer-events-none");
+
+                    countdownContent.classList.remove("opacity-100", "scale-100");
+                    countdownContent.classList.add("opacity-0", "scale-95");
+                }
+            }, 1000);
+
+        }
+
+        // Mulai saat halaman dimuat
         loadJadwalSholat();
     </script>
 
