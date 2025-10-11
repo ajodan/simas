@@ -38,7 +38,7 @@
                                     <thead class="text-center">
                                         <tr class="fw-bolder fs-6 text-gray-800">
                                             <th>No</th>
-                                            <th>Nama</th>
+                                            <th>Nama Lengkap</th>
                                             <th>Nominal</th>
                                             <th>Bukti</th>
                                             <th>Status</th>
@@ -77,7 +77,7 @@
 
             $.ajax({
                 type: 'GET',
-                url: '/admin/data-donasi/donasi-camaign-approve/' + $(this).attr('data-uuid'),
+                url: '/admin/data-donasi/donasi-campaign-approve/' + $(this).attr('data-uuid'),
                 contentType: false,
                 processData: false,
                 success: function(response) {

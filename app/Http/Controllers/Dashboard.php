@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absensi;
+use App\Models\Artikel;
 use App\Models\CampaignDonasi;
 use App\Models\DataJamaah;
 use App\Models\DonasiCampaign;
 use App\Models\DonasiDonaturTetap;
 use App\Models\DonasiManual;
 use App\Models\DonaturTetap;
+use App\Models\Dokumentasi;
 use App\Models\Event;
 use App\Models\Izin;
 use App\Models\JadwalJumat;
@@ -19,6 +21,8 @@ use App\Models\Sejarah;
 use App\Models\StrukturOrganisasi;
 use App\Models\User;
 use App\Models\VisiMisi;
+use App\Models\LaporanKeuangan;
+use App\Models\Inventaris;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
@@ -45,14 +49,64 @@ class Dashboard extends BaseController
         return view('dashboard.admin', compact('module', 'kas'));
     }
 
+     public function dashboard_pengurus()
+    {
+        $module = 'Dashboard';
+        $campaign = DonasiCampaign::where('status', 'approved')->sum('nominal_donasi');
+        $donasiManual = DonasiManual::sum('jumlah');
+        // $donaturTetap = DonasiDonaturTetap::where('status', 'approved')->sum('nominal_donasi');
+        $donasiRealisasi = Realisasi::sum('jumlah');
+
+        $kas = $campaign + $donasiManual - $donasiRealisasi;
+        return view('dashboard.admin', compact('module', 'kas'));
+    }
+
+    private function fetchAzanTimes($kota = 'Jakarta', $negara = 'Indonesia')
+    {
+        $today = now()->format('d-m-Y');
+
+        $response = Http::get("http://api.aladhan.com/v1/timingsByCity", [
+            'city' => $kota,
+            'country' => $negara,
+            'method' => 2,
+            'date' => $today
+        ]);
+
+        if ($response->ok()) {
+            return $response->json()['data']['timings'];
+        }
+
+        return [
+            'Fajr' => '--:--',
+            'Sunrise' => '--:--',
+            'Dhuhr' => '--:--',
+            'Asr' => '--:--',
+            'Maghrib' => '--:--',
+            'Isha' => '--:--',
+        ];
+    }
+
     public function dashboard_user()
     {
-        $module = 'Masjid Agung UINAM';
+        $module = 'Masjid Jami Al Furqaan';
 
-        $today = Carbon::today();
-        $jadwalJumat = JadwalJumat::where('tanggal', '<=', $today)
+        // $today = Carbon::today();
+        // $tigaHariLalu = Carbon::today()->subDays(3);
+        // $jadwalJumat = JadwalJumat::where('tanggal', '>=', $today)
+        //     ->orderBy('tanggal', 'asc')
+        //     ->first();
+       $today = Carbon::today();
+        $jadwalTerdekat = JadwalJumat::where('tanggal', '>=', $today)
             ->orderBy('tanggal', 'asc')
             ->first();
+
+        if ($jadwalTerdekat) {
+            $jadwalJumat = $jadwalTerdekat;
+        } else {
+            $jadwalJumat = JadwalJumat::where('tanggal', '>=', $today)
+                ->orderBy('tanggal', 'desc')
+                ->first();
+        }
         $donasis = CampaignDonasi::where('status', true)->take(2)->latest()->get();
 
         $donasis->each(function ($donasi) {
@@ -62,46 +116,50 @@ class Dashboard extends BaseController
             $donasi->total_donasi = $donasiCampaigns->sum('nominal_donasi');
         });
 
-        $kegiatans = Kegiatan::latest()->take(3)->get();
+        $kegiatans = Kegiatan::latest()->take(2)->get();
+        $kegiatans_you = Kegiatan::latest()->take(2)->get();
 
-        // $donaturTetaps = DonaturTetap::all();
-        // $donaturTetaps->map(function ($item) {
-        //     $jamaah = DataJamaah::where('uuid', $item->uuid_user)->first();
+        $dokumentasis = Dokumentasi::with(['kegiatan', 'subDokumentasis'])->latest()->take(6)->get();
 
-        //     $donasi = DonasiDonaturTetap::where('uuid_donatur', $item->uuid)
-        //         ->where('status', 'approved')
-        //         ->sum('nominal_donasi');
+        $donaturTetaps = DonaturTetap::all();
+        $donaturTetaps->map(function ($item) {
+            $jamaah = DataJamaah::where('uuid', $item->uuid_user)->first();
 
-        //     $item->total_donasi = $donasi ? $donasi : 0;
+            $donasi = DonasiDonaturTetap::where('uuid_donatur', $item->uuid)
+                ->where('status', 'approved')
+                ->sum('nominal_donasi');
 
-        //     if ($jamaah) {
-        //         $item->nama = $jamaah->nama;
-        //     } else {
-        //         $item->nama = null;
-        //     }
-        //     return $item;
-        // });
+            $item->total_donasi = $donasi ? $donasi : 0;
+
+            if ($jamaah) {
+                $item->nama = $jamaah->nama;
+            } else {
+                $item->nama = null;
+            }
+            return $item;
+        });
+
+        $artikels = Artikel::with('kategori')->where('status', 'published')->orderBy('created_at', 'desc')->take(3)->get();
+        $laporan_keuangans = LaporanKeuangan::with('jenisLaporan')->latest()->take(3)->get();
+        $inventaris = Inventaris::with('jenisInventaris')->latest()->take(6)->get();
+        $struktur_organisasi = StrukturOrganisasi::all();
+
+       // $dokumentasis = Dokumentasi::with('kegiatan')->orderBy('created_at', 'desc')->paginate(6);
 
         $sejarah = Sejarah::first();
-        return view('user.dashboard.user', compact('module', 'jadwalJumat', 'donasis', 'kegiatans', 'sejarah'));
+        $azanTimes = $this->fetchAzanTimes();
+        return view('user.dashboard.user', compact('module', 'jadwalJumat', 'struktur_organisasi', 'laporan_keuangans', 'donaturTetaps', 'donasis', 'kegiatans', 'kegiatans_you', 'dokumentasis', 'sejarah', 'artikels', 'inventaris', 'azanTimes'));
     }
 
     public function getWaktuAzan(Request $request)
     {
-        $kota = $request->input('kota', 'Makassar');
+        $kota = $request->input('kota', 'Jakarta');
         $negara = $request->input('negara', 'Indonesia');
 
-        $today = now()->format('d-m-Y');
+        $times = $this->fetchAzanTimes($kota, $negara);
 
-        $response = Http::get("http://api.aladhan.com/v1/timingsByCity", [
-            'city' => $kota,
-            'country' => $negara,
-            'method' => 2, // Umm al-Qura University, Makkah (default method)
-            'date' => $today
-        ]);
-
-        if ($response->ok()) {
-            return response()->json($response->json()['data']['timings']);
+        if ($times['Fajr'] !== '--:--') {
+            return response()->json($times);
         }
 
         return response()->json(['error' => 'Gagal mengambil data waktu azan'], 500);
@@ -205,6 +263,14 @@ class Dashboard extends BaseController
         $struktur_organisasi = StrukturOrganisasi::all();
         // dd($struktur_organisasi);
         return view('user.about.index', compact('module', 'sejarah', 'visi', 'misi', 'struktur_organisasi'));
+    }
+
+     public function struktur_organisasi()
+    {
+        $module = 'Struktur Organisasi';
+        $struktur_organisasi = StrukturOrganisasi::all();
+        // dd($struktur_organisasi);
+        return view('user.struktur-organisasi.index', compact('module', 'struktur_organisasi'));
     }
 
     public function monitorin()

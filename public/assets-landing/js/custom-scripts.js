@@ -147,6 +147,9 @@ $(document).ready(function(){
     });
 	
 	$('.featured-area').owlCarousel({
+		autoplay: true,
+		autoplayTimeout: 5000,
+		autoplayHoverPause: true,
 		loop:true,
 		margin:0,
 		nav:true,
@@ -163,6 +166,82 @@ $(document).ready(function(){
 		}
 	});
 
+  }
+
+  //===== Calendar AJAX Navigation =====//
+  $('#prev-month, #next-month').on('click', function() {
+    var month = $(this).data('month');
+    var year = $(this).data('year');
+
+    $('#loading-indicator').removeClass('hidden');
+    $('#calendar-container').addClass('opacity-50');
+
+    $.ajax({
+      url: '/agenda',
+      type: 'GET',
+      data: { month: month, year: year },
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      success: function(response) {
+        $('#calendar-container').html(response.calendar);
+        $('#current-month-title').text(response.month);
+        updateNavigationButtons(month, year);
+      },
+      error: function(xhr, status, error) {
+        alert('Terjadi kesalahan saat memuat kalender. Silakan coba lagi.');
+        console.error('AJAX Error:', error);
+      },
+      complete: function() {
+        $('#loading-indicator').addClass('hidden');
+        $('#calendar-container').removeClass('opacity-50');
+      }
+    });
+  });
+
+  //===== Agenda Date Click Handler =====//
+  $(document).on('click', '#calendar-container div[data-date]', function() {
+    var date = $(this).data('date');
+    $('#modal-title').text('Agenda untuk Tanggal: ' + date);
+    $('#modal-content').html('<p>Memuat data...</p>');
+    $('#agenda-modal').removeClass('hidden');
+
+    $.ajax({
+      url: '/agenda/get-by-date',
+      type: 'GET',
+      data: { date: date },
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      success: function(response) {
+        if (response.data.length === 0) {
+          $('#modal-content').html('<p>Tidak ada agenda untuk tanggal ini.</p>');
+        } else {
+          var html = '<ul class="list-disc pl-5 space-y-2">';
+          response.data.forEach(function(agenda) {
+            html += '<li><strong>' + agenda.judul + '</strong><br>' + agenda.deskripsi + '</li>';
+          });
+          html += '</ul>';
+          $('#modal-content').html(html);
+        }
+      },
+      error: function(xhr, status, error) {
+        $('#modal-content').html('<p>Gagal memuat data agenda.</p>');
+        console.error('AJAX Error:', error);
+      }
+    });
+  });
+
+  $('#close-modal').on('click', function() {
+    $('#agenda-modal').addClass('hidden');
+  });
+
+  function updateNavigationButtons(currentMonth, currentYear) {
+    var prevMonth = new Date(currentYear, currentMonth - 2, 1); // Month is 0-indexed in JS
+    var nextMonth = new Date(currentYear, currentMonth, 1);
+
+    $('#prev-month').data('month', prevMonth.getMonth() + 1).data('year', prevMonth.getFullYear());
+    $('#next-month').data('month', nextMonth.getMonth() + 1).data('year', nextMonth.getFullYear());
   }
 
 });//===== Document Ready Ends =====//

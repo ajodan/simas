@@ -45,7 +45,7 @@
         <div class="d-flex flex-column justify-content-center flex-lg-row flex-column-fluid">
             <!--begin::Body-->
             <div class="d-none d-lg-flex justify-content-center align-items-center w-50">
-                <img src="{{ asset('logo-user-white.png') }}" style="width: 350px" alt="">
+                <img src="{{ asset('assets-landing/images/parallax2.jpg') }}" style="width: 720px" alt="">
             </div>
             <!--begin::Body-->
             <!--begin::Aside-->
@@ -65,10 +65,10 @@
                             <!--begin::Heading-->
                             <div class="text-center mb-11">
                                 <!--begin::Title-->
-                                <h1 class="text-white fw-bolder mb-3">LOGIN</h1>
+                                <h1 class="text-white fw-bolder mb-3">LOGIN APLIKASI</h1>
                                 <!--end::Title-->
                                 <!--begin::Subtitle-->
-                                <div class="text-white fw-semibold fs-6">Masukkan data anda</div>
+                                <div class="text-white fw-semibold fs-6">Masukkan Username dan Password Anda</div>
                                 <!--end::Subtitle=-->
                             </div>
                             <!--begin::Heading-->
@@ -89,7 +89,7 @@
                                     <!--begin::Input wrapper-->
                                     <div class="position-relative mb-3">
                                         <div class="position-relative">
-                                            <input placeholder="Password" type="password" name="password"
+                                            <input placeholder="Masukkan Password" type="password" name="password"
                                                 autocomplete="off" class="form-control" />
                                             <span
                                                 class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
@@ -111,7 +111,7 @@
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">
                                     <!--begin::Indicator label-->
-                                    <span class="indicator-label">Login</span>
+                                    <span class="indicator-label">LOGIN</span>
                                     <!--end::Indicator label-->
                                 </button>
                             </div>

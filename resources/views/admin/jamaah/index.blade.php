@@ -29,11 +29,11 @@
                                     <thead class="text-center">
                                         <tr class="fw-bolder fs-6 text-gray-800">
                                             <th>No</th>
-                                            <th>Nama</th>
+                                            <th>Nama Jamaah</th>
                                             <th>Email</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Alamat</th>
-                                            <th>Nomor Handphone</th>
+                                            <th>Nomor Ponsel</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -130,7 +130,7 @@
                     </div>
 
                     <div class="mb-10">
-                        <label class="form-label">Nomor Handhone</label>
+                        <label class="form-label">Nomor Ponsel</label>
                         <input type="text" id="no_hp" class="form-control" name="no_hp">
                         <small class="text-danger no_hp_error"></small>
                     </div>
@@ -138,7 +138,7 @@
                     <div class="mb-10">
                         <label class="form-label">Status</label>
                         <select name="status" class="form-select" data-control="select2" id="from_select"
-                            data-placeholder="Pilih jenis inputan">
+                            data-placeholder="Pilih status">
                         </select>
                         <small class="text-danger status_error"></small>
                     </div>
@@ -288,7 +288,10 @@
                 text: "Aktif",
             },
             {
-                text: "Tidak Aktif",
+                text: "Semi Aktif",
+            },
+             {
+                text: "Pasif",
             },
         ];
 

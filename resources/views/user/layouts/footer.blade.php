@@ -8,98 +8,74 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-6 col-lg-4">
                             <div class="widget">
-                                <h5 itemprop="headline">Tentang Kami</h5>
-                                <p itemprop="description">Aplikasi Masjid Agung Sultan hadir untuk memudahkan umat dalam
-                                    mengakses info, layanan masjid, dan kegiatan keagamaan setiap hari.
-                                </p>
+                                <h5 itemprop="headline">Lokasi Peta</h5>
+                                {{-- <p itemprop="description">Aplikasi Sistem Informasi Masjid Jami' Al Furqaan untuk memudahkan umat dalam
+                                    mengakses info, layanan masjid, dan kegiatan keagamaan masjid.
+                                </p> --}}
                                 <div class="loc-mp brd-rd5">
-                                    <iframe
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.366767239663!2d119.49635211011523!3d-5.204917679738017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbee33c061a2f93%3A0x5520dae652991f7a!2sMasjid%20Agung%20Sultan%20Alauddin!5e0!3m2!1sid!2sid!4v1748535526912!5m2!1sid!2sid"
-                                        style="border:0;" allowfullscreen="" loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.89729286637038!2d107.0455407205455!3d-6.216604666744997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698f001e4d2dc1%3A0xa847812afa0acd4c!2smasjid%20al%20furqaan!5e0!3m2!1sid!2sid!4v1759559260896!5m2!1sid!2sid" width="400" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                 </div>
-                                {{-- <span><i class="fas fa-map-marker-alt theme-clr"></i>Lokasi Masjid Agung Sultan
-                                    Alauddin</span> --}}
+                                <span><i class="fas fa-map-marker-alt theme-clr"></i>Lokasi Masjid Jami' Al Furqaan</span>
                             </div>
                         </div>
-                        {{-- <div class="col-md-4 col-sm-6 col-lg-4">
+                        <div class="col-md-4 col-sm-6 col-lg-4">
                             <div class="widget">
-                                <h5 itemprop="headline">Latest Blogs</h5>
+                                <h5 itemprop="headline">Artikel Terbaru</h5>
                                 <div class="rcnt-wrp">
-                                    <div class="rcnt-bx">
-                                        <a class="brd-rd5" href="blog-detail.html" title="" itemprop="url"><img
-                                                src="assets/images/resources/rcnt-img1.jpg" alt="rcnt-img1.jpg"
-                                                itemprop="image"></a>
-                                        <div class="rcnt-inf">
-                                            <h6 itemprop="headline"><a href="blog-detail.html" title=""
-                                                    itemprop="url">Help Poor People</a></h6>
-                                            <span class="theme-clr"><i class="far fa-calendar-alt"></i>Sept
-                                                09, 2023</span>
+                                    @forelse ($latestArticles as $artikel)
+                                        <div class="rcnt-bx">
+                                            <a class="brd-rd5" href="{{ url('/artikel/' . $artikel->slug) }}" title="{{ $artikel->judul }}" itemprop="url">
+                                                @if ($artikel->photo)
+                                                    <img src="{{ asset('public/artikel/' . $artikel->photo) }}" alt="{{ $artikel->judul }}" width="75" height="75" itemprop="image">
+                                                @else
+                                                    <img src="{{ asset('assets/images/resources/rcnt-img1.jpg') }}" alt="default image" itemprop="image">
+                                                @endif
+                                            </a>
+                                            <div class="rcnt-inf">
+                                                <h6 itemprop="headline"><a href="{{ url('/artikel/' . $artikel->slug) }}" title="{{ $artikel->judul }}" itemprop="url">{{ $artikel->judul }}</a></h6>
+                                                <span class="theme-clr"><i class="far fa-calendar-alt"></i>{{ $artikel->created_at->format('M d, Y') }}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="rcnt-bx">
-                                        <a class="brd-rd5" href="blog-detail.html" title="" itemprop="url"><img
-                                                src="assets/images/resources/rcnt-img2.jpg" alt="rcnt-img2.jpg"
-                                                itemprop="image"></a>
-                                        <div class="rcnt-inf">
-                                            <h6 itemprop="headline"><a href="blog-detail.html" title=""
-                                                    itemprop="url">Learn Modern Islam</a></h6>
-                                            <span class="theme-clr"><i class="far fa-calendar-alt"></i>Sept
-                                                05, 2023</span>
+                                    @empty
+                                        <div class="rcnt-bx">
+                                            <p>Tidak ada artikel terbaru.</p>
                                         </div>
-                                    </div>
-                                    <div class="rcnt-bx">
-                                        <a class="brd-rd5" href="blog-detail.html" title="" itemprop="url"><img
-                                                src="assets/images/resources/rcnt-img2.jpg" alt="rcnt-img2.jpg"
-                                                itemprop="image"></a>
-                                        <div class="rcnt-inf">
-                                            <h6 itemprop="headline"><a href="blog-detail.html" title=""
-                                                    itemprop="url">Learn Modern Islam</a></h6>
-                                            <span class="theme-clr"><i class="far fa-calendar-alt"></i>Sept
-                                                05, 2023</span>
-                                        </div>
-                                    </div>
+                                    @endforelse
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="col-md-4 col-sm-6 col-lg-4">
                             <div class="widget">
                                 <h5 itemprop="headline">Info Kontak</h5>
                                 <ul class="cnt-inf">
                                     <li><i class="far fa-envelope theme-clr"></i><a href="#" title=""
-                                            itemprop="url">bismillah@mail.com</a></li>
-                                    <li><i class="fas fa-phone theme-clr"></i><span>+62 812-2997-7345</span></li>
-                                    <li><i class="fas fa-map-marker-alt theme-clr"></i>Romangolong, Kec. Somba Opu,
-                                        Kabupaten Gowa, Sulawesi Selatan 92113.</li>
+                                            itemprop="url">dkmalfurqaan2020@mail.com</a></li>
+                                    <li><i class="fas fa-phone theme-clr"></i><span>+62 812-8265-1499</span></li>
+                                    <li><i class="fas fa-map-marker-alt theme-clr"></i>Taman Alamanda Blok C, Desa Karangsatria, Kecamatan Tambun Utara,
+                                        Kabupaten Bekasi, Jawa Barat 17530.</li>
                                 </ul>
-                                {{-- <div class="scl1">
-                                    <a href="#" title="Twitter" itemprop="url" target="_blank"><i
-                                            class="fab fa-twitter"></i></a>
-                                    <a href="#" title="Facebook" itemprop="url" target="_blank"><i
+                                <div class="scl1">
+                                    <a href="https://www.facebook.com/masjid.al.furqaan.alamanda" target="_blank" title="Facebook" itemprop="url" target="_blank"><i
                                             class="fab fa-facebook-f"></i></a>
-                                    <a href="#" title="Linkedin" itemprop="url" target="_blank"><i
-                                            class="fab fa-linkedin-in"></i></a>
-                                    <a href="#" title="Google Plus" itemprop="url" target="_blank"><i
-                                            class="fab fa-google-plus-g"></i></a>
-                                    <a href="#" title="Instagram" itemprop="url" target="_blank"><i
+                                    <a href="https://www.instagram.com/masjid.alfurqaan.alamanda/" title="Instagram" itemprop="url" target="_blank"><i
                                             class="fab fa-instagram"></i></a>
-                                    <a href="#" title="Youtube" itemprop="url" target="_blank"><i
+                                    <a href="https://www.youtube.com/channel/UCnzWSR4rL885qubKfJ9exLg/featured" title="Youtube" itemprop="url" target="_blank"><i
                                             class="fab fa-youtube"></i></a>
-                                </div> --}}
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6 col-lg-4">
+                        {{-- <div class="col-md-4 col-sm-6 col-lg-4">
                             <div class="widget">
-                                <h5 itemprop="headline">Sedekah Tidak Akan Membuatmu Miskin</h5>
+                                <h5 itemprop="headline">Rekening Donasi an Masjid Jami Al Furqaan</h5>
                                 <img src="{{ asset('qris.png') }}" width="200px" alt="">
-                                <p itemprop="description"><strong>Rekening BSI:</strong> 1717 1515 49</p>
+                                <p itemprop="description"><strong>Rekening Muamalat:</strong> 369 001 3830</p>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="cpy-rgt text-center">
                     <p itemprop="description"><a href="#" title="" itemprop="url"
-                            target="_blank">SAPURATACREATIVE</a> &copy; {{ now()->format('Y') }} / ALL RIGHTS RESERVED
+                            target="_blank">Bidang Humas dan Teknologi Informasi</a> &copy; {{ now()->format('Y') }}
                     </p>
                 </div>
             </div>

@@ -155,6 +155,12 @@
                                     <!--end::Username-->
                                 </div>
                             </div>
+                            <div class="menu-item px-5">
+                                <a href="#" class="menu-link px-5" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Ganti Password</a>
+                            </div>
+                             {{-- <div class="menu-item px-5">
+                                <a href="{{ route('user.profile') }}" class="menu-link px-5">Profil</a>
+                            </div> --}}
                             <!--end::Menu item-->
                             <!--begin::Menu separator-->
                             <div class="separator my-2"></div>
@@ -165,8 +171,7 @@
                                     @csrf
                                     @method('GET')
                                     <button type="submit" style="border: none;" class="menu-link px-5"
-                                        id="sign-out">Sign
-                                        Out</button>
+                                        id="sign-out">Keluar</button>
                                 </form>
                             </div>
                             <!--end::Menu item-->
@@ -206,4 +211,37 @@
         <!--end::Wrapper-->
     </div>
     <!--end::Container-->
+</div>
+
+<!-- Modal Ganti Password -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">Ganti Password</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('user.change-password.post') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="current_password" class="form-label">Password Lama</label>
+                        <input type="password" class="form-control" id="current_password" name="current_password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password Baru</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password_confirmation" class="form-label">Konfirmasi Password Baru</label>
+                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

@@ -38,19 +38,19 @@
                                     <ul class="countdown d-flex justify-content-center align-items-center text-center"
                                         data-countdown="{{ \Carbon\Carbon::parse($data->tanggal)->format('Y-m-d\TH:i:s') }}">
                                         <li>
-                                            <span class="hari">0</span>
+                                            <span class="hari">{{ Carbon::parse($data->tanggal)->translatedFormat('d') }}</span>
                                             <p class="hari_ref">hari</p>
                                         </li>
                                         <li>
-                                            <span class="jam">0</span>
+                                            <span class="jam">{{ Carbon::parse($data->tanggal)->translatedFormat('H') }}</span>
                                             <p class="jam_ref">jam</p>
                                         </li>
                                         <li>
-                                            <span class="menit">0</span>
+                                            <span class="menit">{{ Carbon::parse($data->tanggal)->translatedFormat('i') }}</span>
                                             <p class="menit_ref">menit</p>
                                         </li>
                                         <li>
-                                            <span class="detik">0</span>
+                                            <span class="detik">{{ Carbon::parse($data->tanggal)->translatedFormat('s') }}</span>
                                             <p class="detik_ref">detik</p>
                                         </li>
                                     </ul>
@@ -60,19 +60,30 @@
                                         <li><i class="fas fa-map-marker-alt theme-clr"></i> {{ $data->tempat }}</li>
                                         <li><i class="far fa-clock theme-clr"></i>
                                             {{ $data->jam }} - Selesai</li>
+                                        <li><i class="far fa-sun theme-clr"></i>
+                                            {{ $data->tema }}</li>
+                                        <li><i class="far fa-user theme-clr"></i>
+                                            {{ $data->jumlah_hadir }} Orang</li>
                                     </ul>
                                 </div>
                                 <div class="event-detail-desc">
                                     <p itemprop="description">{!! $data->deskripsi !!}</p>
                                 </div>
+
+                                @if($data->link_youtube)
+                                <div class="event-detail-youtube mt-4">
+                                    <h6>Video Kegiatan</h6>
+                                    <a href="{{ $data->link_youtube }}" target="_blank" class="btn btn-primary">Tonton di YouTube</a>
+                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 col-lg-3">
                             <div class="sidebar-wrp">
                                 <div class="widget">
-                                    <h5 itemprop="headline">Search</h5>
+                                    <h5 itemprop="headline">Cari Kegiatan</h5>
                                     <form class="srch-frm brd-rd5">
-                                        <input type="text" placeholder="Search">
+                                        <input type="text" placeholder="Cari" />
                                         <button type="submit" class="theme-clr"><i class="fa fa-search"></i></button>
                                     </form>
                                 </div>

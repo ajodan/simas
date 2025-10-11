@@ -1,0 +1,8 @@
+- Extract generateUserCalendarHtml method
+- Extract generateAdminCalendarHtml method
+- Extract generateDayHeaders method
+- Extract generateUserDateCell method
+- Extract generateAdminDateCell method
+- Add daysOfWeek as class constant
+- Refactor getCalendar to use the new methods
+- Test user and admin calendar views

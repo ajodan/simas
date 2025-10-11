@@ -1,4 +1,7 @@
-<header class="style1">
+<header class="style1"
+    style="position: fixed; top: 0; left: 0; width: 100%;
+           z-index: 9999; background: linear-gradient(to right, #333, #555);
+           box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
     <div class="topbar">
         <div class="container">
             <div class="scl1 float-left">
@@ -9,28 +12,37 @@
             </div>
             <ul class="float-right tp-lnks">
                 <li><i class="fas fa-envelope theme-clr"></i><a href="#" title=""
-                        itemprop="url">info@bismillah.com</a></li>
-                <li><i class="flaticon-phone-volume theme-clr"></i>+(00) 123-345-11</li>
+                        itemprop="url">dkmalfurqaan2020@gmail.com</a></li>
+                <li><i class="flaticon-phone-volume theme-clr"></i>+(62) 812-8265-1499</li>
             </ul>
         </div>
     </div><!-- Topbar -->
     <div class="logo-menu-sec">
         <div class="container">
-            <div class="logo"><a href="#" title="Logo" itemprop="url"><img
-                        src="{{ asset('logo-user-white.png') }}" alt="logo1.png" itemprop="image"></a></div>
+            {{-- <div class="logo"><a href="#" title="Logo" itemprop="url">
+                <img src="{{ asset('assets-landing/images/logo-banner.png') }}" alt="Logo Banner" itemprop="image"></a></div> --}}
             <!-- Logo -->
             <nav>
                 <div>
                     <ul>
                         <li><a href="{{ route('dashboard-user') }}" title="" itemprop="url">Beranda</a></li>
+                        <li class="menu-item-has-children"><a href="#" title="" itemprop="url">Profil</a>
+                            <ul>
+                                <li><a href="{{ route('about') }}" title="" itemprop="url">Sejarah Masjid</a></li>
+                                <li><a href="{{ route('struktur-organisasi') }}" title="" itemprop="url">Struktur Organisasi</a></li>
+                            </ul>
+                        </li>
                         <li><a href="{{ route('donasi-campaign-user') }}" title="" itemprop="url">Donasi</a>
                         </li>
+                        <li><a href="{{ route('artikel') }}" title="" itemprop="url">Artikel</a></li>
+                        <li><a href="{{ route('agenda') }}" title="" itemprop="url">Agenda</a></li>
                         <li><a href="{{ route('kegiatan') }}" title="" itemprop="url">Kegiatan</a></li>
                         <li><a href="{{ route('dokumentasi') }}" title="" itemprop="url">Dokumentasi</a></li>
-                        <li><a href="{{ route('about') }}" title="" itemprop="url">Tentang Kami</a></li>
-                        <li><a class="py-0 px-2 theme-btn theme-bg brd-rd5" href="#" title="" itemprop="url"
-                                data-toggle="modal" data-target="#modal-pengajuan">Ajukan Peminjaman</a></li>
-
+                        <li><a href="{{ route('inventaris-user') }}" title="" itemprop="url">Inventaris</a></li>
+                         <li><a href="{{ route('monitoring') }}" title="" itemprop="url">Monitoring</a></li>
+                        {{-- <li><a class="py-0 px-2 theme-btn theme-bg brd-rd5" href="#" title="" itemprop="url"
+                                data-toggle="modal" data-target="#modal-pengajuan">Ajukan Peminjaman</a></li> --}}
+                        <li><a href="{{ route('login.login-akun') }}" title="" itemprop="url">Login</a></li>
                         <!-- Modal -->
                         <div class="modal fade" id="modal-pengajuan" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -120,6 +132,17 @@
         </div>
     </div><!-- Logo Menu Sec -->
 </header><!-- Header -->
+<style>
+body {
+    padding-top: 120px;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px; /* reduce padding for mobile */
+    }
+}
+</style>
 <div class="header-search">
     <span class="srch-cls-btn brd-rd5"><i class="fas fa-times"></i></span>
     <form>
@@ -350,6 +373,151 @@
                     });
                 },
             });
-        });
     });
+});
+
+</script>
+=======
+    <script>
+        // Hamburger menu toggle for responsive header
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.querySelector('.rspn-mnu-btn');
+            const menu = document.querySelector('.rsnp-mnu');
+            const closeBtn = document.querySelector('.rspn-mnu-cls');
+
+            if (menuBtn && menu && closeBtn) {
+                menuBtn.addEventListener('click', function () {
+                    menu.classList.add('open');
+                });
+
+                closeBtn.addEventListener('click', function () {
+                    menu.classList.remove('open');
+                });
+            }
+        });
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment-hijri@2.1.2/moment-hijri.min.js"></script>
+<script src="{{ asset('assets-landing/js/jquery.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Atur locale Indonesia
+    moment.locale('id');
+
+    const hijriMonths = [
+        'Muharram', 'Safar', 'Rabiul Awal', 'Rabiul Akhir',
+        'Jumadil Awal', 'Jumadil Akhir', 'Rajab', 'Syaban',
+        'Ramadhan', 'Syawal', 'Zulkaidah', 'Zulhijjah'
+    ];
+
+    function updateClock() {
+        const now = moment();
+
+        // Format waktu
+        const timeString = now.format("HH:mm:ss");
+
+        // Tanggal Masehi (Indonesia)
+        const dateString = now.format("dddd, D MMMM YYYY");
+
+        // Tanggal Hijriah manual pakai array
+        const hijriDate = now.clone().locale('en').format("iD-iM-iYYYY").split("-");
+        const hijriFormatted = `${hijriDate[0]} ${hijriMonths[parseInt(hijriDate[1]) - 1]} ${hijriDate[2]} H`;
+
+        // Tampilkan
+        document.getElementById("clock").innerHTML = timeString;
+        document.getElementById("hijri-date").innerHTML = hijriFormatted;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+</script>
+<script>
+    function previewFile(input) {
+        const file = input.files[0];
+        const preview = document.getElementById('file-preview');
+        preview.innerHTML = ''; // Kosongkan isi sebelumnya
+
+        if (!file) return;
+
+        const fileType = file.type;
+
+        if (fileType.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.style.backgroundImage = `url(${e.target.result})`;
+                preview.style.backgroundSize = "cover";
+                preview.style.backgroundPosition = "center";
+                preview.innerHTML = '';
+            };
+            reader.readAsDataURL(file);
+        } else if (fileType === "application/pdf") {
+            preview.style.backgroundImage = 'none';
+            preview.innerHTML = `
+                <i class="material-icons text-danger" style="font-size: 48px;">picture_as_pdf</i>
+                <p class="text-dark small mt-2">${file.name}</p>
+            `;
+        } else {
+            preview.innerHTML = `<p class="text-danger">File tidak didukung</p>`;
+        }
+    }
+
+    document.getElementById('file-upload').addEventListener('change', function() {
+        previewFile(this);
+    });
+
+
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        // Submit Form
+        $("#submit-form").click(function(e) {
+            e.preventDefault(); // Mencegah reload halaman
+
+            let formData = new FormData($("#form-submit")[
+                0]); // Gunakan FormData untuk menyertakan file upload
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('pengajuan') }}",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $(".text-danger-600").html(""); // Hapus pesan error sebelumnya
+                    if (response.success) {
+                        Swal.fire({
+                            title: "Berhasil",
+                            text: response.message,
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        }).then(() => {
+                            $("#close-modal").trigger("click");
+                            location.reload(); // Reload halaman setelah alert
+                        });
+                    } else {
+                        Swal.fire({
+                            title: response.message,
+                            text: response.data,
+                            icon: "warning",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                    }
+                },
+                error: function(xhr) {
+                    $(".text-danger-600").html(""); // Hapus pesan error sebelumnya
+                    $.each(xhr.responseJSON.errors, function(key, value) {
+                        $(`.${key}_error`).html(
+                            value); // Tampilkan pesan error dari backend
+                    });
+                },
+            });
+    });
+});
+
 </script>

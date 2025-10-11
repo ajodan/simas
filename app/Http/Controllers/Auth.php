@@ -20,16 +20,13 @@ class Auth extends BaseController
         $credential = $authRequest->getCredentials();
 
         if (!FacadesAuth::attempt($credential)) {
-            return redirect()->route('login.login-akun')->with('failed', 'Username atau Password salah')->withInput($authRequest->only('username'));
+           // return response()->json(['success' => false, 'message' => 'Username atau Password salah'], 401);
+            return redirect()->route('login.login-akun')->with('error', 'Username atau Password salah');
         } else {
-            return $this->authenticated();
-        }
-    }
-
-    public function authenticated()
-    {
-        if (auth()->user()->role === 'admin') {
-            return redirect()->route('admin.dashboard-admin');
+            $user = auth()->user();
+            $token = $user->createToken('token')->plainTextToken;
+         //   return response()->json(['success' => true, 'user' => $user, 'token' => $token]);
+            return redirect()->route('admin.dashboard-admin')->with('success', 'Berhasil Login');
         }
     }
 

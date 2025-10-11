@@ -9,7 +9,7 @@
             <div class="container">
                 <div class="pg-tp-wrp text-center">
                     <div class="pg-tp-inr">
-                        <h1 itemprop="headline">Kegiatan Masjid Agung Sultan Alauddin</h1>
+                        <h1 itemprop="headline">Kegiatan Masjid Jami' Al Furqaan</h1>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard-user') }}" title=""
                                     itemprop="url">Home</a></li>
@@ -38,19 +38,19 @@
                                         <ul class="countdown d-flex justify-content-center align-items-center text-center"
                                             data-countdown="{{ \Carbon\Carbon::parse($kg->tanggal)->format('Y-m-d\TH:i:s') }}">
                                             <li>
-                                                <span class="hari">0</span>
+                                                <span class="hari">{{ Carbon::parse($kg->tanggal)->translatedFormat('d') }}</span>
                                                 <p class="hari_ref">hari</p>
                                             </li>
                                             <li>
-                                                <span class="jam">0</span>
+                                                <span class="jam">{{ Carbon::parse($kg->tanggal)->translatedFormat('H') }}</span>
                                                 <p class="jam_ref">jam</p>
                                             </li>
                                             <li>
-                                                <span class="menit">0</span>
+                                                <span class="menit">{{ Carbon::parse($kg->tanggal)->translatedFormat('i') }}</span>
                                                 <p class="menit_ref">menit</p>
                                             </li>
                                             <li>
-                                                <span class="detik">0</span>
+                                                <span class="detik">{{ Carbon::parse($kg->tanggal)->translatedFormat('s') }}</span>
                                                 <p class="detik_ref">detik</p>
                                             </li>
                                         </ul>

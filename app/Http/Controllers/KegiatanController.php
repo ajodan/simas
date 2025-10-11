@@ -17,7 +17,7 @@ class KegiatanController extends BaseController
 
     public function get()
     {
-        $kegiatan = Kegiatan::orderBy('created_at', 'desc')->get();
+        $kegiatan = Kegiatan::with('jenisKegiatan')->orderBy('created_at', 'desc')->get();
         return $this->sendResponse($kegiatan, 'Get data success');
     }
 
@@ -39,11 +39,9 @@ class KegiatanController extends BaseController
 
     public function show($params)
     {
-        $data = array();
-        try {
-            $data = Kegiatan::where('uuid', $params)->first();
-        } catch (\Exception $e) {
-            return $this->sendError($e->getMessage(), $e->getMessage(), 400);
+        $data = Kegiatan::where('uuid', $params)->first();
+        if (!$data) {
+            return $this->sendError('Data not found', 'Data not found', 404);
         }
         return $this->sendResponse($data, 'Show data success');
     }
@@ -51,8 +49,11 @@ class KegiatanController extends BaseController
     public function update(UpdateKegiatanRequest $request, $params)
     {
         $data = Kegiatan::where('uuid', $params)->first();
+        if (!$data) {
+            return $this->sendError('Data not found', 'Data not found', 404);
+        }
         if ($request->file('banner')) {
-            $oldBannerPath = public_path('public/kegiatan/' . $data->banner);
+            $oldBannerPath = storage_path('app/public/kegiatan/' . $data->banner);
             if (File::exists($oldBannerPath)) {
                 File::delete($oldBannerPath);
             }
@@ -75,7 +76,7 @@ class KegiatanController extends BaseController
     {
         $data = Kegiatan::where('uuid', $params)->first();
         if ($data) {
-            $oldBannerPath = public_path('public/kegiatan/' . $data->banner);
+            $oldBannerPath = storage_path('app/public/kegiatan/' . $data->banner);
             if (File::exists($oldBannerPath)) {
                 File::delete($oldBannerPath);
             }

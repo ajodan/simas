@@ -16,6 +16,8 @@ class Dokumentasi extends Model
         'uuid',
         'judul',
         'foto',
+        'kegiatan_id',
+        'keterangan',
     ];
 
     protected static function boot()
@@ -26,5 +28,15 @@ class Dokumentasi extends Model
         static::creating(function ($model) {
             $model->uuid = Uuid::uuid4()->toString();
         });
+    }
+
+    public function kegiatan()
+    {
+        return $this->belongsTo(Kegiatan::class);
+    }
+
+    public function subDokumentasis()
+    {
+        return $this->hasMany(SubDokumentasi::class);
     }
 }

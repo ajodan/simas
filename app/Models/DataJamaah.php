@@ -31,4 +31,9 @@ class DataJamaah extends Model
             $model->uuid = Uuid::uuid4()->toString();
         });
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'data_jamaah_id');
+    }
 }

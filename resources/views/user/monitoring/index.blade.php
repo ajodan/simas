@@ -78,7 +78,7 @@
                             <img src="{{ asset('logo-user-white.png') }}" class="w-[130px]" alt="">
                             <div class="text-black text-[40px] font-bold"
                                 style="font-family: 'Times New Roman', serif;">
-                                MASJID AGUNG SULTAN ALAUDDIN
+                                MASJID JAMI' AL FURQAAN
                             </div>
                         </div>
 
@@ -234,7 +234,7 @@
                                 class="text-white italic font-semibold text-2xl">
                                 @if ($jadwalJumat)
                                     Khutbah jum'at tanggal {{ $jadwalJumat->tanggal }} oleh
-                                    {{ $jadwalJumat->nama_khatib }} di Masjid Agung Sultan Alauddin 🕌 Imam
+                                    {{ $jadwalJumat->nama_khatib }} di Masjid Jami' Al Furqaan 🕌 Imam
                                     {{ $jadwalJumat->nama_imam }} 🕌 Muadzim
                                     {{ $jadwalJumat->nama_muadzin }}
                                     Harap
@@ -261,7 +261,7 @@
                             <div class="bg-white/20 backdrop-blur-xl shadow-md rounded-3xl p-6 text-white">
                                 <div class="text-center">
                                     <h3 class="text-3xl font-bold uppercase mb-1">LAPORAN KEUANGAN</h3>
-                                    <h4 class="text-xl font-semibold mb-4">MASJID AGUNG SULTAN ALAUDDIN</h4>
+                                    <h4 class="text-xl font-semibold mb-4">MASJID JAMI' AL FURQAAN</h4>
                                     <h5 class="text-md font-light">Periode: {{ $bulan }}
                                         {{ $tahun }}</h5>
                                 </div>

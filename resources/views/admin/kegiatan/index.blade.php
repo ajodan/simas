@@ -30,11 +30,11 @@
                                         <tr class="fw-bolder fs-6 text-gray-800">
                                             <th>No</th>
                                             <th>Nama Kegiatan</th>
-                                            <th>Tempat</th>
+                                            <th>Jenis Kegiatan</th>
                                             <th>Tanggal</th>
                                             <th>Jam</th>
-                                            <th>Deskripsi</th>
                                             <th>Banner</th>
+                                            <th>Link Youtube</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -123,6 +123,23 @@
                         <input type="text" id="jam" class="form-control kt_datepicker_8" name="jam">
                         <small class="text-danger jam_error"></small>
                     </div>
+                    <div class="mb-10">
+                        <label class="form-label">Tema Kegiatan</label>
+                        <input type="text" id="tema" class="form-control" name="tema">
+                        <small class="text-danger tema_error"></small>
+                    </div>
+                     <div class="mb-10">
+                        <label class="form-label">Nama Ustadz</label>
+                        <select id="ustadz_id" class="form-control" name="ustadz_id">
+                            <option value="">Pilih Ustadz</option>
+                        </select>
+                        <small class="text-danger ustadz_id_error"></small>
+                    </div>
+                     <div class="mb-10">
+                        <label class="form-label">Jumlah Hadir</label>
+                        <input type="text" id="jumlah_hadir" class="form-control" name="jumlah_hadir">
+                        <small class="text-danger jumlah_hadir_error"></small>
+                    </div>
 
                     <div class="mb-10">
                         <label class="form-label">Deskripsi</label>
@@ -131,11 +148,33 @@
                     </div>
 
                     <div class="mb-10">
+                        <label class="form-label">Jenis Kegiatan</label>
+                        <select id="jenis_kegiatan_id" class="form-control" name="jenis_kegiatan_id">
+                            <option value="">Pilih Jenis Kegiatan</option>
+                        </select>
+                        <small class="text-danger jenis_kegiatan_id_error"></small>
+                    </div>
+
+                    <div class="mb-10">
                         <label class="form-label">Banner</label>
                         <input type="file" accept="image/*" id="banner" class="form-control" name="banner">
                         <small class="text-danger banner_error"></small>
 
                         <div class="mt-3" id="logoInfoContainer"></div>
+                    </div>
+
+                    <div class="mb-10">
+                        <label class="form-label">Link Youtube</label>
+                        <input type="url" id="link_youtube" class="form-control" name="link_youtube" placeholder="https://www.youtube.com/watch?v=...">
+                        <small class="text-danger link_youtube_error"></small>
+                    </div>
+                     <div class="mb-10">
+                        <label class="form-label">Aktif</label>
+                        <select id="flag" class="form-control" name="flag">
+                            <option value="1">Aktif</option>
+                            <option value="0">Tidak Aktif</option>
+                        </select>
+                        <small class="text-danger flag_error"></small>
                     </div>
 
                     <div class="separator separator-dashed mt-8 mb-5"></div>
@@ -158,9 +197,49 @@
     <script>
         let control = new Control();
 
+        function loadJenisKegiatanOptions() {
+            return $.ajax({
+                url: '/admin/kegiatan/jeniskegiatan-get',
+                method: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        let options = '<option value="">Pilih Jenis Kegiatan</option>';
+                        response.data.forEach(function(item) {
+                            options += `<option value="${item.id}">${item.jenis_kegiatan}</option>`;
+                        });
+                        $('#jenis_kegiatan_id').html(options);
+                    }
+                },
+                error: function() {
+                    alert('Gagal memuat jenis kegiatan');
+                }
+            });
+        }
+
         $(document).on('click', '#button-side-form', function() {
             control.overlay_form('Tambah', 'Kegiatan');
+            loadJenisKegiatanOptions();
+            loadUstadzOptions();
         })
+
+        function loadUstadzOptions() {
+            return $.ajax({
+                url: '/admin/data-ustadz-get',
+                method: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        let options = '<option value="">Pilih Ustadz</option>';
+                        response.data.forEach(function(item) {
+                            options += `<option value="${item.id}">${item.nama_ustadz}</option>`;
+                        });
+                        $('#ustadz_id').html(options);
+                    }
+                },
+                error: function() {
+                    alert('Gagal memuat data ustadz');
+                }
+            });
+        }
 
         $(".kt_datepicker_7").flatpickr({
             dateFormat: "d-m-Y",
@@ -219,43 +298,50 @@
             e.preventDefault();
             $(".title_side_form").html(`Update Kegiatan`);
             $(".text-danger").html("");
+            // Reset form
+            $(".form-data")[0].reset();
+            $('#logoInfoContainer').html('');
+            // Set form to update mode
+            $(".form-data").attr('data-type', 'update');
             let url = '/admin/kegiatan/kegiatan-show/' + $(this).attr('data-uuid');
-            $.ajax({
-                url: url,
-                method: "GET",
-                success: function(res) {
-                    if (res.success == true) {
-                        $.each(res.data, function(x, y) {
-                            const $selectField = $("select[name='" + x + "[]']");
+            Promise.all([loadJenisKegiatanOptions(), loadUstadzOptions()]).then(function() {
+                $.ajax({
+                    url: url,
+                    method: "GET",
+                    success: function(res) {
+                        if (res.success == true) {
+                            $.each(res.data, function(x, y) {
+                                const $selectField = $("select[name='" + x + "[]']");
 
-                            if ($("input[name='" + x + "']").is(":radio")) {
-                                $("input[name='" + x + "'][value='" + y + "']").prop(
-                                    "checked",
-                                    true
-                                );
-                            } else if ($("input[name='" + x + "']").attr("type") === "file") {
-                                // Jika input adalah tipe file
-                                // Tambahkan logika di sini untuk menangani input file
-                                // Misalnya, menampilkan nama file atau melakukan pengolahan tambahan
+                                if ($("input[name='" + x + "']").is(":radio")) {
+                                    $("input[name='" + x + "'][value='" + y + "']").prop(
+                                        "checked",
+                                        true
+                                    );
+                                } else if ($("input[name='" + x + "']").attr("type") === "file") {
+                                    // Jika input adalah tipe file
+                                    // Tambahkan logika di sini untuk menangani input file
+                                    // Misalnya, menampilkan nama file atau melakukan pengolahan tambahan
 
-                                const logoInfoContainer = $('#logoInfoContainer');
-                                logoInfoContainer.html(
-                                    `<img id="img-foto" src="/public/kegiatan/${y}" style="max-width:100%;">`
-                                );
+                                    const logoInfoContainer = $('#logoInfoContainer');
+                                    logoInfoContainer.html(
+                                        `<img id="img-foto" src="/storage/kegiatan/${y}" style="max-width:100%;">`
+                                    );
 
-                            } else {
-                                $("input[name='" + x + "']").val(y);
-                                $("select[name='" + x + "']").val(y);
-                                $("textarea[name='" + x + "']").val(y);
-                                $("select[name='" + x + "']").trigger("change");
-                            }
-                        });
-                    }
+                                } else {
+                                    $("input[name='" + x + "']").val(y);
+                                    $("select[name='" + x + "']").val(y);
+                                    $("textarea[name='" + x + "']").val(y);
+                                    $("select[name='" + x + "']").trigger("change");
+                                }
+                            });
+                        }
 
-                },
-                error: function(xhr) {
-                    alert("gagal");
-                },
+                    },
+                    error: function(xhr) {
+                        alert("gagal");
+                    },
+                });
             });
         })
 
@@ -294,8 +380,8 @@
                 }, {
                     data: 'nama_kegiatan',
                     className: 'text-center',
-                }, {
-                    data: 'tempat',
+                },  {
+                    data: 'jenis_kegiatan.jenis_kegiatan',
                     className: 'text-center',
                 }, {
                     data: 'tanggal',
@@ -304,32 +390,43 @@
                     data: 'jam',
                     className: 'text-center',
                 }, {
-                    data: 'deskripsi',
-                    className: 'text-center',
-                }, {
                     data: 'banner',
                     className: 'text-center',
-                    render: function(data, type, row, meta) {
+                        render: function(data, type, row, meta) {
                         let result;
-                        result =
-                            `
-                                <!--begin::Overlay-->
-                                <a class="d-block overlay fancybox" data-fancybox="lightbox-group" href="{{ asset('/public/kegiatan/${data}') }}">
-                                    <!--begin::Image-->
-                                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-100px"
-                                        style="background-image:url('/public/kegiatan/${data}')">
-                                    </div>
-                                    <!--end::Image-->
+                        if (data) {
+                            result =
+                                `
+                                    <!--begin::Overlay-->
+                                    <a class="d-block overlay fancybox" data-fancybox="lightbox-group" href="/storage/kegiatan/${data}">
+                                        <!--begin::Image-->
+                                        <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-100px"
+                                            style="background-image:url('/storage/kegiatan/${data}')">
+                                        </div>
+                                        <!--end::Image-->
 
-                                    <!--begin::Action-->
-                                    <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
-                                        <i class="bi bi-eye-fill text-white fs-3x"></i>
-                                    </div>
-                                    <!--end::Action-->
-                                </a>
-                                <!--end::Overlay-->
-                            `;
+                                        <!--begin::Action-->
+                                        <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
+                                            <i class="bi bi-eye-fill text-white fs-3x"></i>
+                                        </div>
+                                        <!--end::Action-->
+                                    </a>
+                                    <!--end::Overlay-->
+                                `;
+                        } else {
+                            result = '-';
+                        }
                         return result;
+                    }
+                }, {
+                    data: 'link_youtube',
+                    className: 'text-center',
+                    render: function(data) {
+                        if (data) {
+                            return `<a href="${data}" target="_blank" class="btn btn-sm btn-outline-primary">View YouTube</a>`;
+                        } else {
+                            return '-';
+                        }
                     }
                 }, {
                     data: 'uuid',

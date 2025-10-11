@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets-landing/css/plugins.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets-landing/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets-landing/css/responsive.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
 
     <!-- Color Scheme -->
     <link rel="stylesheet" href="{{ asset('assets-landing/css/colors/color.css') }}" title="color" /><!-- Color -->
@@ -27,6 +28,7 @@
     <!-- Color4 -->
 
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    
 
 </head>
 
@@ -59,6 +61,7 @@
     <script src="{{ asset('assets-landing/js/custom-scripts.js') }}"></script>
     {{-- <script src="{{ asset('assets-landing/namaz-timings/namaz.js') }}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 
     @yield('scripts')
 </body>

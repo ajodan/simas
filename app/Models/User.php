@@ -24,6 +24,7 @@ class User extends Authenticatable
         'username',
         'password',
         'role',
+        'data_jamaah_id',
     ];
 
     /**
@@ -54,5 +55,10 @@ class User extends Authenticatable
         static::creating(function ($model) {
             $model->uuid = Uuid::uuid4()->toString();
         });
+    }
+
+    public function dataJamaah()
+    {
+        return $this->belongsTo(DataJamaah::class, 'data_jamaah_id');
     }
 }

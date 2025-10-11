@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDokumentasiRequest;
 use App\Http\Requests\UpdateDokumentasiRequest;
 use App\Models\Dokumentasi;
+use App\Models\Kegiatan;
 use Illuminate\Support\Facades\File;
 
 class DokumentasiController extends BaseController
@@ -17,7 +18,7 @@ class DokumentasiController extends BaseController
 
     public function get()
     {
-        $dokumentasi = Dokumentasi::orderBy('created_at', 'desc')->get();
+        $dokumentasi = Dokumentasi::with('kegiatan')->orderBy('created_at', 'desc')->get();
         return $this->sendResponse($dokumentasi, 'Get data success');
     }
 
@@ -26,7 +27,7 @@ class DokumentasiController extends BaseController
         $newFoto = '';
         if ($request->file('foto')) {
             $extension = $request->file('foto')->extension();
-            $newFoto = 'foto' . '-' . now()->timestamp . '.' . $extension;
+            $newFoto = 'dokumentasi' . '-' . now()->timestamp . '.' . $extension;
             $request->file('foto')->storeAs('public/dokumentasi', $newFoto);
         }
 
@@ -41,14 +42,14 @@ class DokumentasiController extends BaseController
     {
         $data = array();
         try {
-            $data = Dokumentasi::where('uuid', $params)->first();
+            $data = Dokumentasi::with('kegiatan')->where('uuid', $params)->first();
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), $e->getMessage(), 400);
         }
         return $this->sendResponse($data, 'Show data success');
     }
 
-    public function update(StoreDokumentasiRequest $request, $params)
+    public function update(UpdateDokumentasiRequest $request, $params)
     {
         $data = Dokumentasi::where('uuid', $params)->first();
         if ($request->file('foto')) {
@@ -57,7 +58,7 @@ class DokumentasiController extends BaseController
                 File::delete($oldFotoPath);
             }
             $extension = $request->file('foto')->extension();
-            $newFoto = 'foto' . '-' . now()->timestamp . '.' . $extension;
+            $newFoto = 'dokumentasi' . '-' . now()->timestamp . '.' . $extension;
             $request->file('foto')->storeAs('public/dokumentasi', $newFoto);
         } else {
             $newFoto = $data->foto;
@@ -86,11 +87,11 @@ class DokumentasiController extends BaseController
         }
     }
 
-    // user
+    // View for user
     public function dokumentasi()
     {
         $module = 'Dokumentasi';
-        $data = Dokumentasi::latest()->get();
+        $data = Dokumentasi::with('kegiatan')->orderBy('created_at', 'desc')->paginate(6);
         return view('user.dokumentasi.index', compact('module', 'data'));
     }
 }

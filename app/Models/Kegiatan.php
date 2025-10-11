@@ -20,6 +20,12 @@ class Kegiatan extends Model
         'jam',
         'banner',
         'deskripsi',
+        'jenis_kegiatan_id',
+        'ustadz_id',
+        'tema',
+        'jumlah_hadir',
+        'link_youtube',
+        'flag',
     ];
 
     protected static function boot()
@@ -30,5 +36,19 @@ class Kegiatan extends Model
         static::creating(function ($model) {
             $model->uuid = Uuid::uuid4()->toString();
         });
+    }
+
+    public function jenisKegiatan()
+    {
+        return $this->belongsTo(JenisKegiatan::class);
+    }
+
+    public function dokumentasis()
+    {
+        return $this->hasMany(Dokumentasi::class);
+    }
+    public function ustadz()
+    {
+        return $this->belongsTo(Ustadz::class);
     }
 }

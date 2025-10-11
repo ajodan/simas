@@ -36,9 +36,9 @@
                                     <img src="{{ asset('/public/campaign/' . $data->gambar) }}" alt="blog-detail-img.jpg"
                                         itemprop="image">
                                     <div class="blog-detail-inf-inr">
-                                        <ul class="d-flex pst-mta" style="gap: 15px">
-                                            <li>🎯 Target Dana Rp {{ number_format($data->target_dana, 0, ',', '.') }}</li>
-                                            <li>💰 Terkumpul Rp {{ number_format($totalDonasi, 0, ',', '.') }}</li>
+                                        <ul class="d-flex pst-mta" style="gap: 15px"><br>
+                                            <li>🎯 Target Dana Rp.  {{ number_format($data->target_dana, 0, ',', '.') }}</li><br>
+                                            <li>💰 Terkumpul Rp {{ number_format($totalDonasi, 0, ',', '.') }}</li><br>
                                             <li>⏳ Sisa Waktu
                                                 {{ $sisaHari > 0 ? "Tinggal $sisaHari hari lagi" : 'Berakhir' }}</li>
                                         </ul>
@@ -50,7 +50,7 @@
                                         <div class="mt-4">
                                             <h2 class="h5 font-weight-semibold mb-3">Lakukan Pembayaran</h2>
 
-                                            <div class="bg-white rounded shadow-sm p-4 text-center"
+                                            {{-- <div class="bg-white rounded shadow-sm p-4 text-center"
                                                 style="display: grid; justify-items: center">
                                                 <img id="qr-card" src="{{ asset('qris.png') }}" class="mb-3"
                                                     style="width: 200px;" alt="QR Code">
@@ -59,19 +59,17 @@
                                                     class="btn btn-sm btn-primary d-inline-flex align-items-center">
                                                     <i class="material-icons mr-1">download</i> Qris
                                                 </button>
-                                            </div>
+                                            </div> --}}
 
                                             <p class="small text-muted mt-3">
-                                                Silakan scan QR Code di atas untuk melakukan pembayaran donasi.
-                                                Pastikan untuk mengisi nama pendonasi dan jumlah donasi dengan benar. Atau
-                                                transfer melalui rekening
-                                                <span class="font-weight-bold font-italic text-dark">BCA NOREK 123456789 A.N
-                                                    Wahyu</span>
+                                                Silakan Transfer melalui rekening MUAMALAT NOREK 369 001 3830 an Masjid Al-Furqaan untuk melakukan pembayaran donasi.
+                                                Pastikan untuk mengisi nama pendonasi dan jumlah donasi dengan benar. 
+                                                <span class="font-weight-bold font-italic text-dark">BANK MUAMALAT NOREK 369 001 3830 an
+                                                    Masjid Al-Furqaan</span>
                                             </p>
                                             <p class="small text-muted">
                                                 Setelah melakukan pembayaran, klik tombol "Donasi Sekarang" di bawah ini
-                                                untuk
-                                                mengirimkan informasi donasi Anda.
+                                                untuk engirimkan informasi donasi Anda.
                                             </p>
                                         </div>
 

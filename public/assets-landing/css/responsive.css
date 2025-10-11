@@ -37,7 +37,7 @@
 }
 
 
-@media (max-width: 1030px) {
+@media (max-width: 768px) {
 footer .widget iframe{
 	width:100% !important;
 }
@@ -68,6 +68,57 @@ main,
 .blog-sec .post-bx.lst .post-inf {padding: 25px;}
 .cart-quantity > form + a {margin-top: 5px;}
 
+/* Responsive header mobile styles */
+.rspn-hdr .lg-mn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.rspn-hdr .logo {
+    margin-bottom: 10px;
+}
+.rspn-hdr .rspn-mnu-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.rspn-hdr .rsnp-mnu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100%;
+    background: #333;
+    transition: left 0.3s ease;
+    z-index: 10000;
+    overflow-y: auto;
+}
+.rspn-hdr .rsnp-mnu.open {
+    left: 0;
+}
+.rspn-hdr .rspn-mnu ul {
+    list-style: none;
+    padding: 50px 20px 20px;
+    margin: 0;
+}
+.rspn-hdr .rspn-mnu ul li {
+    margin-bottom: 10px;
+}
+.rspn-hdr .rspn-mnu ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px 0;
+}
+.rspn-hdr .rspn-mnu .rspn-mnu-cls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
 }
 
 @media (max-width: 1030px) and (min-width: 1000px) {
@@ -233,4 +284,11 @@ h1 {font-size: 48px;}
 .prg-wrp > span {width: 100%;}
 .btns-wrp > a {float: none;margin-right: 0;}
 
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
