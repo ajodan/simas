@@ -68,14 +68,14 @@
                                 <h1 class="text-white fw-bolder mb-3">LOGIN APLIKASI</h1>
                                 <!--end::Title-->
                                 <!--begin::Subtitle-->
-                                <div class="text-white fw-semibold fs-6">Masukkan Username dan Password Anda</div>
+                                <div class="text-white fw-semibold fs-6">Masukkan Email dan Password Anda</div>
                                 <!--end::Subtitle=-->
                             </div>
                             <!--begin::Heading-->
                             <!--begin::Input group=-->
                             <div class="fv-row mb-8">
                                 <!--begin::Email-->
-                                <input type="text" placeholder="Masukkan Username" name="username"
+                                <input type="email" placeholder="Masukkan Email" name="username"
                                     value="{{ old('username') }}" autocomplete="off" class="form-control" />
                                 @error('username')
                                     <small class="error text-danger">{{ $message }}</small>
@@ -107,6 +107,13 @@
                                 <!--end::Wrapper-->
                             </div>
                             <!--end::Input group=-->
+                            <div class="fv-row mb-8">
+                                <label class="form-label fw-bolder text-white fs-6">Captcha: Berapa {{ $num1 }} + {{ $num2 }}?</label>
+                                <input type="number" name="captcha_answer" class="form-control" placeholder="Jawab captcha" />
+                                @error('captcha_answer')
+                                    <small class="error text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
                             <!--begin::Submit button-->
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">

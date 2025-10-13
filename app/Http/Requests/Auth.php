@@ -22,8 +22,9 @@ class Auth extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required',
-            'password' => 'required'
+            'username' => 'required|email',
+            'password' => 'required',
+            'captcha_answer' => 'required|numeric'
         ];
     }
 
@@ -31,7 +32,10 @@ class Auth extends FormRequest
     {
         return [
             'username.required' => 'Kolom username harus di isi',
-            'password.required' => 'Kolom password harus di isi'
+            'username.email' => 'Kolom username harus berupa alamat email yang valid',
+            'password.required' => 'Kolom password harus di isi',
+            'captcha_answer.required' => 'Captcha harus diisi',
+            'captcha_answer.numeric' => 'Captcha harus berupa angka'
         ];
     }
 

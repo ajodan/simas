@@ -42,7 +42,12 @@
                          <li><a href="{{ route('monitoring') }}" title="" itemprop="url">Monitoring</a></li>
                         {{-- <li><a class="py-0 px-2 theme-btn theme-bg brd-rd5" href="#" title="" itemprop="url"
                                 data-toggle="modal" data-target="#modal-pengajuan">Ajukan Peminjaman</a></li> --}}
+
+                        @auth
+                        <li><a href="{{ route('admin.dashboard-admin') }}" title="" itemprop="url">Dashboard</a></li>
+                        @else
                         <li><a href="{{ route('login.login-akun') }}" title="" itemprop="url">Login</a></li>
+                        @endauth
                         <!-- Modal -->
                         <div class="modal fade" id="modal-pengajuan" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">

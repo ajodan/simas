@@ -1,4 +1,0 @@
-- [x] Add route for inventaris detail in routes/web.php
-- [x] Add detail_inventaris_user method in InventarisController
-- [x] Create detail.blade.php view for inventaris
-- [x] Modify index.blade.php to add link to nama_inventaris

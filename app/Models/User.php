@@ -47,6 +47,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function getAuthIdentifierName()
+    {
+        return 'username';
+    }
+
     protected static function boot()
     {
         parent::boot();

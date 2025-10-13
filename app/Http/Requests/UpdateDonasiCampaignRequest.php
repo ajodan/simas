@@ -9,20 +9,31 @@ class UpdateDonasiCampaignRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            'nominal_donasi' => 'required',
+            'bukti_transfer' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nominal_donasi.required' => 'Kolom nominal harus di isi.',
+            'bukti_transfer.image' => 'Bukti transfer harus berupa gambar.',
+            'bukti_transfer.mimes' => 'Bukti transfer harus berformat jpeg, png, jpg, atau gif.',
+            'bukti_transfer.max' => 'Ukuran bukti transfer maksimal 2MB.',
         ];
     }
 }

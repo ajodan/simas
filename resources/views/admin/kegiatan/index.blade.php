@@ -392,33 +392,14 @@
                 }, {
                     data: 'banner',
                     className: 'text-center',
-                        render: function(data, type, row, meta) {
-                        let result;
+                    render: function(data, type, row, meta) {
                         if (data) {
-                            result =
-                                `
-                                    <!--begin::Overlay-->
-                                    <a class="d-block overlay fancybox" data-fancybox="lightbox-group" href="/storage/kegiatan/${data}">
-                                        <!--begin::Image-->
-                                        <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-100px"
-                                            style="background-image:url('/storage/kegiatan/${data}')">
-                                        </div>
-                                        <!--end::Image-->
-
-                                        <!--begin::Action-->
-                                        <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
-                                            <i class="bi bi-eye-fill text-white fs-3x"></i>
-                                        </div>
-                                        <!--end::Action-->
-                                    </a>
-                                    <!--end::Overlay-->
-                                `;
+                            return `<img src="/public/kegiatan/${data}" style="max-width: 100px;">`;
                         } else {
-                            result = '-';
+                            return '-';
                         }
-                        return result;
                     }
-                }, {
+                },{
                     data: 'link_youtube',
                     className: 'text-center',
                     render: function(data) {

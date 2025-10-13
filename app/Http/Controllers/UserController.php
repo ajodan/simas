@@ -25,7 +25,7 @@ class UserController extends BaseController
     {
         $request->validate([
             'data_jamaah_id' => 'required|exists:data_jamaahs,id',
-            'username' => 'required|string|max:255|unique:users',
+            'username' => 'required|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'role' => 'required|string|in:admin,user',
         ]);
@@ -60,7 +60,7 @@ class UserController extends BaseController
 
         $request->validate([
             'nama' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username,' . $data->id,
+            'username' => 'required|email|max:255|unique:users,username,' . $data->id,
             'password' => 'nullable|string|min:8',
             'role' => 'required|string|in:admin,user',
         ]);
@@ -120,7 +120,7 @@ class UserController extends BaseController
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username,' . auth()->id(),
+            'username' => 'required|email|max:255|unique:users,username,' . auth()->id(),
         ]);
 
         $user = auth()->user();

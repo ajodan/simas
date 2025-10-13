@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+ @extends('layouts.layout')
 @section('button')
     <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
         <!--begin::Page title-->
@@ -18,6 +18,8 @@
                         d="M512 256A256 256 0 1 0 0 256a256 256 0 1 0 512 0zM217.4 376.9L117.5 269.8c-3.5-3.8-5.5-8.7-5.5-13.8s2-10.1 5.5-13.8l99.9-107.1c4.2-4.5 10.1-7.1 16.3-7.1c12.3 0 22.3 10 22.3 22.3l0 57.7 96 0c17.7 0 32 14.3 32 32l0 32c0 17.7-14.3 32-32 32l-96 0 0 57.7c0 12.3-10 22.3-22.3 22.3c-6.2 0-12.1-2.6-16.3-7.1z" />
                 </svg>
                 Kembali</button>
+            {{-- <button class="btn btn-success btn-sm ms-3" id="button-add-donasi">
+                <i class="fa fa-plus-circle" style="color:#ffffff" aria-hidden="true"></i> Tambah Donasi</button> --}}
             <!--end::Title-->
         </div>
         <!--end::Page title-->
@@ -59,6 +61,90 @@
         <!--end::Container-->
     </div>
 @endsection
+@section('side-form')
+    <div id="side_form" class="bg-white" data-kt-drawer="true" data-kt-drawer-activate="true"
+        data-kt-drawer-toggle="#side_form_button" data-kt-drawer-close="#side_form_close" data-kt-drawer-width="500px">
+        <!--begin::Card-->
+        <div class="card w-100">
+            <!--begin::Card header-->
+            <div class="card-header pe-5">
+                <!--begin::Title-->
+                <div class="card-title">
+                    <!--begin::User-->
+                    <div class="d-flex justify-content-center flex-column me-3">
+                        <a href="#"
+                            class="fs-4 fw-bolder text-gray-900 text-hover-primary me-1 lh-1 title_side_form"></a>
+                    </div>
+                    <!--end::User-->
+                </div>
+                <!--end::Card toolbar-->
+                <div class="card-toolbar">
+                    <!--begin::Close-->
+                    <div class="btn btn-sm btn-icon btn-active-light-primary" id="side_form_close">
+                        <!--begin::Svg Icon | path: icons/duotone/Navigation/Close.svg-->
+                        <span class="svg-icon svg-icon-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
+                                    fill="#000000">
+                                    <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
+                                    <rect fill="#000000" opacity="0.5"
+                                        transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
+                                        x="0" y="7" width="16" height="2" rx="1" />
+                                </g>
+                            </svg>
+                        </span>
+                        <!--end::Svg Icon-->
+                    </div>
+                    <!--end::Close-->
+                </div>
+                <!--end::Card toolbar-->
+            </div>
+            <!--end::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body hover-scroll-overlay-y">
+                <form class="form-donasi" enctype="multipart/form-data">
+
+                    <input type="hidden" name="id">
+                    <input type="hidden" name="uuid">
+                    <input type="hidden" name="uuid_campaign" id="uuid_campaign" value="{{ $module }}">
+
+                    <div class="mb-10">
+                        <label class="form-label">Nama Pendonasi</label>
+                        <input type="text" id="nama_pendonasi" class="form-control" name="nama_pendonasi">
+                        <small class="text-danger nama_pendonasi_error"></small>
+                    </div>
+
+                    <div class="mb-10">
+                        <label class="form-label">Nominal Donasi</label>
+                        <input type="text" id="nominal_donasi" class="form-control" name="nominal_donasi">
+                        <small class="text-danger nominal_donasi_error"></small>
+                    </div>
+
+                    <div class="mb-10">
+                        <label class="form-label">Bukti Transfer</label>
+                        <input type="file" accept="image/*" id="bukti_transfer" class="form-control" name="bukti_transfer">
+                        <small class="text-danger bukti_transfer_error"></small>
+
+                        <div class="mt-3" id="buktiInfoContainer"></div>
+                    </div>
+
+                    <div class="separator separator-dashed mt-8 mb-5"></div>
+                    <div class="d-flex gap-5">
+                        <button type="submit" class="btn btn-success btn-sm btn-submit d-flex align-items-center"><i
+                                class="bi bi-file-earmark-diff"></i> Simpan</button>
+                        <button type="reset" id="side_form_close"
+                            class="btn mr-2 btn-light btn-cancel btn-sm d-flex align-items-center"
+                            style="background-color: #ea443e65; color: #EA443E"><i class="bi bi-trash-fill"
+                                style="color: #EA443E"></i>Batal</button>
+                    </div>
+                </form>
+            </div>
+            <!--end::Card body-->
+        </div>
+        <!--end::Card-->
+    </div>
+@endsection
 @section('script')
     <script>
         let control = new Control();
@@ -69,6 +155,13 @@
 
         $(document).on('click', '#button-side-form', function() {
             window.history.back();
+        })
+
+        $(document).on('click', '#button-add-donasi', function() {
+            $('.form-donasi').attr('data-type', 'add');
+            $('.form-donasi')[0].reset();
+            $("#buktiInfoContainer").html('');
+            control.overlay_form('Tambah', 'Donasi Campaign');
         })
 
         $(document).on('click', '.button-aprove', function(e) {
@@ -105,11 +198,53 @@
             });
         })
 
+        $(document).on('click', '.button-edit', function(e) {
+            e.preventDefault();
+            let uuid = $(this).attr('data-uuid');
+            $.ajax({
+                type: 'GET',
+                url: '/admin/data-donasi/donasi-campaign-show/' + uuid,
+                success: function(response) {
+                    if (response.success) {
+                        let data = response.data;
+                        $("input[name='nama_pendonasi']").val(data.nama_pendonasi);
+                        $("input[name='nominal_donasi']").val(data.nominal_donasi);
+                        $("input[name='uuid']").val(data.uuid);
+                        if (data.bukti_transfer) {
+                            $("#buktiInfoContainer").html(`
+                                <img src="/public/bukticampaign/${data.bukti_transfer}" alt="Bukti Transfer" class="img-thumbnail" style="max-width: 200px;">
+                                <p>Current Bukti Transfer</p>
+                            `);
+                        } else {
+                            $("#buktiInfoContainer").html('');
+                        }
+                        $('.form-donasi').attr('data-type', 'update');
+                        control.overlay_form('Update', 'Donasi Campaign');
+                    }
+                }
+            });
+        })
+
         $(document).on('click', '.button-delete', function(e) {
             e.preventDefault();
             let url = '/admin/data-donasi/donasi-campaign-delete/' + $(this).attr('data-uuid');
             let label = $(this).attr('data-label');
             control.ajaxDelete(url, label)
+        })
+
+        $(document).on('submit', ".form-donasi", function(e) {
+            e.preventDefault();
+            let type = $(this).attr('data-type');
+            if (type == 'add') {
+                control.submitFormMultipartData('/admin/data-donasi/donasi-campaign-add/' + lastPart, 'Tambah',
+                    'Donasi Campaign',
+                    'POST');
+            } else {
+                let uuid = $("input[name='uuid']").val();
+                control.submitFormMultipartData('/admin/data-donasi/donasi-campaign-update/' + uuid,
+                    'Update',
+                    'Donasi Campaign', 'POST');
+            }
         })
 
         $(document).on('keyup', '#search_', function(e) {

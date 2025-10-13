@@ -227,4 +227,65 @@ class CampaignDonasiController extends BaseController
         }
         return $this->sendResponse($data, 'Delete donasi campaign success');
     }
+
+    public function add_donasi_campaign(StoreDonasiCampaignRequest $store)
+    {
+        $newBukti = '';
+        if ($store->file('bukti_transfer')) {
+            $extension = $store->file('bukti_transfer')->extension();
+            $newBukti = $store->nama_pendonasi ? $store->nama_pendonasi : 'Anonim' . '-' . now()->timestamp . '.' . $extension;
+            $store->file('bukti_transfer')->storeAs('public/bukticampaign', $newBukti);
+        }
+
+        $numericValue = str_replace(['Rp', '.', ' '], '', $store->nominal_donasi);
+
+        try {
+            $data = new DonasiCampaign();
+            $data->uuid_campaign = $store->uuid_campaign;
+            $data->nama_pendonasi = $store->nama_pendonasi ? $store->nama_pendonasi : 'Anonim';
+            $data->nominal_donasi = $numericValue;
+            $data->bukti_transfer = $newBukti;
+            $data->status = 'approved'; // Since admin adds, approve directly
+            $data->save();
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage(), $e->getMessage(), 400);
+        }
+        return $this->sendResponse($data, 'Add donasi campaign success');
+    }
+
+    public function show_donasi_campaign($params)
+    {
+        $data = DonasiCampaign::where('uuid', $params)->first();
+        return $this->sendResponse($data, 'Show donasi campaign success');
+    }
+
+    public function update_donasi_campaign(UpdateDonasiCampaignRequest $update, $params)
+    {
+        $data = DonasiCampaign::where('uuid', $params)->first();
+
+        if ($update->hasFile('bukti_transfer')) {
+            $oldBuktiPath = public_path('public/bukticampaign/' . $data->bukti_transfer);
+            if (File::exists($oldBuktiPath)) {
+                File::delete($oldBuktiPath);
+            }
+
+            $buktiFile = $update->file('bukti_transfer');
+            $bukti = $update->nama_pendonasi ? $update->nama_pendonasi : 'Anonim' . '-' . now()->timestamp . '.' . $buktiFile->extension();
+            $buktiFile->storeAs('public/bukticampaign', $bukti);
+        } else {
+            $bukti = $data->bukti_transfer;
+        }
+
+        $numericValue = str_replace(['Rp', '.', ' '], '', $update->nominal_donasi);
+
+        try {
+            $data->nama_pendonasi = $update->nama_pendonasi ? $update->nama_pendonasi : 'Anonim';
+            $data->nominal_donasi = $numericValue;
+            $data->bukti_transfer = $bukti;
+            $data->save();
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage(), $e->getMessage(), 400);
+        }
+        return $this->sendResponse($data, 'Update donasi campaign success');
+    }
 }

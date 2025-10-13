@@ -127,6 +127,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('update-tombol-campaign/{params}', 'CampaignDonasiController@update_tombol')->name('update-tombol-campaign');
             Route::get('list-donasi-campaign/{params}', 'CampaignDonasiController@list_donasi_campaign')->name('list-donasi-campaign');
             Route::get('donasi-campaign-get/{params}', 'CampaignDonasiController@get_list_donasi_campaign')->name('donasi-campaign-get');
+            Route::post('donasi-campaign-add/{params}', 'CampaignDonasiController@add_donasi_campaign')->name('donasi-campaign-add');
+            Route::get('donasi-campaign-show/{params}', 'CampaignDonasiController@show_donasi_campaign')->name('donasi-campaign-show');
+            Route::post('donasi-campaign-update/{params}', 'CampaignDonasiController@update_donasi_campaign')->name('donasi-campaign-update');
             Route::get('donasi-campaign-approve/{params}', 'CampaignDonasiController@aprove_donasi_campaign')->name('donasi-campaign-approve');
             Route::delete('donasi-campaign-delete/{params}', 'CampaignDonasiController@delete_donasi_campaign')->name('donasi-campaign-delete');
 

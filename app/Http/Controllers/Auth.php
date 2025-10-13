@@ -12,20 +12,23 @@ class Auth extends BaseController
 {
     public function show()
     {
-        return view('auth.login');
+        $num1 = rand(1, 10);
+        $num2 = rand(1, 10);
+        session(['captcha' => $num1 + $num2]);
+        return view('auth.login', compact('num1', 'num2'));
     }
 
     public function login_proses(RequestsAuth $authRequest)
     {
         $credential = $authRequest->getCredentials();
 
+        if ($authRequest->captcha_answer != session('captcha')) {
+            return redirect()->route('login.login-akun')->with('failed', 'Captcha salah');
+        }
+
         if (!FacadesAuth::attempt($credential)) {
-           // return response()->json(['success' => false, 'message' => 'Username atau Password salah'], 401);
-            return redirect()->route('login.login-akun')->with('error', 'Username atau Password salah');
+            return redirect()->route('login.login-akun')->with('failed', 'Username atau Password salah');
         } else {
-            $user = auth()->user();
-            $token = $user->createToken('token')->plainTextToken;
-         //   return response()->json(['success' => true, 'user' => $user, 'token' => $token]);
             return redirect()->route('admin.dashboard-admin')->with('success', 'Berhasil Login');
         }
     }
