@@ -198,7 +198,7 @@
                                 @forelse ($kegiatans as $kegiatan)
                                     <div
                                         class="!flex items-center gap-4 bg-[#DC7633]/80 backdrop-blur-lg shadow-lg rounded-lg overflow-hidden p-3 w-full">
-                                        <img src="{{ asset('/public/kegiatan/' . $kegiatan->banner) }}"
+                                        <img src="{{ asset('/storage/kegiatan/' . $kegiatan->banner) }}"
                                             alt="Banner Kegiatan"
                                             class="!w-[150px] !h-[150px] object-cover rounded-xl" loading="lazy">
 

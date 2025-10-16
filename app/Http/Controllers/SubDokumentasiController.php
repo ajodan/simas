@@ -40,7 +40,7 @@ class SubDokumentasiController extends BaseController
         if ($request->hasFile('foto')) {
             $extension = $request->file('foto')->extension();
             $newFoto = 'foto' . '-' . now()->timestamp . '-' . uniqid() . '.' . $extension;
-            $request->file('foto')->storeAs('public/dokumentasi', $newFoto);
+            $request->file('foto')->storeAs('dokumentasi', $newFoto);
             $data['foto'] = $newFoto;
         }
 
@@ -69,14 +69,14 @@ class SubDokumentasiController extends BaseController
 
         if ($request->hasFile('foto')) {
             // Delete old foto
-            $oldFotoPath = public_path('public/dokumentasi/' . $subDokumentasi->foto);
+            $oldFotoPath = public_path('dokumentasi/' . $subDokumentasi->foto);
             if (File::exists($oldFotoPath)) {
                 File::delete($oldFotoPath);
             }
 
             $extension = $request->file('foto')->extension();
             $newFoto = 'sub-dokumentasi-' . now()->timestamp . '-' . uniqid() . '.' . $extension;
-            $request->file('foto')->storeAs('public/dokumentasi', $newFoto);
+            $request->file('foto')->storeAs('dokumentasi', $newFoto);
             $data['foto'] = $newFoto;
         }
 
@@ -92,7 +92,7 @@ class SubDokumentasiController extends BaseController
         }
 
         // Delete foto
-        $fotoPath = public_path('public/dokumentasi/' . $subDokumentasi->foto);
+        $fotoPath = public_path('dokumentasi/' . $subDokumentasi->foto);
         if (File::exists($fotoPath)) {
             File::delete($fotoPath);
         }

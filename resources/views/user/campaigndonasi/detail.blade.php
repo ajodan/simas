@@ -33,7 +33,7 @@
                         <div class="col-md-9 col-sm-12 col-lg-9">
                             <div class="blog-detail">
                                 <div class="blog-detail-inf brd-rd5">
-                                    <img src="{{ asset('/public/campaign/' . $data->gambar) }}" alt="blog-detail-img.jpg"
+                                    <img src="{{ asset('/storage/public/campaign/' . $data->gambar) }}" alt="blog-detail-img.jpg"
                                         itemprop="image">
                                     <div class="blog-detail-inf-inr">
                                         <ul class="d-flex pst-mta" style="gap: 15px"><br>
@@ -343,7 +343,7 @@
                                                 <a class="brd-rd5"
                                                     href="{{ route('detail-donasi-campaign', ['params' => $dt->uuid]) }}"
                                                     title="" itemprop="url"><img
-                                                        src="{{ asset('/public/campaign/' . $dt->gambar) }}"
+                                                        src="{{ asset('/storage/campaign/' . $dt->gambar) }}"
                                                         style="height: 66px" alt="rcnt-img1.jpg" itemprop="image"></a>
                                                 <div class="rcnt-inf">
                                                     <h6 itemprop="headline"><a

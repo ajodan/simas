@@ -28,7 +28,7 @@ class DokumentasiController extends BaseController
         if ($request->file('foto')) {
             $extension = $request->file('foto')->extension();
             $newFoto = 'dokumentasi' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('foto')->storeAs('public/dokumentasi', $newFoto);
+            $request->file('foto')->storeAs('dokumentasi', $newFoto);
         }
 
         // Gabungkan hasil validasi + foto
@@ -53,13 +53,13 @@ class DokumentasiController extends BaseController
     {
         $data = Dokumentasi::where('uuid', $params)->first();
         if ($request->file('foto')) {
-            $oldFotoPath = public_path('public/dokumentasi/' . $data->foto);
+            $oldFotoPath = public_path('dokumentasi/' . $data->foto);
             if (File::exists($oldFotoPath)) {
                 File::delete($oldFotoPath);
             }
             $extension = $request->file('foto')->extension();
             $newFoto = 'dokumentasi' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('foto')->storeAs('public/dokumentasi', $newFoto);
+            $request->file('foto')->storeAs('dokumentasi', $newFoto);
         } else {
             $newFoto = $data->foto;
         }
@@ -76,7 +76,7 @@ class DokumentasiController extends BaseController
     {
         $data = Dokumentasi::where('uuid', $params)->first();
         if ($data) {
-            $oldFotoPath = public_path('public/dokumentasi/' . $data->foto);
+            $oldFotoPath = public_path('dokumentasi/' . $data->foto);
             if (File::exists($oldFotoPath)) {
                 File::delete($oldFotoPath);
             }

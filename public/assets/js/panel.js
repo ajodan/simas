@@ -149,7 +149,7 @@ class Control {
                                 );
 
                                 const logoInfoContainer = $('#logoInfoContainer');
-                                logoInfoContainer.html(`<img id="img-foto" src="/public/campaign/${fileName}" style="max-width:100%;">`);
+                                logoInfoContainer.html(`<img id="img-foto" src="/storage/campaign/${fileName}" style="max-width:100%;">`);
 
                             } else {
                                 $("input[name='" + x + "']").val(y);

@@ -30,7 +30,7 @@ class InventarisController extends BaseController
         if ($request->hasFile('photo')) {
             $extension = $request->file('photo')->extension();
             $newPhoto = 'inventaris-' . now()->timestamp . '-' . uniqid() . '.' . $extension;
-            $request->file('photo')->storeAs('public/inventaris', $newPhoto);
+            $request->file('photo')->storeAs('inventaris', $newPhoto);
             $data['photo'] = $newPhoto;
         }
 
@@ -66,7 +66,7 @@ class InventarisController extends BaseController
 
             $extension = $request->file('photo')->extension();
             $newPhoto = 'inventaris-' . now()->timestamp . '-' . uniqid() . '.' . $extension;
-            $request->file('photo')->storeAs('public/inventaris', $newPhoto);
+            $request->file('photo')->storeAs('inventaris', $newPhoto);
             $dataUpdate['photo'] = $newPhoto;
         }
 

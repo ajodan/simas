@@ -28,6 +28,7 @@ class Kegiatan extends Model
         'flag',
     ];
 
+
     protected static function boot()
     {
         parent::boot();

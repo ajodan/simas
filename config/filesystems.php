@@ -32,7 +32,8 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => public_path(), // Mengubah root ke direktori publik
+           // 'root' => public_path(), // Mengubah root ke direktori publik
+            'root' => storage_path('app'),
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,

@@ -127,6 +127,9 @@
                         <label class="form-label">Photo</label>
                         <input type="file" id="photo" class="form-control" name="photo" accept="image/*">
                         <small class="text-danger photo_error"></small>
+                        <div id="current_photo" style="display: none;">
+                            <img id="photo_preview" src="" alt="Current Photo" width="430" class="mt-2">
+                        </div>
                     </div>
 
                     <div class="mb-10">
@@ -158,6 +161,7 @@
             $(".form-data")[0].reset();
             $(".text-danger").html("");
             $("input[name='uuid']").val("");
+            $("#current_photo").hide();
         });
 
         $(document).on('click', '.button-update', function(e) {
@@ -176,6 +180,9 @@
                         $.each(res.data, function(x, y) {
                             if (x === 'jenisinventaris_id') {
                                 $("select[name='" + x + "']").val(y);
+                            } else if (x === 'photo' && y) {
+                                $("#photo_preview").attr('src', '/storage/inventaris/' + y);
+                                $("#current_photo").show();
                             } else {
                                 $("input[name='" + x + "']").val(y);
                                 $("textarea[name='" + x + "']").val(y);
@@ -266,14 +273,17 @@
                         className: 'text-center',
                         render: function(data, type, row, meta) {
                             if (data) {
-                                return `<a href="/public/inventaris/${data}" data-fancybox="inventaris"><img src="/public/inventaris/${data}" alt="Photo" style="max-width: 80px; max-height: 80px;" /></a>`;
+                                return `<a href="/storage/inventaris/${data}" data-fancybox="inventaris"><img src="/storage/inventaris/${data}" alt="Photo" style="max-width: 80px; max-height: 80px;" /></a>`;
                             }
-                            return '';
+                            return '-';
                         }
                     },
                     {
                         data: 'tahun_perolehan',
                         className: 'text-center',
+                        render: function(data, type, row, meta) {
+                            return data ? data : '-';
+                        }
                     },
                     {
                         data: 'uuid',

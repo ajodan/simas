@@ -28,7 +28,7 @@ class ArtikelController extends BaseController
         if ($request->file('photo')) {
             $extension = $request->file('photo')->extension();
             $newPhoto = 'artikel' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('photo')->storeAs('public/artikel', $newPhoto);
+            $request->file('photo')->storeAs('artikel', $newPhoto);
         }
 
         $data = $request->validated();
@@ -52,13 +52,22 @@ class ArtikelController extends BaseController
     {
         $data = Artikel::where('id', $params)->first();
         if ($request->file('photo')) {
-            $oldPhotoPath = public_path('public/artikel/' . $data->photo);
-            if (File::exists($oldPhotoPath)) {
-                File::delete($oldPhotoPath);
+            $uploadedHash = hash_file('sha256', $request->file('photo')->getRealPath());
+            $existingPhotoPath = public_path('artikel/' . $data->photo);
+            $existingHash = File::exists($existingPhotoPath) ? hash_file('sha256', $existingPhotoPath) : null;
+
+            if ($uploadedHash === $existingHash) {
+                // Photo is the same, keep existing
+                $newPhoto = $data->photo;
+            } else {
+                // Photo is different, delete old and upload new
+                if (File::exists($existingPhotoPath)) {
+                    File::delete($existingPhotoPath);
+                }
+                $extension = $request->file('photo')->extension();
+                $newPhoto = 'artikel' . '-' . now()->timestamp . '.' . $extension;
+                $request->file('photo')->storeAs('artikel', $newPhoto);
             }
-            $extension = $request->file('photo')->extension();
-            $newPhoto = 'artikel' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('photo')->storeAs('public/artikel', $newPhoto);
         } else {
             $newPhoto = $data->photo;
         }
@@ -74,7 +83,7 @@ class ArtikelController extends BaseController
     {
         $data = Artikel::where('id', $params)->first();
         if ($data) {
-            $oldPhotoPath = public_path('public/artikel/' . $data->photo);
+            $oldPhotoPath = public_path('artikel/' . $data->photo);
             if (File::exists($oldPhotoPath)) {
                 File::delete($oldPhotoPath);
             }
@@ -104,7 +113,7 @@ class ArtikelController extends BaseController
      public function index_artikel_user()
     {
         $module = 'Artikel';
-        $artikels = Artikel::orderBy('created_at', 'desc')->paginate(6);
+        $artikels = Artikel::with('kategori')->where('status', 'published')->orderBy('created_at', 'desc')->paginate(6);
         return view('user.artikel.index', compact('module', 'artikels'));
     }
 

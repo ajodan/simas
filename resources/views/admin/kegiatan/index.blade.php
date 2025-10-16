@@ -114,14 +114,13 @@
 
                     <div class="mb-10">
                         <label class="form-label">Tanggal</label>
-                        <input type="text" id="tanggal" class="form-control kt_datepicker_7" name="tanggal">
-                        <small class="text-danger tanggal_error"></small>
+                        <input type="date" id="date" class="form-control" name="tanggal">
+                        <small class="text-danger date_error"></small>
                     </div>
-
                     <div class="mb-10">
                         <label class="form-label">Jam</label>
-                        <input type="text" id="jam" class="form-control kt_datepicker_8" name="jam">
-                        <small class="text-danger jam_error"></small>
+                        <input type="time" id="time" class="form-control" name="jam">
+                        <small class="text-danger time_error"></small>
                     </div>
                     <div class="mb-10">
                         <label class="form-label">Tema Kegiatan</label>
@@ -137,7 +136,7 @@
                     </div>
                      <div class="mb-10">
                         <label class="form-label">Jumlah Hadir</label>
-                        <input type="text" id="jumlah_hadir" class="form-control" name="jumlah_hadir">
+                        <input type="number" id="jumlah_hadir" class="form-control" name="jumlah_hadir">
                         <small class="text-danger jumlah_hadir_error"></small>
                     </div>
 
@@ -241,15 +240,7 @@
             });
         }
 
-        $(".kt_datepicker_7").flatpickr({
-            dateFormat: "d-m-Y",
-        });
-
-        $(".kt_datepicker_8").flatpickr({
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "H:i",
-        });
+        // Removed flatpickr initialization as we now use separate date and time inputs
 
         $('#banner').change(function() {
             previewImage(this);
@@ -386,15 +377,23 @@
                 }, {
                     data: 'tanggal',
                     className: 'text-center',
+                    render: function(data) {
+                        let date = new Date(data);
+                        let formatted = date.getFullYear() + '-' +
+                            String(date.getMonth() + 1).padStart(2, '0') + '-' +
+                            String(date.getDate()).padStart(2, '0');
+                        return formatted;
+                    }
                 }, {
                     data: 'jam',
                     className: 'text-center',
                 }, {
+
                     data: 'banner',
                     className: 'text-center',
                     render: function(data, type, row, meta) {
                         if (data) {
-                            return `<img src="/public/kegiatan/${data}" style="max-width: 100px;">`;
+                            return `<img src="/storage/kegiatan/${data}" style="max-width: 100px;">`;
                         } else {
                             return '-';
                         }

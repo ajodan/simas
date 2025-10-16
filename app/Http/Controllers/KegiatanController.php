@@ -27,12 +27,13 @@ class KegiatanController extends BaseController
         if ($request->file('banner')) {
             $extension = $request->file('banner')->extension();
             $newBanner = 'banner' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('banner')->storeAs('public/kegiatan', $newBanner);
+            $request->file('banner')->storeAs('kegiatan', $newBanner);
         }
 
         // Gabungkan hasil validasi + banner
         $data = $request->validated();
         $data['banner'] = $newBanner;
+
         $kegiatan = Kegiatan::create($data);
         return $this->sendResponse($kegiatan, 'Add data success');
     }
@@ -52,21 +53,20 @@ class KegiatanController extends BaseController
         if (!$data) {
             return $this->sendError('Data not found', 'Data not found', 404);
         }
+
+        // Gabungkan hasil validasi
+        $dataUpdate = $request->validated();
+
         if ($request->file('banner')) {
-            $oldBannerPath = storage_path('app/public/kegiatan/' . $data->banner);
+            $oldBannerPath = storage_path('app/kegiatan/' . $data->banner);
             if (File::exists($oldBannerPath)) {
                 File::delete($oldBannerPath);
             }
             $extension = $request->file('banner')->extension();
             $newBanner = 'banner' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('banner')->storeAs('public/kegiatan', $newBanner);
-        } else {
-            $newBanner = $data->banner;
+            $request->file('banner')->storeAs('kegiatan', $newBanner);
+            $dataUpdate['banner'] = $newBanner;
         }
-
-        // Gabungkan hasil validasi + banner
-        $dataUpdate = $request->validated();
-        $dataUpdate['banner'] = $newBanner;
 
         Kegiatan::where('uuid', $params)->update($dataUpdate);
         return $this->sendResponse($dataUpdate, 'Update data success');
@@ -76,7 +76,7 @@ class KegiatanController extends BaseController
     {
         $data = Kegiatan::where('uuid', $params)->first();
         if ($data) {
-            $oldBannerPath = storage_path('app/public/kegiatan/' . $data->banner);
+            $oldBannerPath = storage_path('app/kegiatan/' . $data->banner);
             if (File::exists($oldBannerPath)) {
                 File::delete($oldBannerPath);
             }

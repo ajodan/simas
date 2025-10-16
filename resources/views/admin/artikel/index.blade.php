@@ -137,7 +137,7 @@
                         <input type="file" id="photo" class="form-control" name="photo" accept="image/*" />
                         <small class="text-danger photo_error"></small>
                         <div id="current_photo" style="display: none;">
-                            <img id="photo_preview" src="" alt="Current Photo" width="100" class="mt-2">
+                            <img id="photo_preview" src="" alt="Current Photo" width="430" class="mt-2">
                         </div>
                         
                         <div class="mt-3" id="logoInfoContainer"></div>
@@ -197,7 +197,7 @@
                     if (res.success == true) {
                         $.each(res.data, function(x, y) {
                             if (x == 'photo' && y) {
-                                $("#photo_preview").attr('src', '/public/artikel/' + y);
+                                $("#photo_preview").attr('src', '/storage/artikel/' + y);
                                 $("#current_photo").show();
                             } else {
                                 $("input[name='" + x + "']").val(y);
@@ -266,7 +266,7 @@
                     className: 'text-center',
                     render: function(data, type, row, meta) {
                         if (data) {
-                            return `<img src="/public/artikel/${data}" alt="Photo" width="50">`;
+                            return `<img src="/storage/artikel/${data}" alt="Photo" width="200">`;
                         }
                         return '-';
                     }

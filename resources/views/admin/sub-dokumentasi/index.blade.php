@@ -132,7 +132,7 @@
                     <div class="d-flex gap-5">
                         <button type="submit" class="btn btn-success btn-sm btn-submit d-flex align-items-center"><i
                                 class="bi bi-file-earmark-diff"></i> Simpan</button>
-                        <button type="reset" id="side_form_close"
+                        <button type="reset" id="cancel_form"
                             class="btn mr-2 btn-light btn-cancel btn-sm d-flex align-items-center"
                             style="background-color: #ea443e65; color: #EA443E"><i class="bi bi-trash-fill"
                                 style="color: #EA443E"></i>Batal</button>
@@ -150,6 +150,13 @@
 
         $(document).on('click', '#button-side-form', function() {
             control.overlay_form('Tambah', 'Sub Dokumentasi');
+        })
+
+        $(document).on('click', '#cancel_form', function() {
+            $('.form-data').attr('data-type', 'add');
+            $(".title_side_form").html(`Tambah Sub Dokumentasi`);
+            $('#fotoPreview').html('');
+            $(".text-danger").html("");
         })
 
         $('input[name="foto"]').change(function() {
@@ -203,6 +210,7 @@
             e.preventDefault();
             $(".title_side_form").html(`Update Sub Dokumentasi`);
             $(".text-danger").html("");
+            $('.form-data').attr('data-type', 'update');
             let url = '/admin/sub-dokumentasi-show/' + $(this).attr('data-id');
             $.ajax({
                 url: url,
@@ -212,9 +220,9 @@
                         $.each(res.data, function(x, y) {
                             if (x === 'foto') {
                                 if (y) {
-                                    var img = $('<img>').attr('src', '/public/dokumentasi/' + y).css({
-                                        'max-width': '200px',
-                                        'max-height': '200px',
+                                    var img = $('<img>').attr('src', '/storage/dokumentasi/' + y).css({
+                                        'max-width': '800px',
+                                        'max-height': '550px',
                                         'border': '1px solid #ddd'
                                     });
                                     $('#fotoPreview').html(img);
@@ -277,8 +285,8 @@
                     render: function(data, type, row, meta) {
                         if (data) {
                             return `
-                                <a class="d-block overlay fancybox" data-fancybox="lightbox" href="/public/dokumentasi/${data}">
-                                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-50px" style="width:50px; height:50px; background-image:url('/public/dokumentasi/${data}')">
+                                <a class="d-block overlay fancybox" data-fancybox="lightbox" href="/storage/dokumentasi/${data}">
+                                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-50px" style="width:100px; height:70px; background-image:url('/storage/dokumentasi/${data}')">
                                     </div>
                                     <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
                                         <i class="bi bi-eye-fill text-white fs-4x"></i>

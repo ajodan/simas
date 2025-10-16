@@ -10,7 +10,7 @@
                 <div class="featured-area owl-carousel">
                     @foreach ($artikels as $artikel)
                         <div class="featured-item"
-                            style="background-image: url({{ asset('public/artikel/' . $artikel->photo) }});">
+                            style="background-image: url({{ asset('storage/artikel/' . $artikel->photo) }});">
                             <div class="featured-cap" style="border: 3px solid white; padding: 15px; background-color: rgba(0,0,0,0.5); border-radius: 10px;">
                                 <h3>{{ $artikel->judul }}</h3>
                                 <p class="theme-clr">{{ \Illuminate\Support\Str::words(strip_tags($artikel->isi_artikel), 50, '...') }}</p>
@@ -39,7 +39,7 @@
                         <div class="col-md-6 col-lg-4 mb-4">
                             <div class="card shadow-sm h-100 border-0">
                                 @if ($artikel->photo)
-                                    <img src="{{ asset('public/artikel/' . $artikel->photo) }}" class="card-img-top fixed-img" alt="{{ $artikel->judul }}">
+                                    <img src="{{ asset('storage/artikel/' . $artikel->photo) }}" class="card-img-top fixed-img" alt="{{ $artikel->judul }}">
                                 @endif
                                 <div class="card-body">
                                     <p class="card-text"><small class="text-muted">{{ Carbon::parse($artikel->created_at)->format('d M Y') }}, {{ $artikel->kategori->nama_kategori ?? '-' }}</small></p>
@@ -368,7 +368,7 @@
                                     <div class="post-thmb">
                                         <a href="{{ route('detail-donasi-campaign', ['params' => $dn->uuid]) }}"
                                             title="" itemprop="url">
-                                            <img src="{{ asset('/public/campaign/' . $dn->gambar) }}"
+                                            <img src="{{ asset('/storage/campaign/' . $dn->gambar) }}"
                                                 alt="post-img1-1.jpg" itemprop="image" class="img-fit-container">
                                         </a>
                                     </div>
@@ -407,7 +407,7 @@
                         <div class="col-md-5 col-sm-12 col-lg-5">
                             @forelse ($kegiatans as $kg)
                                 <div class="event-bx brd-rd5"
-                                    style="background-image: url({{ asset('/public/kegiatan/' . $kg->banner) }});">
+                                    style="background-image: url({{ asset('/storage/kegiatan/' . $kg->banner) }});">
                                     <span class="theme-clr">{{ Carbon::parse($kg->tanggal)->translatedFormat('d') }}
                                         <i>{{ Carbon::parse($kg->tanggal)->translatedFormat('F') }}</i></span>
                                     <h5 itemprop="headline"><a
@@ -494,8 +494,8 @@
                                                 <div class="carousel-inner">
                                                     @foreach($allFotos as $index => $foto)
                                                         <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                                            <a href="{{ asset('/public/dokumentasi/' . $foto) }}" data-fancybox="gallery-{{ $dk->uuid }}">
-                                                                <img src="{{ asset('/public/dokumentasi/' . $foto) }}" class="d-block w-100" alt="{{ $dk->judul }}">
+                                                            <a href="{{ asset('/storage/dokumentasi/' . $foto) }}" data-fancybox="gallery-{{ $dk->uuid }}">
+                                                                <img src="{{ asset('/storage/dokumentasi/' . $foto) }}" class="d-block w-100" alt="{{ $dk->judul }}">
                                                             </a>
                                                         </div>
                                                     @endforeach
@@ -610,7 +610,7 @@
                                         <div class="mb-2">
                                             <i class="fas fa-file-alt fa-3x text-primary"></i>
                                         </div>
-                                        <a href="{{ asset('public/laporan-keuangan/' . $laporan->upload_file) }}" target="_blank" class="btn btn-primary btn-sm">
+                                        <a href="{{ asset('storage/laporan-keuangan/' . $laporan->upload_file) }}" target="_blank" class="btn btn-primary btn-sm">
                                             <i class="fas fa-download"></i> Download File
                                         </a>
                                     @else
@@ -644,7 +644,7 @@
                         <div class="col-md-4 col-sm-6 col-lg-4 mb-4">
                             <div class="card shadow-sm h-100 border-0">
                                 @if($item->photo)
-                                    <img src="{{ asset('public/inventaris/' . $item->photo) }}" class="card-img-top img-fluid" width="50%" height="50%" alt="{{ $item->nama_inventaris }}">
+                                    <img src="{{ asset('storage/inventaris/' . $item->photo) }}" class="card-img-top img-fluid" width="50%" height="50%" alt="{{ $item->nama_inventaris }}">
                                 @endif
                                 <div class="card-body text-center">
                                     <h5 class="card-title mb-2">{{ $item->nama_inventaris }}</h5>

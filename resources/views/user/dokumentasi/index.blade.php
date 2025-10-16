@@ -46,8 +46,8 @@
                                                 <div class="carousel-inner">
                                                     @foreach($allFotos as $index => $foto)
                                                         <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                                            <a href="{{ asset('/public/dokumentasi/' . $foto) }}" data-fancybox="gallery-{{ $dk->uuid }}">
-                                                                <img src="{{ asset('/public/dokumentasi/' . $foto) }}" class="d-block w-100" alt="{{ $dk->judul }}">
+                                                            <a href="{{ asset('/storage/dokumentasi/' . $foto) }}" data-fancybox="gallery-{{ $dk->uuid }}">
+<img src="{{ asset('/storage/dokumentasi/' . $foto) }}" class="d-block w-100" alt="{{ $dk->judul }}" style="height: 250px; object-fit: cover;">
                                                             </a>
                                                         </div>
                                                     @endforeach

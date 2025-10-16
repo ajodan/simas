@@ -26,7 +26,7 @@
                                         <div class="rcnt-bx">
                                             <a class="brd-rd5" href="{{ url('/artikel/' . $artikel->slug) }}" title="{{ $artikel->judul }}" itemprop="url">
                                                 @if ($artikel->photo)
-                                                    <img src="{{ asset('public/artikel/' . $artikel->photo) }}" alt="{{ $artikel->judul }}" width="75" height="75" itemprop="image">
+                                                    <img src="{{ asset('storage/artikel/' . $artikel->photo) }}" alt="{{ $artikel->judul }}" width="75" height="75" itemprop="image">
                                                 @else
                                                     <img src="{{ asset('assets/images/resources/rcnt-img1.jpg') }}" alt="default image" itemprop="image">
                                                 @endif

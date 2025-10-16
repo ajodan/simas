@@ -27,7 +27,7 @@ class UstadzController extends BaseController
         if ($request->file('photo')) {
             $extension = $request->file('photo')->extension();
             $newPhoto = 'photo' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('photo')->storeAs('public/ustadz', $newPhoto);
+            $request->file('photo')->storeAs('ustadz', $newPhoto);
         }
 
         // Gabungkan hasil validasi + photo
@@ -52,13 +52,13 @@ class UstadzController extends BaseController
     {
         $data = Ustadz::where('uuid', $params)->first();
         if ($request->file('photo')) {
-            $oldPhotoPath = public_path('public/ustadz/' . $data->photo);
+            $oldPhotoPath = public_path('ustadz/' . $data->photo);
             if (File::exists($oldPhotoPath)) {
                 File::delete($oldPhotoPath);
             }
             $extension = $request->file('photo')->extension();
             $newPhoto = 'photo' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('photo')->storeAs('public/ustadz', $newPhoto);
+            $request->file('photo')->storeAs('ustadz', $newPhoto);
         } else {
             $newPhoto = $data->photo;
         }
@@ -75,7 +75,7 @@ class UstadzController extends BaseController
     {
         $data = Ustadz::where('uuid', $params)->first();
         if ($data) {
-            $oldPhotoPath = public_path('public/ustadz/' . $data->photo);
+            $oldPhotoPath = public_path('ustadz/' . $data->photo);
             if (File::exists($oldPhotoPath)) {
                 File::delete($oldPhotoPath);
             }

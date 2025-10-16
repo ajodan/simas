@@ -29,7 +29,7 @@ class LaporanKeuanganController extends BaseController
         if ($request->file('upload_file')) {
             $extension = $request->file('upload_file')->extension();
             $newFile = 'file' . '-' . now()->timestamp . '.' . $extension;
-            $request->file('upload_file')->storeAs('public/laporan-keuangan', $newFile);
+            $request->file('upload_file')->storeAs('laporan-keuangan', $newFile);
         }
 
         // Gabungkan hasil validasi + file
@@ -54,7 +54,7 @@ class LaporanKeuanganController extends BaseController
     {
         $data = LaporanKeuangan::where('uuid', $params)->first();
         if ($request->file('upload_file')) {
-            $oldFilePath = public_path('public/laporan-keuangan/' . $data->upload_file);
+            $oldFilePath = public_path('laporan-keuangan/' . $data->upload_file);
             if (File::exists($oldFilePath)) {
                 File::delete($oldFilePath);
             }
@@ -77,7 +77,7 @@ class LaporanKeuanganController extends BaseController
     {
         $data = LaporanKeuangan::where('uuid', $params)->first();
         if ($data) {
-            $oldFilePath = public_path('public/laporan-keuangan/' . $data->upload_file);
+            $oldFilePath = public_path('laporan-keuangan/' . $data->upload_file);
             if (File::exists($oldFilePath)) {
                 File::delete($oldFilePath);
             }

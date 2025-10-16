@@ -35,7 +35,7 @@ class CampaignDonasiController extends BaseController
         if ($store_campaign_donasi_request->file('gambar')) {
             $extension = $store_campaign_donasi_request->file('gambar')->extension();
             $newGambar = $store_campaign_donasi_request->judul . '-' . now()->timestamp . '.' . $extension;
-            $store_campaign_donasi_request->file('gambar')->storeAs('public/campaign', $newGambar);
+            $store_campaign_donasi_request->file('gambar')->storeAs('campaign', $newGambar);
         }
 
         $numericValue = (int) str_replace(['Rp', ',', ' '], '', $store_campaign_donasi_request->target_dana);
@@ -70,14 +70,14 @@ class CampaignDonasiController extends BaseController
     {
         $data = CampaignDonasi::where('uuid', $params)->first();
         if ($update_campaign_donasi_request->hasFile('gambar')) {
-            $oldFotoPath = public_path('public/campaign/' . $data->gambar);
+            $oldFotoPath = public_path('campaign/' . $data->gambar);
             if (File::exists($oldFotoPath)) {
                 File::delete($oldFotoPath);
             }
 
             $gambarFile = $update_campaign_donasi_request->file('gambar');
             $gambar = $update_campaign_donasi_request->judul . now()->timestamp . '.' . $gambarFile->extension();
-            $gambarFile->storeAs('public/campaign', $gambar);
+            $gambarFile->storeAs('campaign', $gambar);
         } else {
             $gambar = $data->gambar;
         }
@@ -103,7 +103,7 @@ class CampaignDonasiController extends BaseController
         $data = array();
         try {
             $data = CampaignDonasi::where('uuid', $params)->first();
-            $oldGambarPath = public_path('public/campaign/' . $data->gambar);
+            $oldGambarPath = public_path('campaign/' . $data->gambar);
             if (File::exists($oldGambarPath)) {
                 File::delete($oldGambarPath);
             }
@@ -154,7 +154,7 @@ class CampaignDonasiController extends BaseController
         if ($store->file('bukti_transfer')) {
             $extension = $store->file('bukti_transfer')->extension();
             $newBukti = $store->nama_pendonasi ? $store->nama_pendonasi : 'Anonim' . '-' . now()->timestamp . '.' . $extension;
-            $store->file('bukti_transfer')->storeAs('public/bukticampaign', $newBukti);
+            $store->file('bukti_transfer')->storeAs('bukticampaign', $newBukti);
         }
 
         $numericValue = str_replace(['Rp', '.', ' '], '', $store->nominal_donasi);
@@ -217,7 +217,7 @@ class CampaignDonasiController extends BaseController
     {
         $data = DonasiCampaign::where('uuid', $params)->first();
         try {
-            $oldBuktiPath = public_path('public/bukticampaign/' . $data->bukti_transfer);
+            $oldBuktiPath = public_path('bukticampaign/' . $data->bukti_transfer);
             if (File::exists($oldBuktiPath)) {
                 File::delete($oldBuktiPath);
             }
@@ -234,7 +234,7 @@ class CampaignDonasiController extends BaseController
         if ($store->file('bukti_transfer')) {
             $extension = $store->file('bukti_transfer')->extension();
             $newBukti = $store->nama_pendonasi ? $store->nama_pendonasi : 'Anonim' . '-' . now()->timestamp . '.' . $extension;
-            $store->file('bukti_transfer')->storeAs('public/bukticampaign', $newBukti);
+            $store->file('bukti_transfer')->storeAs('bukticampaign', $newBukti);
         }
 
         $numericValue = str_replace(['Rp', '.', ' '], '', $store->nominal_donasi);
@@ -264,14 +264,14 @@ class CampaignDonasiController extends BaseController
         $data = DonasiCampaign::where('uuid', $params)->first();
 
         if ($update->hasFile('bukti_transfer')) {
-            $oldBuktiPath = public_path('public/bukticampaign/' . $data->bukti_transfer);
+            $oldBuktiPath = public_path('bukticampaign/' . $data->bukti_transfer);
             if (File::exists($oldBuktiPath)) {
                 File::delete($oldBuktiPath);
             }
 
             $buktiFile = $update->file('bukti_transfer');
             $bukti = $update->nama_pendonasi ? $update->nama_pendonasi : 'Anonim' . '-' . now()->timestamp . '.' . $buktiFile->extension();
-            $buktiFile->storeAs('public/bukticampaign', $bukti);
+            $buktiFile->storeAs('bukticampaign', $bukti);
         } else {
             $bukti = $data->bukti_transfer;
         }

@@ -212,7 +212,7 @@
                         $("input[name='uuid']").val(data.uuid);
                         if (data.bukti_transfer) {
                             $("#buktiInfoContainer").html(`
-                                <img src="/public/bukticampaign/${data.bukti_transfer}" alt="Bukti Transfer" class="img-thumbnail" style="max-width: 200px;">
+                                <img src="/storage/bukticampaign/${data.bukti_transfer}" alt="Bukti Transfer" class="img-thumbnail" style="max-width: 200px;">
                                 <p>Current Bukti Transfer</p>
                             `);
                         } else {
@@ -292,10 +292,10 @@
                         result =
                             `
                                 <!--begin::Overlay-->
-                                <a class="d-block overlay fancybox" data-fancybox="lightbox-group" href="{{ asset('/public/bukticampaign/${data}') }}">
+                                <a class="d-block overlay fancybox" data-fancybox="lightbox-group" href="{{ asset('/storage/bukticampaign/${data}') }}">
                                     <!--begin::Image-->
                                     <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-100px"
-                                        style="background-image:url('/public/bukticampaign/${data}')">
+                                        style="background-image:url('/storage/bukticampaign/${data}')">
                                     </div>
                                     <!--end::Image-->
 

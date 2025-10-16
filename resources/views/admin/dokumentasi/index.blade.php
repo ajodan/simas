@@ -143,6 +143,7 @@
         $(document).on('click', '#button-side-form', function() {
             control.overlay_form('Tambah', 'Dokumentasi');
             loadKegiatanOptions();
+            $(".btn-submit").html('<i class="bi bi-file-earmark-diff"></i> Tambah');
         })
 
         $('#foto').change(function() {
@@ -188,6 +189,8 @@
             e.preventDefault();
             $(".title_side_form").html(`Update Dokumentasi`);
             $(".text-danger").html("");
+            $(".form-data").attr("data-type", "update");
+            $(".btn-submit").html('<i class="bi bi-file-earmark-diff"></i> Simpan');
             let url = '/admin/dokumentasi-show/' + $(this).attr('data-uuid');
             loadKegiatanOptions().then(function() {
                 $.ajax({
@@ -204,7 +207,7 @@
                                 } else if ($("input[name='" + x + "']").attr("type") === "file") {
                                     const fotoInfoContainer = $('#fotoInfoContainer');
                                     fotoInfoContainer.html(
-                                        `<img id="img-foto" src="/public/dokumentasi/${y}" style="max-width:100%;">`
+                                        `<img id="img-foto" src="/storage/dokumentasi/${y}" style="max-width:100%;">`
                                     );
                                 } else {
                                     $("input[name='" + x + "']").val(y);
@@ -263,7 +266,7 @@
                     className: 'text-center',
                     render: function(data, type, row, meta) {
                         if (data) {
-                            return `<img src="/public/dokumentasi/${data}" style="max-width: 100px;">`;
+                            return `<img src="/storage/dokumentasi/${data}" style="width: 100px; height: 100px; object-fit: cover;">`;
                         } else {
                             return '-';
                         }

@@ -223,7 +223,7 @@
 
                                 const logoInfoContainer = $('#logoInfoContainer');
                                 logoInfoContainer.html(
-                                    `<img id="img-foto" src="/public/ustadz/${y}" style="max-width:100%;">`
+                                    `<img id="img-foto" src="/storage/ustadz/${y}" style="max-width:100%;">`
                                 );
 
                             } else {
@@ -291,10 +291,10 @@
                         result =
                             `
                                 <!--begin::Overlay-->
-                                <a class="d-block overlay fancybox" data-fancybox="lightbox-group" href="{{ asset('/public/ustadz/${data}') }}">
+                                <a class="d-block overlay fancybox" data-fancybox="lightbox-group" href="{{ asset('/storage/ustadz/${data}') }}">
                                     <!--begin::Image-->
                                     <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-100px"
-                                        style="background-image:url('/public/ustadz/${data}')">
+                                        style="background-image:url('/storage/ustadz/${data}')">
                                     </div>
                                     <!--begin::Image-->
 
