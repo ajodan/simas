@@ -181,7 +181,7 @@
                             if (x === 'jenisinventaris_id') {
                                 $("select[name='" + x + "']").val(y);
                             } else if (x === 'photo' && y) {
-                                $("#photo_preview").attr('src', '/storage/inventaris/' + y);
+                                $("#photo_preview").attr('src', '/storage/public/inventaris/' + y);
                                 $("#current_photo").show();
                             } else {
                                 $("input[name='" + x + "']").val(y);
@@ -273,7 +273,7 @@
                         className: 'text-center',
                         render: function(data, type, row, meta) {
                             if (data) {
-                                return `<a href="/storage/inventaris/${data}" data-fancybox="inventaris"><img src="/storage/inventaris/${data}" alt="Photo" style="max-width: 80px; max-height: 80px;" /></a>`;
+                                return `<a href="/storage/public/inventaris/${data}" data-fancybox="inventaris"><img src="/storage/public/inventaris/${data}" alt="Photo" style="max-width: 80px; max-height: 80px;" /></a>`;
                             }
                             return '-';
                         }

@@ -207,7 +207,7 @@
                                 } else if ($("input[name='" + x + "']").attr("type") === "file") {
                                     const fotoInfoContainer = $('#fotoInfoContainer');
                                     fotoInfoContainer.html(
-                                        `<img id="img-foto" src="/storage/dokumentasi/${y}" style="max-width:100%;">`
+                                        `<img id="img-foto" src="/storage/public/dokumentasi/${y}" style="max-width:100%;">`
                                     );
                                 } else {
                                     $("input[name='" + x + "']").val(y);
@@ -266,7 +266,7 @@
                     className: 'text-center',
                     render: function(data, type, row, meta) {
                         if (data) {
-                            return `<img src="/storage/dokumentasi/${data}" style="width: 100px; height: 100px; object-fit: cover;">`;
+                            return `<img src="/storage/public/dokumentasi/${data}" style="width: 100px; height: 100px; object-fit: cover;">`;
                         } else {
                             return '-';
                         }

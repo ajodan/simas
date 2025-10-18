@@ -334,10 +334,10 @@
                         result =
                             `
                                 <!--begin::Overlay-->
-                                <a class="d-block overlay fancybox" data-fancybox="lightbox-group" href="{{ asset('/storage/campaign/${data}') }}">
+                                <a class="d-block overlay fancybox" data-fancybox="lightbox-group" href="{{ asset('/storage/public/campaign/${data}') }}">
                                     <!--begin::Image-->
                                     <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-100px"
-                                        style="background-image:url('/storage/campaign/${data}')">
+                                        style="background-image:url('/storage/public/campaign/${data}')">
                                     </div>
                                     <!--end::Image-->
 

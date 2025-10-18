@@ -33,7 +33,7 @@
                                 <div class="event-detail-img brd-rd5">
                                     <span>{{ Carbon::parse($data->tanggal)->translatedFormat('d') }}
                                         <i>{{ Carbon::parse($data->tanggal)->translatedFormat('F') }}</i></span>
-                                    <img src="{{ asset('/storage/kegiatan/' . $data->banner) }}" class="w-100"
+                                    <img src="{{ asset('/storage/public/kegiatan/' . $data->banner) }}" class="w-100"
                                         alt="event-detail-img.jpg" itemprop="image">
                                     <ul class="countdown d-flex justify-content-center align-items-center text-center"
                                         data-countdown="{{ \Carbon\Carbon::parse($data->tanggal)->format('Y-m-d\TH:i:s') }}">
@@ -95,7 +95,7 @@
                                                 <a class="brd-rd5"
                                                     href="{{ route('detail-kegiatan', ['params' => $kl->uuid]) }}"
                                                     title="" itemprop="url"><img
-                                                        src="{{ asset('/storage/kegiatan/' . $kl->banner) }}"
+                                                        src="{{ asset('/storage/public/kegiatan/' . $kl->banner) }}"
                                                         alt="rcnt-img1.jpg" style="height: 66px" itemprop="image"></a>
                                                 <div class="rcnt-inf">
                                                     <h6 itemprop="headline"><a

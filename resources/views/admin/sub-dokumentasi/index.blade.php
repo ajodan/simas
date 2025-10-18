@@ -220,7 +220,7 @@
                         $.each(res.data, function(x, y) {
                             if (x === 'foto') {
                                 if (y) {
-                                    var img = $('<img>').attr('src', '/storage/dokumentasi/' + y).css({
+                                    var img = $('<img>').attr('src', '/storage/public/dokumentasi/' + y).css({
                                         'max-width': '800px',
                                         'max-height': '550px',
                                         'border': '1px solid #ddd'
@@ -285,8 +285,8 @@
                     render: function(data, type, row, meta) {
                         if (data) {
                             return `
-                                <a class="d-block overlay fancybox" data-fancybox="lightbox" href="/storage/dokumentasi/${data}">
-                                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-50px" style="width:100px; height:70px; background-image:url('/storage/dokumentasi/${data}')">
+                                <a class="d-block overlay fancybox" data-fancybox="lightbox" href="/storage/public/dokumentasi/${data}">
+                                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-50px" style="width:100px; height:70px; background-image:url('/storage/public/dokumentasi/${data}')">
                                     </div>
                                     <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
                                         <i class="bi bi-eye-fill text-white fs-4x"></i>

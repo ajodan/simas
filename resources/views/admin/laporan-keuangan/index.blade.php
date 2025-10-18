@@ -193,7 +193,7 @@
                             } else if ($("input[name='" + x + "']").attr("type") === "file") {
                                 // For file, show current file name
                                 const fileInfoContainer = $('#fileInfoContainer');
-                                fileInfoContainer.html(`<p>File saat ini: <a href="/storage/laporan-keuangan/${y}" target="_blank">${y}</a></p>`);
+                                fileInfoContainer.html(`<p>File saat ini: <a href="/storage/public/laporan-keuangan/${y}" target="_blank">${y}</a></p>`);
                             } else {
                                 $("input[name='" + x + "']").val(y);
                                 $("select[name='" + x + "']").val(y);
@@ -256,7 +256,7 @@
                     className: 'text-center',
                     render: function(data, type, row, meta) {
                         if (data) {
-                            return `<a href="/storage/laporan-keuangan/${data}" target="_blank" class="btn btn-sm btn-light"><i class="fas fa-download"></i> Download</a>`;
+                            return `<a href="/storage/public/laporan-keuangan/${data}" target="_blank" class="btn btn-sm btn-light"><i class="fas fa-download"></i> Download</a>`;
                         }
                         return '-';
                     }

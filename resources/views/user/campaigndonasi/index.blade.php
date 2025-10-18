@@ -32,7 +32,7 @@
                                     <div class="post-thmb"><a
                                             href="{{ route('detail-donasi-campaign', ['params' => $dn->uuid]) }}"
                                             title="" itemprop="url"><img
-                                                src="{{ asset('/storage/campaign/' . $dn->gambar) }}" alt="post-img2-1.jpg"
+                                                src="{{ asset('/storage/public/campaign/' . $dn->gambar) }}" alt="post-img2-1.jpg"
                                                 itemprop="image"></a></div>
                                     <div class="post-inf">
                                         <h5 itemprop="headline"><a

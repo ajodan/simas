@@ -27,7 +27,7 @@
                     <div class="blog-detail">
                         @if ($data->photo)
                             <div class="blog-thumb">
-                                <img src="{{ asset('storage/inventaris/' . $data->photo) }}" alt="{{ $data->nama_inventaris }}" class="img-fluid">
+                                <img src="{{ asset('storage/public/inventaris/' . $data->photo) }}" alt="{{ $data->nama_inventaris }}" class="img-fluid">
                             </div><br>
                         @endif
                         <div class="blog-info">

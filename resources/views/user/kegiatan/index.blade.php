@@ -33,7 +33,7 @@
                                         <span>{{ Carbon::parse($kg->tanggal)->translatedFormat('d') }}
                                             <i>{{ Carbon::parse($kg->tanggal)->translatedFormat('F') }}</i></span>
                                         <a href="{{ route('detail-kegiatan', ['params' => $kg->uuid]) }}" title=""
-                                            itemprop="url"><img src="{{ asset('/storage/kegiatan/' . $kg->banner) }}"
+                                            itemprop="url"><img src="{{ asset('/storage/public/kegiatan/' . $kg->banner) }}"
                                                 alt="event-img1.jpg" style="height: 296px" itemprop="image"></a>
                                         <ul class="countdown d-flex justify-content-center align-items-center text-center"
                                             data-countdown="{{ \Carbon\Carbon::parse($kg->tanggal)->format('Y-m-d\TH:i:s') }}">

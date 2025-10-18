@@ -316,7 +316,7 @@
 
                                     const logoInfoContainer = $('#logoInfoContainer');
                                     logoInfoContainer.html(
-                                        `<img id="img-foto" src="/storage/kegiatan/${y}" style="max-width:100%;">`
+                                        `<img id="img-foto" src="/storage/public/kegiatan/${y}" style="max-width:100%;">`
                                     );
 
                                 } else {
@@ -393,7 +393,7 @@
                     className: 'text-center',
                     render: function(data, type, row, meta) {
                         if (data) {
-                            return `<img src="/storage/kegiatan/${data}" style="max-width: 100px;">`;
+                            return `<img src="/storage/public/kegiatan/${data}" style="max-width: 100px;">`;
                         } else {
                             return '-';
                         }

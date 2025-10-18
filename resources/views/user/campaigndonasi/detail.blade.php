@@ -343,7 +343,7 @@
                                                 <a class="brd-rd5"
                                                     href="{{ route('detail-donasi-campaign', ['params' => $dt->uuid]) }}"
                                                     title="" itemprop="url"><img
-                                                        src="{{ asset('/storage/campaign/' . $dt->gambar) }}"
+                                                        src="{{ asset('/storage/public/campaign/' . $dt->gambar) }}"
                                                         style="height: 66px" alt="rcnt-img1.jpg" itemprop="image"></a>
                                                 <div class="rcnt-inf">
                                                     <h6 itemprop="headline"><a
