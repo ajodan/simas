@@ -33,7 +33,7 @@ class AgendaController extends BaseController
 
     public function get()
     {
-        $agenda = Agenda::orderBy('tanggal', 'desc')->get();
+        $agenda = Agenda::orderBy('created_at', 'desc')->get();
         return $this->sendResponse($agenda, 'Get data success');
     }
 
